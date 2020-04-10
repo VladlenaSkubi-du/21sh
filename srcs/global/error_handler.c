@@ -33,13 +33,8 @@ int				error_handler(int status, char *str)
 			STDERR_FILENO); //TODO check
 	else if ((status & 0x1FF) == TMPFILE)
 		ft_putendl_fd("can't open a temporal file", STDERR_FILENO); //TODO check
-	else if ((status & 0x1FF) == NONINERACTIVE || (status & 0x1FF) == SUCCESS)
-	{
+	else if ((status & 0x1FF) == SUCCESS)
 		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd((((status & 0x1FF) == NONINERACTIVE) ?
-			": can't be launched in noninteractive mode" :
-			"event not found"), STDERR_FILENO);
-	}
 	else
 		error_handler_continuation(status, str);
 	return (exit_status_variable(status & 0x7F));
@@ -133,6 +128,11 @@ int				syntax_errors(int status, char *str)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
 		ft_putendl_fd(": Bad file descriptor", STDERR_FILENO);
+	}
+	if (status >> 9 & ERR_NUMERIC)
+	{
+		ft_putstr_fd(str, STDERR_FILENO);
+		ft_putendl_fd(": numeric argument required", STDERR_FILENO);
 	}
 	return (0);
 }

@@ -4,12 +4,26 @@
 int				btin_exit(t_ltree *pos)
 {
 	int			status;
-	//TODO чистка парсер
-	status = ft_atoi(pos->ar_v[1]);
-	free(pos);
+	int			i;
+	char		*str;
+
 	ft_putendl_fd("exit", STDOUT_FILENO);
+	i = 0;
+	while (pos->ar_v[1][i])
+	{
+		if (!(pos->ar_v[1][i] >= '0' && pos->ar_v[1][i] <= '9'))
+		{
+			str = ft_strjoin(pos->ar_v[0], ": ");
+			str = ft_strrejoin(str, pos->ar_v[1]);
+			error_handler(SYNTAX_ERROR | (ERR_NUMERIC << 9), str);
+			free(str);
+			break ;
+		}
+		i++;
+	}
+	status = ft_atoi(pos->ar_v[1]);
+	ft_one_ltree_clear(pos); //почистить все листы
 	fill_hist_in_file();
 	clean_everything();
-	//TODO функция, по типу atexit баша, с каким статусом завершилась программа
 	exit(status);
 }

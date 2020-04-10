@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/03/30 19:25:31 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/04/10 22:15:30 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 # define	ERR_BAD_FD 0x4
 # define	ERR_NO_ACC 0x8
 # define	ERR_NO_FILE 0x10
+# define	ERR_NUMERIC 0x20
 
 /*
 ** In reality bash returns code "2" for all the internal errors + adds mask for
@@ -68,7 +69,6 @@ enum				e_status
 	TERMINAL_TO_NON,
 	TERMINAL_TO_CAN,
 	HISTORY_FILE_FAIL,
-	NONINERACTIVE,
 	TMPFILE,
 	COMMAND_NON_EXECUTABLE = 126,
 	COMMAND_NOT_FOUND,
