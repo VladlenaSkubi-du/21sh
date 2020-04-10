@@ -1,0 +1,9 @@
+*.o
+*.a
+21sh
+.swp
+*.out
+*.dSYM/
+obj/
+*.42sh_history
+*.DS_Store
