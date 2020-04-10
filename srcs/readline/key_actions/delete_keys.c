@@ -72,8 +72,10 @@ int					delete_process(void)
 		if (g_prompt.prompt_func == main_prompt)
 		{
 			pos = (t_ltree*)ft_xmalloc(sizeof(t_ltree));
-			pos->ar_v[0] = "exit";
-			pos->ar_v[1] = "0";
+			ltree_init(pos);
+			pos->ar_v = (char**)ft_xmalloc(3 * sizeof(char*));
+			pos->ar_v[0] = ft_strdup("exit");
+			pos->ar_v[1] = ft_strdup("0");
 			reset_canonical_input();
 			clean_readline21();
 			btin_exit(pos);

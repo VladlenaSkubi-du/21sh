@@ -41,31 +41,19 @@ int					save_readonly_variables(void)
 	int				num;
 	char			*tmp;
 
-	num = 11;
+	num = 5;
 	g_rdovar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
 	g_rdovar[0] = (char*)ft_xmalloc(sizeof(char) * MAX_EXIT_STATUS);
 	g_rdovar[0] = ft_strcpy(g_rdovar[0], "?=0");
 	g_rdovar[1] = ft_strdup("0=21sh");
-	g_rdovar[2] = ft_strdup("42SH_SUBSHELL=0");
-	g_rdovar[3] = ft_strdup("42SH_PARSER=0");
-	g_rdovar[4] = ft_strdup("42SH_NONINTERACTIVE=0");
 	tmp = getcwd(NULL, MAXDIR);
-	g_rdovar[5] = ft_strjoin("PWD=", tmp);
+	g_rdovar[2] = ft_strjoin("PWD=", tmp);
 	free(tmp);
 	tmp = getcwd(NULL, MAXDIR);
-	g_rdovar[6] = ft_strjoin("OLDPWD=", tmp);
+	g_rdovar[3] = ft_strjoin("OLDPWD=", tmp);
 	free(tmp);
 	tmp = getcwd(NULL, MAXDIR);
-	g_rdovar[7] = ft_strjoin("42SH=", tmp);
-	free(tmp);
-	tmp = ft_itoa(getuid());
-	g_rdovar[8] = ft_strjoin("UID=", tmp);
-	free(tmp);
-	tmp = ft_itoa(geteuid());
-	g_rdovar[9] = ft_strjoin("EUID=", tmp);
-	free(tmp);
-	tmp = ft_itoa(getppid());
-	g_rdovar[10] = ft_strjoin("PPID=", tmp);
+	g_rdovar[4] = ft_strjoin("21SH=", tmp);
 	free(tmp);
 	return (0);
 }
@@ -85,7 +73,8 @@ int					save_shell_variables(void)
 	int				li;
 	int				co;
 
-	num = 4;
+	num = 3
+	;
 	g_shvar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
 	li = find_in_variables(g_env, &co, "HOME=");
 	tmp = (li < 0) ? define_history_file() :
@@ -98,7 +87,6 @@ int					save_shell_variables(void)
 	tmp = ft_itoa(MAX_HISTFILE);
 	g_shvar[2] = ft_strjoin("HISTFILESIZE=", tmp);
 	free(tmp);
-	g_shvar[3] = ft_strdup("FCEDIT=vim");
 	return (0);
 }
 
@@ -121,11 +109,20 @@ int					save_local_variables(void)
 
 int                 exit_status_variable(int status)
 {
-    char            *tmp;
+    char            *num_status;
+	int				len;
+	char			*final;
 
-    tmp = ft_itoa(status);
+    num_status = ft_itoa(status);
     ft_bzero(&g_rdovar[0][2], MAX_EXIT_STATUS - 2);
-   	ft_strcpy(&g_rdovar[0][2], tmp);
-    free(tmp);
+	if ((len = ft_strlen(num_status)) > MAX_EXIT_STATUS - 2)
+	{
+		final = ft_strjoin("?=", num_status);
+		free(g_rdovar[0]);
+		g_rdovar[0] = final;
+	}
+	else
+		ft_strcpy(&g_rdovar[0][2], num_status);
+    free(num_status);
     return (0);
 }

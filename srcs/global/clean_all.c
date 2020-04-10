@@ -12,17 +12,11 @@
 
 int				clean_everything(void)
 {
-	int			li;
-	int			sy;
-	
-	li = find_in_variables(g_rdovar, &sy, "42SH_NONINTERACTIVE");
-	if (g_rdovar[li][sy] == '0')
-	{
-		ft_arrdel(g_hist.hist);
-		ft_arrdel(g_shvar);
-		make_ctrl_p(2, NULL);
-		clean_termcap();
-	}
+	make_ctrl_p(2, NULL);
+	clean_termcap();
+	ft_arrdel(g_hist.hist);
+	ft_arrdel(g_builtins);
+	ft_arrdel(g_shvar);
 	ft_arrdel(g_env);
 	ft_arrdel(g_rdovar);
 	ft_arrdel(g_lovar);
@@ -53,7 +47,6 @@ int				clean_parser21(void)
 		free(g_techline.line);
 	if (g_prompt.prompt_func != heredoc_prompt)
 		ft_lst_ltree_clear(&g_start_list);
-	ft_arrdel(g_builtins);
 	return (0);
 }
 

@@ -63,6 +63,7 @@ int	exec_clean(char *path, int exit_status, char *err_msg)
 int		ft_builtins_check(t_ltree *pos, int flag)
 {
 	int		i;
+	int		tmp;
 
 	i = 0;
 	while (g_builtins[i])
@@ -70,9 +71,15 @@ int		ft_builtins_check(t_ltree *pos, int flag)
 		if (!ft_strcmp(pos->ar_v[0], g_builtins[i]))
 		{
 			if (flag && i < 3)
-				exit_status_variable(builtins_call_void(i));
+			{
+				tmp = builtins_call_void(i);
+				exit_status_variable(tmp);
+			}
 			else if (flag && i >= 3)
-				exit_status_variable(builtins_call(i, pos));
+			{
+				tmp = builtins_call(i, pos);
+				exit_status_variable(tmp);
+			}
 			return (i);
 		}
 		i++;

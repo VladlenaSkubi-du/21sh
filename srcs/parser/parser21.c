@@ -20,7 +20,6 @@ int		parser(char *line)
 
 int		pars_lex_exec(void)
 {
-	init_builtins();
 	if (g_prompt.prompt_func != heredoc_prompt)
 		if (nullify(&g_techline.line, g_cmd_size) == OUT)
 		{

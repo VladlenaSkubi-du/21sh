@@ -1,7 +1,7 @@
 #include "shell21.h"
 #include "builtin.h"
 
-#define BUILTINS_NUM	9
+#define BUILTINS_NUM	8
 
 void				init_builtins(void)
 {
@@ -12,9 +12,8 @@ void				init_builtins(void)
 	g_builtins[3] = ft_strdup("cd");
 	g_builtins[4] = ft_strdup("exit");
 	g_builtins[5] = ft_strdup("echo");
-	g_builtins[6] = ft_strdup("fc");
-	g_builtins[7] = ft_strdup("unsetenv");
-	g_builtins[8] = ft_strdup("pwd");
+	g_builtins[6] = ft_strdup("unsetenv");
+	g_builtins[7] = ft_strdup("pwd");
 }
 
 int					builtins_call_void(int call_num)
@@ -34,9 +33,8 @@ int					builtins_call(int call_num, t_ltree *pos)
 	builtins_func[3] = btin_cd;
 	builtins_func[4] = btin_exit;
 	builtins_func[5] = btin_echo;
-	builtins_func[6] = btin_fc;
-	builtins_func[7] = btin_unset;
-	builtins_func[8] = btin_pwd;
+	builtins_func[6] = btin_unset;
+	builtins_func[7] = btin_pwd;
 	return ((*builtins_func[call_num])(pos));
 }
 

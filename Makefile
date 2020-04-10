@@ -88,7 +88,7 @@ LIBFT_PATH = $(LIB_DIR)/libft.a
 
 TERMCAP = -ltermcap
 
-CC_FLAGS = -Wall -Wextra -Werror
+CC_FLAGS = -Wall -Wextra -Werror -g
 
 .PHONY: all $(NAME) clean fclean re
 
@@ -179,7 +179,7 @@ $(LIBFT_PATH):
 	make -C $(LIB_DIR)
 
 $(NAME): $(LIBFT_PATH) $(OBJS_DIR) $(OBJS)
-	@gcc $(CC_FLAGS) -L $(LIB_DIR) -l ft $(TERMCAP) -o $(NAME) $(OBJS) -I$(LIB_INCLUDE) -I$(SHARED_INCLUDE_DIR) -I$(BUILTIN_INCLUDE_DIR)
+	gcc $(CC_FLAGS) -L $(LIB_DIR) -l ft $(TERMCAP) -o $(NAME) $(OBJS) -I$(LIB_INCLUDE) -I$(SHARED_INCLUDE_DIR) -I$(BUILTIN_INCLUDE_DIR)
 
 clean:
 	@rm -rf $(OBJS_DIR)

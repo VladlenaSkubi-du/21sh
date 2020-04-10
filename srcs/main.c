@@ -8,6 +8,7 @@ int					main(void)
 	save_shell_variables();
 	save_local_variables(); //TODO remove local
 	start_history();
+	init_builtins();
 	g_prompt.prompt_func = main_prompt;
 	readline_start();
 	return (0);

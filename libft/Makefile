@@ -6,13 +6,14 @@
 #    By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:34:17 by sschmele          #+#    #+#              #
-#    Updated: 2020/04/09 03:22:59 by vladlenasku      ###   ########.fr        #
+#    Updated: 2020/04/10 21:38:13 by vladlenasku      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 FLAGS = -Wall -Wextra -Werror
+FLAGS += -g
 
 SRCS =	$(ARROW_FUNCTIONS) \
 	$(LIST_STRUCTURE) \
