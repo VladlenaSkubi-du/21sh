@@ -22,12 +22,6 @@
 # define ERR_CONT		0x08000000U
 # define ERR_OUT		0x10000000U
 
-/*
-** Is used in before_execution.c
-*/
-
-# define TMPL "/tmp/tmp42sh_XXXXXX" //сделать свою обработку
-
 enum					e_way
 {
 	REW,
@@ -221,7 +215,7 @@ int						erroring_andor_pipe(t_ltree *final, size_t *i,
 ** File ft_tmpfile.c
 */
 
-int						ft_tmpfile(char *template);
+int						ft_tmpfile(void);
 
 /*
 ** File redirect.c

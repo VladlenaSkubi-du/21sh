@@ -117,7 +117,7 @@ int		ft_heredoc_form(t_fd_redir *fd_open, char *f_name, t_ltree *final,
 {
 	if (g_prompt.prompt_func == main_prompt)
 	{
-		fd_open->fd_in = ft_tmpfile(TMPL);
+		fd_open->fd_in = ft_tmpfile();
 		add_redir_fd(final, fd_open);
 		g_heredoc.stop.stop_w = ft_strdup(f_name);
 		g_heredoc.stop.fd = fd_open->fd_in;
