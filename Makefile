@@ -18,12 +18,13 @@ BUILTIN = \
 			$(BUILTIN_DIR)/usages.c \
             $(CD)
 
-CD =		$(BUILTIN_DIR)/cd/cd.c \
-			$(BUILTIN_DIR)/cd/cd_flags.c \
-			$(BUILTIN_DIR)/cd/cd_valid.c \
-			$(BUILTIN_DIR)/cd/cd_parser.c \
-			$(BUILTIN_DIR)/cd/cd_change_path.c \
-			$(BUILTIN_DIR)/cd/cd_new_path.c
+CD_DIR = cd
+CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_flags.c \
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_valid.c \
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_parser.c \
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_change_path.c \
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_new_path.c
 
 #______________________________________________________________________________
 
@@ -35,14 +36,16 @@ GLOBAL = 	$(GLOBAL_DIR)/clean_all.c \
 			$(SHELL_VARIABLES) \
 			$(UNIX_FUNCTIONS)
 
+SHELL_VARS_DIR = shell_variables
 SHELL_VARIABLES = \
-			$(GLOBAL_DIR)/shell_variables/environment21.c \
-			$(GLOBAL_DIR)/shell_variables/variables_processing.c \
-			$(GLOBAL_DIR)/shell_variables/variables_array_processing.c
+			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/environment21.c \
+			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_processing.c \
+			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_array_processing.c
 
+UNIX_FUNCS_DIR = unix_functions
 UNIX_FUNCTIONS = \
-			$(GLOBAL_DIR)/unix_functions/ft_count_words.c \
-			$(GLOBAL_DIR)/unix_functions/ft_find_token.c
+			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_count_words.c \
+			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_find_token.c
 			
 #______________________________________________________________________________			
 
@@ -58,40 +61,46 @@ PARSER = 	$(PARSER_DIR)/before_execution.c \
 			$(REDIRECTION) \
 			$(SUBSTITUTION)
 
+ASSIGNMENT_DIR = assignment
 ASSIGNMENT = \
-			$(PARSER_DIR)/assignment/backend_variables.c \
-			$(PARSER_DIR)/assignment/assignment.c
+			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/backend_variables.c \
+			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/assignment.c
 
-EXEC = 		$(PARSER_DIR)/exec/exec_init.c \
-			$(PARSER_DIR)/exec/exec_core.c \
-			$(PARSER_DIR)/exec/exec_utils.c \
-			$(PARSER_DIR)/exec/path_parse.c
+EXEC_DIR = exec
+EXEC = 		$(PARSER_DIR)/$(EXEC_DIR)/exec_init.c \
+			$(PARSER_DIR)/$(EXEC_DIR)/exec_core.c \
+			$(PARSER_DIR)/$(EXEC_DIR)/exec_utils.c \
+			$(PARSER_DIR)/$(EXEC_DIR)/path_parse.c
 
+PATH_TREEORDER_DIR = path_tree_order
 PATH_TREE_ORDER = \
-			$(PARSER_DIR)/path_tree_order/insert_leaf_pathtree.c \
-			$(PARSER_DIR)/path_tree_order/result_pathtree.c \
-			$(PARSER_DIR)/path_tree_order/start_pathtree.c
+			$(PARSER_DIR)/$(PATH_TREEORDER_DIR)/insert_leaf_pathtree.c \
+			$(PARSER_DIR)/$(PATH_TREEORDER_DIR)/result_pathtree.c \
+			$(PARSER_DIR)/$(PATH_TREEORDER_DIR)/start_pathtree.c
 
-QUOTING =	$(PARSER_DIR)/quoting/quote_control.c \
-			$(PARSER_DIR)/quoting/pre_parsing_work.c
+QUOTING_DIR = quoting
+QUOTING =	$(PARSER_DIR)/$(QUOTING_DIR)/quote_control.c \
+			$(PARSER_DIR)/$(QUOTING_DIR)/pre_parsing_work.c
 
+REDIRECTION_DIR = redirection
 REDIRECTION = \
-			$(PARSER_DIR)/redirection/redirect.c \
-			$(PARSER_DIR)/redirection/ft_tmpfile.c \
-			$(PARSER_DIR)/redirection/redir_types_out.c \
-			$(PARSER_DIR)/redirection/redir_types_in.c \
-			$(PARSER_DIR)/redirection/fd_block.c \
-			$(PARSER_DIR)/redirection/here_doc.c \
-			$(PARSER_DIR)/redirection/here_doc_buffer.c
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/redirect.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/ft_tmpfile.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/redir_types_out.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/redir_types_in.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/fd_block.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/here_doc.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/here_doc_buffer.c
 
+SUBSTITUTION_DIR = substitution
 SUBSTITUTION = \
-			$(PARSER_DIR)/substitution/substitution.c \
-			$(PARSER_DIR)/substitution/ft_find_var.c \
-			$(PARSER_DIR)/substitution/ft_curv_var.c \
-			$(PARSER_DIR)/substitution/param_help_func.c \
-			$(PARSER_DIR)/substitution/ft_substring_var.c \
-			$(PARSER_DIR)/substitution/tilda.c \
-			$(PARSER_DIR)/substitution/history_sign.c
+			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/substitution.c \
+			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/ft_find_var.c \
+			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/ft_curv_var.c \
+			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/param_help_func.c \
+			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/ft_substring_var.c \
+			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/tilda.c \
+			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/history_sign.c
 
 #______________________________________________________________________________
 
@@ -110,36 +119,40 @@ READLINE = 	$(READLINE_DIR)/readline.c \
 			$(AUTO_COMPLETION) \
 			$(HISTORY)
 
+READLINE_SIMPLE_DIR = readline_simple
 READLINE_SIMPLE = \
-			$(READLINE_DIR)/readline_simple/readline_simple.c \
-			$(READLINE_DIR)/readline_simple/str_edit_simple.c \
-			$(READLINE_DIR)/readline_simple/escape_simple.c \
-			$(READLINE_DIR)/readline_simple/keys_simple.c
+			$(READLINE_DIR)/$(READLINE_SIMPLE_DIR)/readline_simple.c \
+			$(READLINE_DIR)/$(READLINE_SIMPLE_DIR)/str_edit_simple.c \
+			$(READLINE_DIR)/$(READLINE_SIMPLE_DIR)/escape_simple.c \
+			$(READLINE_DIR)/$(READLINE_SIMPLE_DIR)/keys_simple.c
 
+KEY_ACTIONS_DIR = key_actions
 KEY_ACTIONS = \
-			$(READLINE_DIR)/key_actions/arrow_keys.c \
-			$(READLINE_DIR)/key_actions/ctrl_kult.c \
-			$(READLINE_DIR)/key_actions/cut_words.c \
-			$(READLINE_DIR)/key_actions/delete_keys.c \
-			$(READLINE_DIR)/key_actions/esc_jump_words.c \
-			$(READLINE_DIR)/key_actions/esc_t.c \
-			$(READLINE_DIR)/key_actions/jump_around.c \
-			$(READLINE_DIR)/key_actions/paste_key.c
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/arrow_keys.c \
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/ctrl_kult.c \
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/cut_words.c \
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/delete_keys.c \
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/esc_jump_words.c \
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/esc_t.c \
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/jump_around.c \
+			$(READLINE_DIR)/$(KEY_ACTIONS_DIR)/paste_key.c
 
+AUTO_COMPL_DIR = auto_completion
 AUTO_COMPLETION = \
-			$(READLINE_DIR)/auto_completion/start_completion.c \
-			$(READLINE_DIR)/auto_completion/front_part_compl.c \
-			$(READLINE_DIR)/auto_completion/analyse_line_compl.c \
-			$(READLINE_DIR)/auto_completion/menu_receipt_compl.c \
-			$(READLINE_DIR)/auto_completion/question_if_many_compl.c \
-			$(READLINE_DIR)/auto_completion/path_and_cursor_processing_compl.c \
-			$(READLINE_DIR)/auto_completion/output_buffer_compl.c
+			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/start_completion.c \
+			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/front_part_compl.c \
+			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/analyse_line_compl.c \
+			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/menu_receipt_compl.c \
+			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/question_if_many_compl.c \
+			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/path_and_cursor_processing_compl.c \
+			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/output_buffer_compl.c
 
-HISTORY = 	$(READLINE_DIR)/history/start_history.c \
-			$(READLINE_DIR)/history/history_buffer_proc.c \
-			$(READLINE_DIR)/history/history_file_proc.c \
-			$(READLINE_DIR)/history/front_part_hist.c \
-			$(READLINE_DIR)/history/back_part_hist.c
+HISTORY_DIR = history
+HISTORY = 	$(READLINE_DIR)/$(HISTORY_DIR)/start_history.c \
+			$(READLINE_DIR)/$(HISTORY_DIR)/history_buffer_proc.c \
+			$(READLINE_DIR)/$(HISTORY_DIR)/history_file_proc.c \
+			$(READLINE_DIR)/$(HISTORY_DIR)/front_part_hist.c \
+			$(READLINE_DIR)/$(HISTORY_DIR)/back_part_hist.c
 
 #______________________________________________________________________________
 
@@ -148,6 +161,8 @@ SOURCES =	main.c \
 			$(GLOBAL) \
 			$(PARSER) \
 			$(READLINE) \
+
+#______________________________________________________________________________
 
 DIR_O = objs
 
@@ -165,6 +180,8 @@ INCLUDE_DIR = includes
 BUILTIN_INCLUDE_DIR = $(INCLUDE_DIR)/builtin
 SHARED_INCLUDE_DIR = $(INCLUDE_DIR)
 
+#______________________________________________________________________________
+
 all:	$(NAME)
 
 $(NAME): $(OBJS)
@@ -177,25 +194,25 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell21.h
 	@mkdir -p $(DIR_O)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)
-	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/cd
+	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(CD_DIR)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)
-	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/shell_variables
-	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/unix_functions	
+	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(SHELL_VARS_DIR)
+	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)	
 #_____________________________________________________	
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)
-	@mkdir -p $(DIR_O)/$(PARSER_DIR)/path_tree_order
-	@mkdir -p $(DIR_O)/$(PARSER_DIR)/exec
-	@mkdir -p $(DIR_O)/$(PARSER_DIR)/quoting
-	@mkdir -p $(DIR_O)/$(PARSER_DIR)/assignment
-	@mkdir -p $(DIR_O)/$(PARSER_DIR)/substitution
-	@mkdir -p $(DIR_O)/$(PARSER_DIR)/redirection
+	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(PATH_TREEORDER_DIR)
+	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(EXEC_DIR)
+	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(QUOTING_DIR)
+	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(ASSIGNMENT_DIR)
+	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(SUBSTITUTION_DIR)
+	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(REDIRECTION_DIR)
 #_____________________________________________________	
 	@mkdir -p $(DIR_O)/$(READLINE_DIR)
-	@mkdir -p $(DIR_O)/$(READLINE_DIR)/readline_simple
-	@mkdir -p $(DIR_O)/$(READLINE_DIR)/key_actions
-	@mkdir -p $(DIR_O)/$(READLINE_DIR)/auto_completion
-	@mkdir -p $(DIR_O)/$(READLINE_DIR)/history
+	@mkdir -p $(DIR_O)/$(READLINE_DIR)/$(READLINE_SIMPLE_DIR)
+	@mkdir -p $(DIR_O)/$(READLINE_DIR)/$(KEY_ACTIONS_DIR)
+	@mkdir -p $(DIR_O)/$(READLINE_DIR)/$(AUTO_COMPL_DIR)
+	@mkdir -p $(DIR_O)/$(READLINE_DIR)/$(HISTORY_DIR)
 #_____________________________________________________	
 	gcc $(FLAGS) -c -I$(LIB_INCLUDE) -I$(BUILTIN_INCLUDE_DIR) -I$(SHARED_INCLUDE_DIR) -o $@ $<
 
