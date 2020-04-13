@@ -12,7 +12,7 @@ int		    ft_tmpfile(void)
 	path = ft_strrejoin(path, "/");
 	path = ft_strrejoin(path, "tmp_file");
 	time_out = 0;
-	fd = 0;
+	fd = -1;
 	while (fd < 0)
 	{
 		time_out++;
