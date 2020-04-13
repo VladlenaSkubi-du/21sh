@@ -327,9 +327,7 @@ int						insert_str_in_loc_strs(t_ltree *sub,
 */
 
 int	   					ft_find_var(t_ltree *sub);
-int						ft_find_curv_var(t_ltree *sub);
 char					*ft_find_var_value(char **find);
-int						ft_param_empty(t_ltree *sub, char **find, size_t *i);
 int						ft_error_vars(t_ltree *sub, int err, char *msg);
 
 /*

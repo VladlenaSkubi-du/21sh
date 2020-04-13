@@ -96,9 +96,7 @@ SUBSTITUTION_DIR = substitution
 SUBSTITUTION = \
 			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/substitution.c \
 			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/ft_find_var.c \
-			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/ft_curv_var.c \
 			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/param_help_func.c \
-			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/ft_substring_var.c \
 			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/tilda.c \
 			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/history_sign.c
 
