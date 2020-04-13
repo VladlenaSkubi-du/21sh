@@ -14,8 +14,7 @@ int		ft_find_var(t_ltree *sub)
 	i = -1;
 	while (++i < sub->l_tline.len)
 	{
-		if (sub->l_tline.line[i] == DOLLAR && sub->l_tline.line[i + 1] != OBRACE &&
-			sub->l_tline.line[i + 1] != OPAREN)
+		if (sub->l_tline.line[i] == DOLLAR)
 		{
 			size = 1;
 			while (i + size < sub->end && sub->l_tline.line[i + size] == WORD_P)
@@ -27,33 +26,7 @@ int		ft_find_var(t_ltree *sub)
 				insert_str_in_loc_strs(sub, &find, &i, TEXT);
 			}
 			else
-				ft_reglue(&i, size, sub);
-		}
-	}
-	return (0);
-}
-
-/*
-** Function finds and substitudes vars of type "${parameter}"
-*/
-
-int		ft_find_curv_var(t_ltree *sub)
-{
-	size_t	i;
-	size_t	size;
-	char	*find;
-
-	i = -1;
-	while (++i < sub->l_tline.len)
-	{
-		if (sub->l_tline.line[i] == DOLLAR &&
-			sub->l_tline.line[i + 1] == OBRACE)
-		{
-			size = 2;
-			while (i + size < sub->end && sub->l_tline.line[i + size] != CBRACE)
-				size++;
-			find = ft_strndup(&sub->l_cmd[i + 2], size - 2);
-			return (ft_type_param_check(sub, &find, &i));
+				ft_reglue(&i, size, sub) == 0 ? i-- : 0;
 		}
 	}
 	return (0);

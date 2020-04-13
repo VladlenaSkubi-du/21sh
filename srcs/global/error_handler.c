@@ -31,7 +31,7 @@ int				error_handler(int status, char *str)
 	else if ((status & 0x1FF) == TERMINAL_TO_CAN)
 		ft_putendl_fd("terminal can't be changed, reset the terminal",
 			STDERR_FILENO); //TODO check
-	else if ((status & 0x1FF) == TMPFILE)
+	else if ((status & 0xFF) == TMPFILE)
 		ft_putendl_fd("can't open a temporal file", STDERR_FILENO); //TODO check
 	else if ((status & 0x1FF) == SUCCESS)
 		ft_putstr_fd(str, STDERR_FILENO);
