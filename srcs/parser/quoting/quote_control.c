@@ -60,13 +60,14 @@ int		nullify_backslash(char **ptr, t_stack **stack,\
 
 int		nullify_dquotes(char **ptr, t_stack **stack)
 {
-	if ((*stack)->data == DOLLAR && **ptr != WORD_P && **ptr != DOLLAR)
+	if ((*stack)->data == DOLLAR && **ptr != WORD_P && **ptr != DOLLAR) //если доллар в стеке и текущий символ после доллару
+	// не равен слову или доллару, то мы заканчиваем стек
 		ft_pop_stack(stack);
-	if ((*stack)->data == DQUOTE && **ptr == DQUOTE)
+	if ((*stack)->data == DQUOTE && **ptr == DQUOTE) //проверка валидного закрытия одинарных
 		ft_pop_stack(stack);
-	else if ((*stack)->data == SQUOTE && **ptr == SQUOTE)
+	else if ((*stack)->data == SQUOTE && **ptr == SQUOTE) //проверка валидного закрытия одинарных
 		ft_pop_stack(stack);
-	else if ((*stack)->data == SQUOTE && **ptr != EOF)
+	else if ((*stack)->data == SQUOTE && **ptr != EOF) //проверка валидного закрытия одинарных
 		**ptr = TEXT;
 	else if ((*stack)->data == DQUOTE && \
 			(**ptr != DOLLAR && **ptr != EOF &&
@@ -123,7 +124,8 @@ int		nullify_promt_check(t_stack **stack)
 ** brackets or quotes
 */
 
-int		nullify(char **techline, size_t cmd_size)
+int		nullify(char **techline, size_t cmd_size) //проверяем кавычки, в одинарных зануляет, если доллар не занулен, то оставляет символы
+//смотрит, есть ли у спецсимвола сила - обработка по грамматике и логике
 {
 	char	*ptr;
 	size_t	count;
@@ -131,10 +133,10 @@ int		nullify(char **techline, size_t cmd_size)
 
 	count = -1;
 	ptr = *techline;
-	stack = ft_init_stack();
+	stack = ft_init_stack(); //описание символа, в стеке, на каждый символ свой стек - если за символом может идти что-то еще значимое
 	while (++count <= cmd_size)
 	{
-		if (*ptr == DOLLAR && (stack->data == DQUOTE || stack->data == 0))
+		if (*ptr == DOLLAR && (stack->data == 0)) //доллар как в двойных кавычках, так и сам по себе, только на пустой строке действует доллаг
 			ft_push_stack(&stack, *ptr);
 		if (!(stack->data))
 		{

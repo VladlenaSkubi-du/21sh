@@ -56,7 +56,11 @@ int		key_up_proc(void)
 		return (0);
 	}
 	if (g_hist.counter > g_hist.last)
-		save_current_grline(1);
+	{
+		g_hist.counter = g_hist.last + 1;
+		g_hist.hist[g_hist.counter] = ft_strdup(g_rline.cmd);
+	}
+		// save_current_grline(1);
 	if (g_rline.cmd[0] && g_hist.counter <= g_hist.last)
 	{
 		free(g_hist.hist[g_hist.counter]);

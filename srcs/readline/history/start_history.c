@@ -17,6 +17,11 @@ int				start_history(void)
 	return (0);
 }
 
+/*
+** The buffer size for history len is num + 1 for the current line
+** to save and + 1 for the end of the array
+*/
+
 void			init_history_buffer(void)
 {
 	size_t		i;
