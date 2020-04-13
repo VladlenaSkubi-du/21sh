@@ -11,7 +11,6 @@ int		ft_redir_less(t_ltree *final, size_t *i)
 	char		*f_name;
 
 	f_name = NULL;
-	fd_open.type = IN_R;
 	if (final->l_tline.line[*i] == LTHAN &&
 		(final->l_tline.line[*i + 1] != LTHAN &&
 		(final->l_tline.line[*i + 1] != AND ||
@@ -45,7 +44,6 @@ int		ft_redir_dless(t_ltree *final, size_t *i)
 	char		*f_name;
 
 	f_name = NULL;
-	fd_open.type = IN_R;
 	if (final->l_tline.line[*i] == LTHAN && final->l_tline.line[*i + 1] == LTHAN
 		&&	final->l_cmd[*i + 2] != '-')
 	{
@@ -71,7 +69,6 @@ int		ft_redir_dless_min(t_ltree *final, size_t *i)
 	char		*f_name;
 
 	f_name = NULL;
-	fd_open.type = IN_R;
 	if (final->l_tline.line[*i] == LTHAN && final->l_tline.line[*i + 1] == LTHAN
 		&& final->l_cmd[*i + 2] == '-')
 	{
@@ -97,7 +94,6 @@ int		ft_redir_lessand(t_ltree *final, size_t *i)
 	char		*f_name;
 
 	f_name = NULL;
-	fd_open.type = IN_R;
 	if (final->l_tline.line[*i] == LTHAN && (final->l_tline.line[*i + 1] == AND))
 	{
 		fd_open.fd_out = ft_check_n_redir_op(*i, final, STDIN_FILENO);

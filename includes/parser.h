@@ -10,16 +10,8 @@
 
 # define PIPED_OUT		0x00000001U
 # define PIPED_IN		0x00000002U
-# define REDIRECTION	0x00000004U
-# define IS_BG			0x00000008U
-# define LOG_AND_IN		0x00000010U
-# define LOG_AND_OUT	0x00000020U
-# define LOG_OR_IN		0x00000040U
-# define LOG_OR_OUT		0x00000080U
-# define GR_START		0x00000100U
 # define ERR_IN			0x40000000U
 # define ERR_R			0x20000000U
-# define ERR_CONT		0x08000000U
 # define ERR_OUT		0x10000000U
 
 enum					e_way
@@ -69,12 +61,6 @@ typedef struct  		s_tech
 ** @token is
 ** @err is
 ** @err_i is
-** Struct to work with lextree fd[3] needs to know if it is redirection
-** FLAGS:
-** 0x01 -- PIPED_OUTPUT
-** 0x02 -- PIPED_INPUT
-** 0x04 -- REDIRECTION (It's kinda different, as we have to take fd from another place)
-** 0x08 -- IS_BG
 */
 
 typedef struct  		s_ltree
@@ -101,7 +87,6 @@ typedef struct  		s_fd
 {
 	int					fd_out;
 	int					fd_in;
-	int					type;
 }              			t_fd_redir;
 
 /*
@@ -190,8 +175,7 @@ int     				ft_slice_bg(size_t *i, t_ltree	*block, t_list **start_list);
 
 t_ltree					*ft_find_pipe(t_ltree *block, t_ltree *final, size_t *i);
 t_ltree					*ft_find_logic(t_ltree *block, t_ltree *final);
-t_ltree					*ft_check_andor_pipes(t_ltree *block, t_ltree *final,
-						t_list **list);
+t_ltree					*ft_check_andor_pipes(t_ltree *block, t_ltree *final);
 void					ft_lst_ltree_clear(t_list **begin_list);
 int						ft_correct_after_andor_pipe(size_t *i);
 
@@ -205,7 +189,7 @@ t_word					ft_give_me_word(char const *s, char c, size_t len);
 int						ft_local_copy_lines(t_ltree *sub, char *cmd,
 							char *tline);
 int						erroring_andor_pipe(t_ltree *final, size_t *i,
-						int tmp, size_t block_end);
+							size_t block_end);
 
 /*
 ** Folder redirection_________________________________________________________
@@ -392,9 +376,6 @@ int						ft_find_history(t_ltree *sub);
 
 int						nullify(char **techline, size_t size);
 int						nullify_dquotes(char **ptr, t_stack **stack);
-int						nullify_backslash(char **ptr, t_stack **stack,\
-						size_t *count, size_t size);
-int						nullify_comment(char **ptr, t_stack **stack);
 int						nullify_promt_check(t_stack	**stack);
 
 /*

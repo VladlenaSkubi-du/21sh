@@ -27,61 +27,18 @@ int		ft_reglue(size_t *i, int num, t_ltree *sub)
 	return (0);
 }
 
-int		pre_parsing_back(size_t *i, t_ltree *sub)
-{
-	char	*end;
-
-	end = sub->l_tline.line;
-	if (end[*i] == BSLASH && end[*i + 1] == ENTER)
-		ft_reglue(i, 2, sub);
-	if (end[*i] == BSLASH && end[*i + 1] == BSLASH)
-	{
-		ft_reglue(i, 1, sub);
-		(*i)++;
-	}
-	if (end[*i] == BSLASH)
-		ft_reglue(i, 1, sub);
-	return (0);
-}
-
-int		pre_parsing_andor_pipe(size_t *i, t_ltree *sub)
-{
-	char	*end;
-
-	end = sub->l_tline.line;
-	if ((end[*i] == PIPE && end[*i + 1] == PIPE) ||
-		(end[*i] == AND && end[*i + 1] == AND) ||
-		end[*i] == PIPE)
-	{
-		if (end[*i] == PIPE && end[*i + 1] != PIPE)
-			*i += 1;
-		else
-			*i += 2;		
-		while (end[*i] == SPACE)
-			(*i)++;
-		if (end[*i] == ENTER)
-		{
-			end[*i] = SPACE;
-			sub->l_cmd[*i] = ' ';
-		}
-	}
-	return (0);
-}
-
 int		pre_parsing_squote(size_t *i, t_ltree *sub)
 {
 	char	*end;
 
 	end = sub->l_tline.line;
-	if (end[*i] == SQUOTE)
+	if (end[*i] == SQUOTE || end[*i] == DQUOTE)
 	{
 		ft_reglue(i, 1, sub);
-		while (end[*i] != SQUOTE)
+		while (end[*i] != SQUOTE && end[*i] != DQUOTE)
 			(*i)++;
 		ft_reglue(i, 1, sub);
 	}
-	pre_parsing_andor_pipe(i, sub);
-	pre_parsing_back(i, sub);
 	return (0);
 }
 
@@ -99,19 +56,7 @@ int		pre_parsing_cut_glue(t_ltree *sub)
 	end = sub->l_tline.line;
 	while (i < sub->l_tline.len)
 	{
-		if (end[i] == DQUOTE)
-		{
-			ft_reglue(&i, 1, sub);
-			while (end[i] != DQUOTE)
-			{
-				end[i] == SPACE ? end[i] = GLUE : 0;
-				pre_parsing_back(&i, sub);
-				i++;
-			}
-			ft_reglue(&i, 1, sub);
-		}
-		else
-			pre_parsing_squote(&i, sub);
+		pre_parsing_squote(&i, sub);
 		if (end[i] == ENTER)
 			ft_reglue(&i, 1, sub);
 		i++;

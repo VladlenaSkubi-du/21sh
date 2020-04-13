@@ -14,16 +14,6 @@ t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final)
 	final->start = block->start;
 	while (i <= block->end)
 	{
-		if (g_techline.line[i] == PIPE && g_techline.line[i + 1] == PIPE)
-		{
-			final->flags |= LOG_OR_OUT;
-			return (ft_find_pipe(block, final, &i));
-		}
-		if (g_techline.line[i] == AND && g_techline.line[i + 1] == AND)
-		{
-			final->flags |= LOG_AND_OUT;
-			return (ft_find_pipe(block, final, &i));
-		}
 		if (ft_find_pipe(block, final, &i))
 			return (final);
 		i++;
@@ -35,7 +25,7 @@ t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, size_t *i)
 {
 	if (g_techline.line[*i] == PIPE && g_techline.line[*i + 1] != PIPE)
 	{
-		final->start = block->start;
+		//final->start = block->start;
 		final->end = *i;
 		(block->flags & PIPED_OUT) && (block->flags |= PIPED_IN);
 		(block->flags & PIPED_IN) && (final->flags |= PIPED_IN);
@@ -43,10 +33,9 @@ t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, size_t *i)
 		block->flags |= PIPED_OUT;
 		return (final);
 	}
-	if (*i == block->end || final->flags & LOG_AND_OUT ||
-		final->flags & LOG_OR_OUT)
+	if (*i == block->end)
 	{
-		final->start = block->start;
+		//final->start = block->start;
 		final->end = *i;
 		if (block->flags & PIPED_OUT)
 		{
@@ -60,27 +49,19 @@ t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, size_t *i)
 	return (NULL);
 }
 
-t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
+t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final)
 {
-	int		tmp;
 	size_t	i;
 
-	if (*list)
-		tmp = ((t_ltree *)(ft_lstlast(list)->content))->flags;
-	else
-		tmp = 0;
 	if (!ft_find_logic(block, final))
 		return (NULL);
-	if (tmp & LOG_AND_OUT || tmp & LOG_OR_OUT || 
-		final->flags & PIPED_IN)
+	if (final->flags & PIPED_IN)
 	{
-		final->flags |= (tmp & LOG_OR_OUT) ? LOG_OR_IN : 0;
-		final->flags |= (tmp & LOG_AND_OUT) ? LOG_AND_IN : 0;
 		i = final->start - 1;
 		while (++i < block->end)
 			if (ft_correct_after_andor_pipe(&i))
 				break ;
-		erroring_andor_pipe(final, &i, tmp, block->end);
+		erroring_andor_pipe(final, &i, block->end);
 	}
 	return (final);			
 }
