@@ -85,28 +85,6 @@ int		ft_block_start(t_list **list)
 }
 
 /*
-** Fucntion slice command string to blocks and send add it to start
-** list with BG flag
-*/
-
-int		ft_slice_bg(size_t *i, t_ltree *block, t_list **start_list)
-{
-	if (g_techline.line[*i] == AND && g_techline.line[*i + 1] != AND && \
-		g_techline.line[*i - 1] != AND && \
-		g_techline.line[*i + 1] != GTHAN && \
-		g_techline.line[*i + 1] != LTHAN && \
-		g_techline.line[*i - 1] != GTHAN && g_techline.line[*i - 1] != LTHAN)
-	{
-		block->end = *i;
-		block->flags |= IS_BG;
-		if (ft_block_add_to_list(block, start_list) == OUT)
-			return (OUT);
-		block->start = *i + 1;
-	}
-	return (0);
-}
-
-/*
 ** Fucntion slice command string to blocks and send add it to start list
 */
 
@@ -124,8 +102,6 @@ int		ft_slice_fg(void)
 		while (++i <= g_techline.len)
 		{
 			block.flags = GR_START;
-			if (ft_slice_bg(&i, &block, &g_start_list) == OUT)
-				return (OUT);
 			if (g_techline.line[i] == SCOLON || g_cmd[i] == '\0')
 			{
 				block.end = i;

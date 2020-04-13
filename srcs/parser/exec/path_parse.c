@@ -21,6 +21,7 @@ char	*form_path(char *ret, char *env_path, char *name)
 	ft_strcat(ret, name);
 	if (access(ret, X_OK) == -1)
 	{
+		error_handler(COMMAND_NON_EXECUTABLE, name);
 		free(ret);
 		ret = 0;
 	}
