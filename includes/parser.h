@@ -8,19 +8,19 @@
 ** Defines for FLAGS
 */
 
-# define PIPED_OUT		0x00000001U
+# define PIPED_OUT		0x00000001U 
 # define PIPED_IN		0x00000002U
-# define REDIRECTION	0x00000004U
+# define REDIRECTION	0x00000004U 
 # define IS_BG			0x00000008U
 # define LOG_AND_IN		0x00000010U
 # define LOG_AND_OUT	0x00000020U
 # define LOG_OR_IN		0x00000040U
 # define LOG_OR_OUT		0x00000080U
-# define GR_START		0x00000100U
-# define ERR_IN			0x40000000U
-# define ERR_R			0x20000000U
-# define ERR_CONT		0x08000000U
-# define ERR_OUT		0x10000000U
+# define GR_START		0x00000100U //group start
+# define ERR_IN			0x40000000U //предупреждение вместо выполнения блока, но последующие блоки отрабатывают
+# define ERR_R			0x20000000U //ошибка redirection
+# define ERR_CONT		0x08000000U //разовая функция
+# define ERR_OUT		0x10000000U //если ошибка найдена - остальные блоки не выполняются
 
 enum					e_way
 {
@@ -57,18 +57,19 @@ typedef struct  		s_tech
 //TODO to fill
 
 /*
-** @l_cmd is
-** @l_tline is
+** @l_cmd is local copy of @g_cmd but cut according
+** to the block to be executed
+** @l_tline is @g_techline of the @l_cmd
 ** @start is the index with that block in l_cmd starts
 ** @end is the index with that block in l_cmd ends
-** @fd is
+** @fd is a list where all the fds entered with the command are saved
 ** @envir is environment for the command to be executed
 ** @ar_v is an agrument for the command to be executed
 ** @ar_c is a number of arguments for the command to be executed
-** @flags is
-** @token is
-** @err is
-** @err_i is
+** @flags are flags defined above
+** @token is token in the end of the block for errors output
+** @err is string where there is the error message saved
+** @err_i is index, on which position the error was found (what token does not see)
 ** Struct to work with lextree fd[3] needs to know if it is redirection
 ** FLAGS:
 ** 0x01 -- PIPED_OUTPUT
@@ -83,7 +84,8 @@ typedef struct  		s_ltree
 	t_tech				l_tline;
 	size_t				start;
 	size_t				end;
-	t_list				*fd;
+	t_list				*fd; //на одну команду может быть очень много fd и
+	//по грамматике мы должны чистать их по порядку и по порядку перенаправлять
 	char				**envir;
 	char				**ar_v;
 	int					ar_c;
@@ -101,7 +103,6 @@ typedef struct  		s_fd
 {
 	int					fd_out;
 	int					fd_in;
-	int					type;
 }              			t_fd_redir;
 
 /*

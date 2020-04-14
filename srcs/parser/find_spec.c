@@ -5,7 +5,7 @@
 ** Func to find another subblocks
 */
 
-t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final)
+t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final) //блок - от 0 до ;, а файнал, если я ничего не нашла, такой же, если я нашла пайп, то end final сместится на индекс пайпа
 {
 	size_t		i;
 
@@ -66,7 +66,7 @@ t_ltree		*ft_check_andor_pipes(t_ltree *block, t_ltree *final, t_list **list)
 	size_t	i;
 
 	if (*list)
-		tmp = ((t_ltree *)(ft_lstlast(list)->content))->flags;
+		tmp = ((t_ltree *)(ft_lstlast(list)->content))->flags; //мы копируем флаги последнего элемента
 	else
 		tmp = 0;
 	if (!ft_find_logic(block, final))
