@@ -31,9 +31,9 @@ int		before_add(t_ltree *sub, t_list **list)
 {
 	int	err;
 	
-	sub->token = ft_find_token_sep(&g_cmd[sub->end]);
-	ft_local_copy_lines(sub, g_cmd, g_techline.line);
-	pre_parsing_cut_glue(sub);
+	sub->token = ft_find_token_sep(&g_cmd[sub->end]); //зачем?
+	ft_local_copy_lines(sub, g_cmd, g_techline.line); //после пайпов и кавычек сохраняем обрезок строки
+	pre_parsing_cut_glue(sub); //убираем кавычки
 	if ((err = ft_find_redirection(sub)) & ERR_OUT)
 	{
 		ft_error_redir(sub);

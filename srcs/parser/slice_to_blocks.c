@@ -10,7 +10,7 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 	t_ltree	*final;
 
 	final = (t_ltree *)ft_xmalloc(sizeof(t_ltree));
-	while (ft_check_andor_pipes(block, final))
+	while (ft_check_andor_pipes(block, final)) //pipes
 	{
 		if (final->flags & ERR_OUT)
 		{
@@ -71,7 +71,7 @@ int		ft_slice_fg(void)
 		g_start_list = NULL;
 		while (++i <= g_techline.len)
 		{
-			if (g_techline.line[i] == SCOLON || g_cmd[i] == '\0')
+			if (g_techline.line[i] == SCOLON || g_cmd[i] == '\0') //конец блока только по этим символам
 			{
 				block.end = i;
 				if (ft_block_add_to_list(&block, &g_start_list) == OUT)
