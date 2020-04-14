@@ -83,26 +83,28 @@ char	*path_search(char *name)
 ** Here we should find check and return execpath
 */
 
-char	*path_init(char **exec_av)
+char	*path_init(t_ltree *pos)
 {
 	char *ret;
 
-	if (!ft_strchr(*exec_av, '/')) /* Builtin or $PATH case */
-		ret = path_search(*exec_av);
+	if (pos->ar_c < 1)
+		return (NULL);
+	if (!ft_strchr(*pos->ar_v, '/')) /* Builtin or $PATH case */
+		ret = path_search(*pos->ar_v);
 	else /* Execution path case */
 	{
-		if (access(*exec_av, F_OK) == -1)
+		if (access(*pos->ar_v, F_OK) == -1)
 		{
 			error_handler(COMMAND_NOT_FOUND |
-				(ERR_NO_FILE << 9), *exec_av);
-			return (0);
+				(ERR_NO_FILE << 9), *pos->ar_v);
+			return (NULL);
 		}
-		else if (access(*exec_av, X_OK) == -1)
+		else if (access(*pos->ar_v, X_OK) == -1)
 		{
-			error_handler(COMMAND_NON_EXECUTABLE, *exec_av);
-			return (0);
+			error_handler(COMMAND_NON_EXECUTABLE, *pos->ar_v);
+			return (NULL);
 		}
-		ret = ft_strdup(exec_av[0]);
+		ret = ft_strdup(*pos->ar_v);
 	}
 	return (ret); /* ret could be NULL */
 }

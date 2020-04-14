@@ -23,38 +23,39 @@ int		add_to_heredoc_buf(char ***array, char *add, int *buf_size)
 
 int		null_here_line(void)
 {
-	size_t	i;
-	char	*tmp;
+	t_ltree *buf;
 
-	i = -1;
-	tmp = ft_parsing_str(g_cmd);
-	g_prompt.prompt_func = heredoc_prompt;
+	buf = (t_ltree *)ft_xmalloc(sizeof(t_ltree));
+	ltree_init(buf);
+	buf->l_cmd = ft_strdup(g_cmd);
+	ft_get_techline(buf->l_cmd, &buf->l_tline);
+	buf->end = buf->l_tline.len;
+	ft_substitution(buf);
 	free(g_cmd);
-	g_cmd = tmp;
-	g_cmd_size = ft_strlen(g_cmd);
-	while (++i <= g_cmd_size)
-	{
-		if (g_techline.line[i] == BSLASH && g_techline.line[i + 1] != ENTER)
-			g_techline.line[i + 1] = TEXT;
-	}
+	g_cmd = buf->l_cmd;
+	g_cmd_size = buf->l_tline.len;
+	buf->l_cmd = NULL;
+	ft_one_ltree_clear(buf);
+	g_prompt.prompt_func = heredoc_prompt;
 	if (g_cmd[g_cmd_size - 2] == '\\' && g_cmd[g_cmd_size - 1] == '\n')
 	{
 		g_cmd[g_cmd_size - 2] = '\0';
 		g_cmd[g_cmd_size - 1] = '\0';
 	}
+	add_to_heredoc_buf(&g_heredoc.buf, g_cmd, &g_heredoc.buf_size);
 	return (0);
 }
 
-int		recover_g_cmd_here(void)
-{
-	clean_parser21();
-	g_cmd = ft_strdup(g_heredoc.g_cmd_copy);
-	g_cmd_size = g_heredoc.g_len_copy;
-	g_techline.line = ft_strdup(g_heredoc.g_cmd_copy);
-	g_techline.len = g_heredoc.g_len_copy;
-	g_techline.alloc_size = g_heredoc.g_len_copy;
-	return (0);
-}
+// int		recover_g_cmd_here(void)
+// {
+// 	clean_parser21();
+// 	g_cmd = ft_strdup(g_heredoc.g_cmd_copy);
+// 	g_cmd_size = g_heredoc.g_len_copy;
+// 	g_techline.line = ft_strdup(g_heredoc.g_cmd_copy);
+// 	g_techline.len = g_heredoc.g_len_copy;
+// 	g_techline.alloc_size = g_heredoc.g_len_copy;
+// 	return (0);
+// }
 
 int		here_tab_remove(char **line)
 {

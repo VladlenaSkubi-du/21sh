@@ -47,7 +47,7 @@ int		exec_core(t_ltree *pos)
 
 	path = NULL;
 	child_pid = 0;
-	if (ft_builtins_check(pos, 0) == -1 && !(path = path_init(pos->ar_v)))
+	if (ft_builtins_check(pos, 0) == -1 && !(path = path_init(pos)))
 	{
 		close(pipe_next[1]);
 		return (exec_clean(path, -1, 0));

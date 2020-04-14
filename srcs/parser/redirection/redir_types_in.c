@@ -13,8 +13,7 @@ int		ft_redir_less(t_ltree *final, size_t *i)
 	f_name = NULL;
 	if (final->l_tline.line[*i] == LTHAN &&
 		(final->l_tline.line[*i + 1] != LTHAN &&
-		(final->l_tline.line[*i + 1] != AND ||
-		final->l_tline.line[*i + 1] == PIPE)))
+		final->l_tline.line[*i + 1] != AND))
 	{
 		fd_open.fd_out = ft_check_n_redir_op(*i, final, STDIN_FILENO);
 		ft_null_redir(final, *i, 1);
@@ -51,7 +50,7 @@ int		ft_redir_dless(t_ltree *final, size_t *i)
 		ft_null_redir(final, *i, 2);
 		(*i) += 2;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
-			return (ft_heredoc_form(&fd_open, f_name, final, 0));
+			return (ft_heredoc_form(&fd_open, &f_name, final, 0));
 		else
 			return (final->flags |= ERR_OUT | ERR_REDIR << 16);
 	}
@@ -76,7 +75,7 @@ int		ft_redir_dless_min(t_ltree *final, size_t *i)
 		ft_null_redir(final, *i, 3);
 		(*i) += 3;
 		if ((f_name = ft_word_to_redir(i, final, FF)) != NULL)
-			return (ft_heredoc_form(&fd_open, f_name, final, MINUS));
+			return (ft_heredoc_form(&fd_open, &f_name, final, MINUS));
 		else
 			return (final->flags |= ERR_OUT | ERR_REDIR << 16);
 	}
@@ -108,14 +107,14 @@ int		ft_redir_lessand(t_ltree *final, size_t *i)
 	return (0);
 }
 
-int		ft_heredoc_form(t_fd_redir *fd_open, char *f_name, t_ltree *final,
+int		ft_heredoc_form(t_fd_redir *fd_open, char **f_name, t_ltree *final,
 		int flag)
 {
 	if (g_prompt.prompt_func == main_prompt)
 	{
 		fd_open->fd_in = ft_tmpfile();
 		add_redir_fd(final, fd_open);
-		g_heredoc.stop.stop_w = ft_strdup(f_name);
+		g_heredoc.stop.stop_w = *f_name;
 		g_heredoc.stop.fd = fd_open->fd_in;
 		g_heredoc.stop.flag = flag;
 		ft_add_list_to_end(&(g_heredoc.list),

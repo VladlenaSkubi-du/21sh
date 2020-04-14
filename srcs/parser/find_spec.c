@@ -23,7 +23,7 @@ t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final) //блок - от 0 до
 
 t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, size_t *i)
 {
-	if (g_techline.line[*i] == PIPE && g_techline.line[*i + 1] != PIPE)
+	if (g_techline.line[*i] == PIPE)
 	{
 		//final->start = block->start;
 		final->end = *i;

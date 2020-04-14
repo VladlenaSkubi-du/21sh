@@ -76,8 +76,7 @@ typedef struct  		s_ltree
 	t_tech				l_tline;
 	size_t				start;
 	size_t				end;
-	t_list				*fd; //на одну команду может быть очень много fd и
-	//по грамматике мы должны чистать их по порядку и по порядку перенаправлять
+	t_list				*fd; //на одну команду может быть очень много fd и по грамматике мы должны чистать их по порядку и по порядку перенаправлять
 	char				**envir;
 	char				**ar_v;
 	int					ar_c;
@@ -140,9 +139,6 @@ typedef struct			s_here
 {
 	t_list				*list;
 	t_stop				stop;
-	char				*g_cmd_copy;
-	char				*g_techline_copy;
-	size_t				g_len_copy;
 	char				**buf;
 	int					buf_size;
 }						t_here;
@@ -240,7 +236,7 @@ int						ft_redir_less(t_ltree *final, size_t *i);
 int						ft_redir_dless(t_ltree *final, size_t *i);
 int						ft_redir_dless_min(t_ltree *final, size_t *i);
 int						ft_redir_lessand(t_ltree *final, size_t *i);
-int						ft_heredoc_form(t_fd_redir *fd_open, char *f_name,
+int						ft_heredoc_form(t_fd_redir *fd_open, char **f_name,
 						t_ltree *final, int flag);
 
 /*
@@ -456,7 +452,7 @@ int						exec_core(t_ltree *pos);
 ** File path_parse.c
 */
 
-char					*path_init(char **exec_av);
+char					*path_init(t_ltree *pos);
 char					**path_parse(void);
 char					*form_path(char *ret, char *env_path, char *name);
 char					*locate_file(char *env_path, char *name);
