@@ -89,28 +89,22 @@ int		ft_local_copy_lines(t_ltree *sub, char *cmd, char *tline)
 	return (0);
 }
 
-int		erroring_andor_pipe(t_ltree *final, size_t *i, int tmp, size_t bl_end)
+int		erroring_andor_pipe(t_ltree *final, size_t *i, size_t bl_end)
 {
-	if (*i == g_techline.len || g_techline.line[*i] == COMENT)
+	if (*i == g_techline.len)
 	{
 		final->flags |= ERR_OUT;
-		if ((tmp & LOG_AND_OUT) || (tmp & LOG_OR_OUT))
-			g_prompt.prompt_func = other_prompt;
-		else if (final->flags & PIPED_IN)
-			g_prompt.prompt_func = other_prompt;
+		error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)), "newline");
 		return (OUT);
 	}
-	else if (*i == bl_end || g_techline.line[*i] == PIPE ||
-		g_techline.line[*i] == AND)
+	else if (*i == bl_end || g_techline.line[*i] == PIPE)
 	{
 		final->err_i = *i;
-		final->err = ft_strndup(&g_cmd[*i], 2);
+		final->err = ft_find_token_sep(&g_cmd[*i]);
 		final->flags |= ERR_OUT;
 		final->flags |= ERR_REDIR << 16;
 		if (final->err_i < g_techline.len)
-			error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)), final->err);
-		else
-			error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)), "newline");
+			error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)), final->err);			
 	}
 	g_prompt.prompt_func = main_prompt;
 	return (0);

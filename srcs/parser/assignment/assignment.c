@@ -45,7 +45,7 @@ int		get_assign_and_add(t_ltree *sub, size_t *var, size_t *eq, size_t *val)
 		i++;
 	if (i == sub->l_tline.len)
 	{
-		sub->flags |= ERR_IN | ERR_CONT;
+		sub->flags |= ERR_IN;
 		if ((sub->flags |= find_assignment_in_vars(sub->l_cmd,
 			*var, *eq, *val)) & (ERR_OUT))
 			sub->err = ft_strndup(&sub->l_cmd[*var], *eq - *var);

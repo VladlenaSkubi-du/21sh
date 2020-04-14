@@ -17,7 +17,6 @@ int		add_redir_fd(t_ltree *final, t_fd_redir *redir)
 	fd_work = (t_fd_redir *)new->content;
 	fd_work->fd_out = redir->fd_out;
 	fd_work->fd_in = redir->fd_in;
-	fd_work->type = redir->type;
 	ft_add_list_to_end(&(final->fd), new);
 	return (0);
 }

@@ -105,6 +105,7 @@ int		ft_heredoc_rem(void)
 	while(tmp)
 	{
 		find = (t_stop *)tmp->content;
+		lseek(find->fd, 0, SEEK_SET);
 		free(find->stop_w);
 		tmp = tmp->next;
 	}
