@@ -15,14 +15,6 @@ int		before_exec(t_ltree *sub)
 	
 	if ((err = ft_substitution(sub)) & (ERR_OUT | ERR_IN))
 		return (OUT);
-	assignment(sub);
-	if (sub->flags & (ERR_OUT))
-	{
-	 	sub->err_i = ERR_OUT | VARIABLE_ERROR;
-		ft_error_vars(sub, 0, NULL);
-		ft_lst_ltree_clear(&g_start_list);
-		return (OUT);
-	}
 	argv_forming(sub);
 	if (sub->flags & ERR_R)
 		ft_error_redir(sub);

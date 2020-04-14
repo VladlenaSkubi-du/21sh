@@ -53,30 +53,30 @@ char	*ft_find_var_value(char **find)
 	return (res);
 }
 
-int		ft_param_empty(t_ltree *sub, char **find, size_t *i)
-{
-	char	*tmp;
-	size_t	size;
+// int		ft_param_empty(t_ltree *sub, char **find, size_t *i)
+// {
+// 	char	*tmp;
+// 	size_t	size;
 
-	size = ft_strlen(*find);
-	if ((tmp = ft_find_var_value(find)) != NULL)
-	{
-		ft_reglue(i, size + 2, sub);
-		insert_str_in_loc_strs(sub, &tmp, i, TEXT);
-	}
-	else
-		ft_reglue(i, size + 3, sub);
-	return (0);
-}
+// 	size = ft_strlen(*find);
+// 	if ((tmp = ft_find_var_value(find)) != NULL)
+// 	{
+// 		ft_reglue(i, size + 2, sub);
+// 		insert_str_in_loc_strs(sub, &tmp, i, TEXT);
+// 	}
+// 	else
+// 		ft_reglue(i, size + 3, sub);
+// 	return (0);
+// }
 
-int		ft_error_vars(t_ltree *sub, int err, char *msg)
-{
-	sub->flags |= ERR_OUT;
-	sub->err_i |= err;
-	if (msg)
-		sub->err = ft_strdup(msg);
-	if (!(sub->err_i & ERR_UNSET << 9 || sub->err_i & ERR_SET << 9))
-		sub->err_i |= ERR_RDONLY << 9;
-	error_handler(sub->err_i, sub->err);
-	return (err);
-}
+// int		ft_error_vars(t_ltree *sub, int err, char *msg)
+// {
+// 	sub->flags |= ERR_OUT;
+// 	sub->err_i |= err;
+// 	if (msg)
+// 		sub->err = ft_strdup(msg);
+// 	if (!(sub->err_i & ERR_UNSET << 9 || sub->err_i & ERR_SET << 9))
+// 		sub->err_i |= ERR_RDONLY << 9;
+// 	error_handler(sub->err_i, sub->err);
+// 	return (err);
+// }

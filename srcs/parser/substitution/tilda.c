@@ -1,7 +1,7 @@
 #include "shell21.h"
 #include "parser.h"
 
-int		ft_find_tilda(t_ltree *sub, int flag)
+int		ft_find_tilda(t_ltree *sub, int flag) //убрать флаг везде где есть
 {
 	size_t	i;
 
@@ -10,14 +10,11 @@ int		ft_find_tilda(t_ltree *sub, int flag)
 	{
 		if ((i == 0 && sub->l_tline.line[i] == TILDA) ||
 			(i > 0 && sub->l_tline.line[i - 1] == SPACE &&
-			sub->l_tline.line[i] == TILDA) ||
-			(i > 0 && flag == ASSIGN && sub->l_cmd[i - 1] == ':' &&
 			sub->l_tline.line[i] == TILDA))
 		{
 			if (i + 1 == sub->l_tline.len || sub->l_tline.line[i + 1] == ENTER ||
 				sub->l_tline.line[i + 1] == SPACE ||
-				sub->l_cmd[i + 1] == '/' ||
-				(flag == ASSIGN && sub->l_cmd[i + 1] == ':'))
+				sub->l_cmd[i + 1] == '/')
 				ft_get_home(sub, &i);
 			else
 				ft_getdir_by_name(sub, &i, flag);
@@ -53,8 +50,7 @@ int	ft_getdir_by_name(t_ltree *sub, size_t *i, int flag)
 
 	j = 1;
 	while (sub->l_cmd[*i + j] != '/' && sub->l_tline.line[*i + j] != SPACE &&
-		sub->l_cmd[*i + j] != '\n' && sub->l_cmd[*i + j] != '\0' &&
-		!(flag == ASSIGN && sub->l_cmd[*i + j] != ':'))
+		sub->l_cmd[*i + j] != '\n' && sub->l_cmd[*i + j] != '\0')
 		j++;
 	user = ft_strndup(&sub->l_cmd[*i + 1], j - 1);
 	ft_find_dir_info(sub, user, i);

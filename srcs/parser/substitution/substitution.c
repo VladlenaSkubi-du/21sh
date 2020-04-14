@@ -21,7 +21,7 @@ int		ft_substitution(t_ltree *sub)
 	}
 	if (err & ERR_OUT)
 	{
-		err & ERR_R ? ft_error_redir(sub) : ft_error_vars(sub, 0, NULL);
+		ft_error_redir(sub);
 		ft_lst_ltree_clear(&g_start_list);
 	}
 	return (err);
