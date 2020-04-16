@@ -397,40 +397,7 @@ int						ft_reglue(size_t *i, int num, t_ltree *sub);
 ** ____________________________________________________________________________
 */
 
-/*
-** File start_pathtree.c
-*/
 
-char					**start_search_in_path(char *find, char *path,
-							int *total, int *max);
-int						save_path_entry(char *name_d, t_path **root, int *len,
-							char *find);
-int						save_builtins(t_path **root, int *len, char *find);
-int						free_path_tree(t_path **root);
-
-/*
-** File insert_leaf_pathtree.c
-*/
-
-int						insert_to_path_tree(char *entry_name,
-							t_path **root, int *len);
-void					init_new_leaf(char *entry_name, t_path **tmp);
-int						insert_new_leaf_to_tree(t_path **root,
-							t_path **new, int *len);
-int						insert_leaf_prev(t_path **current,
-							t_path **parent, t_path **temp, int *len);
-int						insert_leaf_next(t_path **current,
-							t_path **parent, t_path **temp, int *len);
-
-/*
-** File result_pathtree.c
-*/
-
-char					**form_result_array(t_path **root, int len, int *max);
-int						fill_array_from_tree(t_path **root, char **list,
-							int *len, int *max);
-
-// char					*ft_take_path(char *dir_name);
 
 /*
 ** Folder exec_________________________________________________________________

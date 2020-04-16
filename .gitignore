@@ -9,3 +9,4 @@ objs/
 *.42sh_history
 *.DS_Store
 *.vs_code
+*.json

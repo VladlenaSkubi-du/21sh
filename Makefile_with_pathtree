@@ -56,6 +56,7 @@ PARSER = 	$(PARSER_DIR)/before_execution.c \
 			$(PARSER_DIR)/slice_to_blocks.c \
 			$(ASSIGNMENT) \
 			$(EXEC) \
+			$(PATH_TREE_ORDER) \
 			$(QUOTING) \
 			$(REDIRECTION) \
 			$(SUBSTITUTION)
@@ -70,6 +71,12 @@ EXEC = 		$(PARSER_DIR)/$(EXEC_DIR)/exec_init.c \
 			$(PARSER_DIR)/$(EXEC_DIR)/exec_core.c \
 			$(PARSER_DIR)/$(EXEC_DIR)/exec_utils.c \
 			$(PARSER_DIR)/$(EXEC_DIR)/path_parse.c
+
+PATH_TREEORDER_DIR = path_tree_order
+PATH_TREE_ORDER = \
+			$(PARSER_DIR)/$(PATH_TREEORDER_DIR)/insert_leaf_pathtree.c \
+			$(PARSER_DIR)/$(PATH_TREEORDER_DIR)/result_pathtree.c \
+			$(PARSER_DIR)/$(PATH_TREEORDER_DIR)/start_pathtree.c
 
 QUOTING_DIR = quoting
 QUOTING =	$(PARSER_DIR)/$(QUOTING_DIR)/quote_control.c \
@@ -136,9 +143,7 @@ AUTO_COMPLETION = \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/menu_receipt_compl.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/question_if_many_compl.c \
 			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/path_and_cursor_processing_compl.c \
-			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/output_buffer_compl.c \
-			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/insert_and_read_leaf_pathtree.c \
-			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/start_pathtree.c
+			$(READLINE_DIR)/$(AUTO_COMPL_DIR)/output_buffer_compl.c
 
 HISTORY_DIR = history
 HISTORY = 	$(READLINE_DIR)/$(HISTORY_DIR)/start_history.c \
@@ -194,6 +199,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell21.h
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)	
 #_____________________________________________________	
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)
+	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(PATH_TREEORDER_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(EXEC_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(QUOTING_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(ASSIGNMENT_DIR)
