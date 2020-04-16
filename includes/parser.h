@@ -29,6 +29,20 @@ enum					e_way
 	SMALL
 };
 
+/*
+** ____________________________________________________________________________
+*/
+
+typedef	struct			s_cmd
+{
+	char				*cmd;
+	char				*tech;
+	int					len;
+}						t_cmd;
+
+
+
+
 typedef	struct			s_word
 {
 	size_t				start;
@@ -39,19 +53,19 @@ typedef	struct			s_word
 ** Struct to save and work with techline
 */
 
-typedef struct  		s_tech
-{
-   char					*line;
-   size_t				len;
-   size_t				alloc_size;
-}               		t_tech;
+// typedef struct  		s_tech
+// {
+//    char					*line;
+//    size_t				len;
+//    size_t				alloc_size;
+// }               		t_tech;
 
 //TODO to fill
 
 /*
-** @l_cmd is local copy of @g_cmd but cut according
+** @l_cmd is local copy of @g_pline.cmd but cut according
 ** to the block to be executed
-** @l_tline is @g_techline of the @l_cmd
+** @l_tline is @g_pline.tech of the @l_cmd
 ** @start is the index with that block in l_cmd starts
 ** @end is the index with that block in l_cmd ends
 ** @fd is a list where all the fds entered with the command are saved
@@ -72,8 +86,9 @@ typedef struct  		s_tech
 
 typedef struct  		s_ltree
 {
-	char				*l_cmd;
-	t_tech				l_tline;
+	// char				*l_cmd;
+	// t_tech				l_tline;
+	t_cmd				lcmd;
 	size_t				start;
 	size_t				end;
 	t_list				*fd; //на одну команду может быть очень много fd и по грамматике мы должны чистать их по порядку и по порядку перенаправлять
@@ -145,11 +160,13 @@ typedef struct			s_here
 
 /*
 ** Global vars
+** @g_pline is parser line
 */
 
-char					*g_cmd;
-size_t					g_cmd_size;
-t_tech					g_techline;
+t_cmd					g_pline;
+// char					*g_pline.cmd;
+// size_t					g_cmd_size;
+// t_tech					g_techline;
 t_here					g_heredoc;
 t_list					*g_start_list;
 
@@ -159,8 +176,6 @@ t_list					*g_start_list;
 
 int						parser(char *line);
 int						pars_lex_exec(void);
-int						ft_get_techline(char *cmd, t_tech *result);
-char					get_tech_num(char check);
 int						ltree_init(t_ltree *final);
 
 /*
@@ -170,7 +185,7 @@ int						ltree_init(t_ltree *final);
 int 					ft_block_start(t_list **list);
 int						ft_block_foward(t_ltree **sub, t_list **start);
 int						ft_block_add_to_list(t_ltree *block, t_list **list);
-int     				ft_slice_fg(void);
+int     				gramlex_analysis_exec(void);
 int     				ft_slice_bg(size_t *i, t_ltree	*block, t_list **start_list);
 
 /*
@@ -378,19 +393,18 @@ int						ft_find_history(t_ltree *sub);
 ** File quote_control.c
 */
 
-int						nullify(char **techline, size_t size);
-int						nullify_dquotes(char **ptr, t_stack **stack);
-int						nullify_promt_check(t_stack	**stack);
+int						start_quotes(void); //char **techline, size_t cmd_size
+int						quotes_define_prompts(t_stack **stack);
 
 /*
 ** File pre_parsing_work.c
 */
 
 int						pre_parsing_cut_glue(t_ltree *sub);
-int						pre_parsing_squote(size_t *i, t_ltree *sub);
-int						pre_parsing_back(size_t *i, t_ltree *sub);
-int						pre_parsing_andor_pipe(size_t *i, t_ltree *sub);
-int						ft_reglue(size_t *i, int num, t_ltree *sub);
+int						pre_parsing_squote(int *i, t_ltree *sub);
+int						pre_parsing_back(int *i, t_ltree *sub);
+int						pre_parsing_andor_pipe(int *i, t_ltree *sub);
+int						ft_reglue(int *i, int num, t_ltree *sub);
 
 /*
 ** Folder PATH_TREE_ORDER

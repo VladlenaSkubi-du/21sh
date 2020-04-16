@@ -23,7 +23,7 @@ t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final) //блок - от 0 до
 
 t_ltree		*ft_find_pipe(t_ltree *block, t_ltree *final, size_t *i)
 {
-	if (g_techline.line[*i] == PIPE)
+	if (g_pline.tech[*i] == PIPE)
 	{
 		//final->start = block->start;
 		final->end = *i;
@@ -93,24 +93,24 @@ void	ft_lst_ltree_clear(t_list **begin_list)
 
 int		ft_correct_after_andor_pipe(size_t *i)
 {
-	if (g_techline.line[*i] == WORD_P ||
-		g_techline.line[*i] == PIPE ||
-		g_techline.line[*i] == AND ||
-		g_techline.line[*i] == BSLASH ||
-		g_techline.line[*i] == DQUOTE ||
-		g_techline.line[*i] == SQUOTE ||
-		g_techline.line[*i] == OPAREN ||
-		g_techline.line[*i] == CPAREN ||
-		g_techline.line[*i] == OBRACE ||
-		g_techline.line[*i] == CBRACE ||
-		g_techline.line[*i] == OBRACKET ||
-		g_techline.line[*i] == CBRACKET ||
-		g_techline.line[*i] == DOLLAR ||
-		g_techline.line[*i] == TILDA ||
-		g_techline.line[*i] == AST ||
-		g_techline.line[*i] == EQUAL ||
-		g_techline.line[*i] == COMENT ||
-		g_techline.line[*i] == TEXT)
+	if (g_pline.tech[*i] == WORD_P ||
+		g_pline.tech[*i] == PIPE ||
+		g_pline.tech[*i] == AND ||
+		g_pline.tech[*i] == BSLASH ||
+		g_pline.tech[*i] == DQUOTE ||
+		g_pline.tech[*i] == SQUOTE ||
+		g_pline.tech[*i] == OPAREN ||
+		g_pline.tech[*i] == CPAREN ||
+		g_pline.tech[*i] == OBRACE ||
+		g_pline.tech[*i] == CBRACE ||
+		g_pline.tech[*i] == OBRACKET ||
+		g_pline.tech[*i] == CBRACKET ||
+		g_pline.tech[*i] == DOLLAR ||
+		g_pline.tech[*i] == TILDA ||
+		g_pline.tech[*i] == AST ||
+		g_pline.tech[*i] == EQUAL ||
+		g_pline.tech[*i] == COMENT ||
+		g_pline.tech[*i] == TEXT)
 		return (1);
 	return (0);
 }

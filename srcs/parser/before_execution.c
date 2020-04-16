@@ -37,18 +37,18 @@ int		argv_forming(t_ltree *sub)
 	int		count;
 
 	p = sub->start;
-	sub->ar_c = ft_count_words(&(sub->l_tline.line[0]), SPACE,
-				sub->l_tline.len);
+	sub->ar_c = ft_count_words(&(sub->lcmd.tech[0]), SPACE,
+				sub->lcmd.len + 1);
 	sub->ar_v = (char **)ft_xmalloc(sizeof(char *) * (sub->ar_c + 1));
 	i = 0;
 	count = 0;
 	while (count < sub->ar_c)
 	{
-		word = ft_give_me_word(&(sub->l_tline.line[p]), SPACE,
-			sub->l_tline.len - p);
+		word = ft_give_me_word(&(sub->lcmd.tech[p]), SPACE,
+			sub->lcmd.len + 1 - p);
 		word.start += p;
 		(sub->ar_v)[i] = (char *)ft_xmalloc(sizeof(char) * (word.len + 1));
-		ft_memcpy((sub->ar_v)[i], sub->l_cmd + word.start, word.len);
+		ft_memcpy((sub->ar_v)[i], sub->lcmd.cmd + word.start, word.len);
 		p = word.start + word.len;
 		i++;
 		count++;
@@ -79,31 +79,31 @@ t_word	ft_give_me_word(char const *s, char c, size_t len)
 
 int		ft_local_copy_lines(t_ltree *sub, char *cmd, char *tline)
 {
-	sub->l_cmd = ft_strndup(&cmd[sub->start], sub->end - sub->start);
-	sub->l_tline.line = ft_strndup(&tline[sub->start],
+	sub->lcmd.cmd = ft_strndup(&cmd[sub->start], sub->end - sub->start);
+	sub->lcmd.tech = ft_strndup(&tline[sub->start],
 		sub->end - sub->start + 1);
-	sub->l_tline.len = sub->end - sub->start;
-	sub->l_tline.alloc_size = sub->end - sub->start + 1;
+	sub->lcmd.len = sub->end - sub->start;
+	// sub->l_tline.alloc_size = sub->end - sub->start + 1;
 	sub->start = 0;
-	sub->end = sub->l_tline.len;
+	sub->end = sub->lcmd.len;
 	return (0);
 }
 
 int		erroring_andor_pipe(t_ltree *final, size_t *i, size_t bl_end)
 {
-	if (*i == g_techline.len)
+	if (*i == g_pline.len + 1)
 	{
 		final->flags |= ERR_OUT;
 		error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)), "newline");
 		return (OUT);
 	}
-	else if (*i == bl_end || g_techline.line[*i] == PIPE)
+	else if (*i == bl_end || g_pline.tech[*i] == PIPE)
 	{
 		final->err_i = *i;
-		final->err = ft_find_token_sep(&g_cmd[*i]);
+		final->err = ft_find_token_sep(&g_pline.cmd[*i]);
 		final->flags |= ERR_OUT;
 		final->flags |= ERR_REDIR << 16;
-		if (final->err_i < g_techline.len)
+		if (final->err_i < g_pline.len + 1)
 			error_handler((SYNTAX_ERROR | (ERR_REDIR << 9)), final->err);			
 	}
 	g_prompt.prompt_func = main_prompt;

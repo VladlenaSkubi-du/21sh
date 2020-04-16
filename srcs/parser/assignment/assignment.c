@@ -11,16 +11,16 @@ int		assignment(t_ltree *sub)
 	size_t	val;
 
 	eq = 0;
-	while (eq < sub->l_tline.len)
+	while (eq < sub->lcmd.len)
 	{
-		if (sub->l_tline.line[eq] == EQUAL)
+		if (sub->lcmd.tech[eq] == EQUAL)
 		{
 			var = (eq != 0) ? eq - 1 : 0;
 			val = (eq != sub->end) ? eq + 1 : sub->end;
-			while (sub->l_tline.line[var] != SPACE && var != 0)
+			while (sub->lcmd.tech[var] != SPACE && var != 0)
 				var--;
-			(sub->l_tline.line[var] == SPACE) ? var++ : 0;
-			while (sub->l_tline.line[val] != SPACE && val < sub->l_tline.len)
+			(sub->lcmd.tech[var] == SPACE) ? var++ : 0;
+			while (sub->lcmd.tech[val] != SPACE && val < sub->l_tline.len)
 				val++;
 			val--;
 			if (is_it_argv_n(sub, var) == OUT)
@@ -41,20 +41,20 @@ int		get_assign_and_add(t_ltree *sub, size_t *var, size_t *eq, size_t *val)
 	if (*var == *eq)
 		return (it_is_command(sub, &i, var));
 	i = *val + 1;
-	while (i < sub->l_tline.len && sub->l_tline.line[i] == SPACE)
+	while (i < sub->lcmd.len && sub->lcmd.tech[i] == SPACE)
 		i++;
-	if (i == sub->l_tline.len)
+	if (i == sub->lcmd.len)
 	{
 		sub->flags |= ERR_IN;
-		if ((sub->flags |= find_assignment_in_vars(sub->l_cmd,
+		if ((sub->flags |= find_assignment_in_vars(sub->lcmd.cmd,
 			*var, *eq, *val)) & (ERR_OUT))
-			sub->err = ft_strndup(&sub->l_cmd[*var], *eq - *var);
+			sub->err = ft_strndup(&sub->lcmd.cmd[*var], *eq - *var);
 		*eq = *val;
 		return (0);
 	}
 	else
 	{
-		buf = ft_strndup(sub->l_cmd + *var, *val - *var + 1);
+		buf = ft_strndup(sub->lcmd.cmd + *var, *val - *var + 1);
 		add_new_to_exec_env(&(sub->envir), &buf);
 		ft_reglue(var, *val - *var + 1, sub);
 		*eq = *var;
@@ -65,7 +65,7 @@ int		get_assign_and_add(t_ltree *sub, size_t *var, size_t *eq, size_t *val)
 int		it_is_command(t_ltree *sub, size_t *i, size_t *var)
 {
 	*i = sub->start;
-	while (*i < *var && sub->l_tline.line[*i] == SPACE)
+	while (*i < *var && sub->lcmd.tech[*i] == SPACE)
 		(*i)++;
 	if (*i == *var)
 		ft_reglue(i, 1, sub);
@@ -75,7 +75,7 @@ int		it_is_command(t_ltree *sub, size_t *i, size_t *var)
 int		is_it_argv_n(t_ltree *sub, size_t var)
 {
 	var > sub->start ? var-- : 0;
-	while (var > sub->start && sub->l_tline.line[var] == SPACE)
+	while (var > sub->start && sub->lcmd.tech[var] == SPACE)
 		var--;
 	if (var == sub->start)
 		return (0);

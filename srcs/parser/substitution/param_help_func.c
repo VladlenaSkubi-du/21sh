@@ -66,9 +66,9 @@ char	*ft_parsing_str(char *str)
 		buf = (t_ltree *)ft_xmalloc(sizeof(t_ltree));
 		ltree_init(buf);
 		buf->l_cmd = ft_strdup(str);
-		ft_get_techline(buf->l_cmd, &buf->l_tline);
+		buf->l_tline = ft_get_techline(buf->l_cmd, ft_strlen(buf->l_cmd) + 1);
 		buf->end = buf->l_tline.len;
-		nullify(&buf->l_tline.line, buf->l_tline.len);
+		start_quotes(&buf->l_tline.line, buf->l_tline.len);
 		pre_parsing_cut_glue(buf);
 		ft_substitution(buf);
 		ret = buf->l_cmd;

@@ -27,29 +27,29 @@ int		null_here_line(void)
 
 	buf = (t_ltree *)ft_xmalloc(sizeof(t_ltree));
 	ltree_init(buf);
-	buf->l_cmd = ft_strdup(g_cmd);
-	ft_get_techline(buf->l_cmd, &buf->l_tline);
+	buf->lcmd.cmd = ft_strdup(g_pline.cmd);
+	buf->lcmd.tech = ft_make_techline(buf->lcmd.cmd, ft_strlen(buf->lcmd.cmd) + 1);
 	buf->end = buf->l_tline.len;
 	ft_substitution(buf);
-	free(g_cmd);
-	g_cmd = buf->l_cmd;
-	g_cmd_size = buf->l_tline.len;
+	free(g_pline.cmd);
+	g_pline.cmd = buf->l_cmd;
+	g_pline.len = buf->l_tline.len;
 	buf->l_cmd = NULL;
 	ft_one_ltree_clear(buf);
 	g_prompt.prompt_func = heredoc_prompt;
-	if (g_cmd[g_cmd_size - 2] == '\\' && g_cmd[g_cmd_size - 1] == '\n')
+	if (g_pline.cmd[g_pline.len - 3] == '\\' && g_pline.cmd[g_pline.len - 2] == '\n')
 	{
-		g_cmd[g_cmd_size - 2] = '\0';
-		g_cmd[g_cmd_size - 1] = '\0';
+		g_pline.cmd[g_pline.len - 3] = '\0';
+		g_pline.cmd[g_pline.len - 2] = '\0';
 	}
-	add_to_heredoc_buf(&g_heredoc.buf, g_cmd, &g_heredoc.buf_size);
+	add_to_heredoc_buf(&g_heredoc.buf, g_pline.cmd, &g_heredoc.buf_size);
 	return (0);
 }
 
 // int		recover_g_cmd_here(void)
 // {
-// 	clean_parser21();
-// 	g_cmd = ft_strdup(g_heredoc.g_cmd_copy);
+// 	clean_parser();
+// 	g_pline.cmd = ft_strdup(g_heredoc.g_cmd_copy);
 // 	g_cmd_size = g_heredoc.g_len_copy;
 // 	g_techline.line = ft_strdup(g_heredoc.g_cmd_copy);
 // 	g_techline.len = g_heredoc.g_len_copy;

@@ -27,7 +27,7 @@ int				btin_exit(t_ltree *pos)
 	}
 	else
 		status = 0;
-	ft_one_ltree_clear(pos); //почистить все листы
+	// ft_one_ltree_clear(pos); //почистить все листы
 	fill_hist_in_file();
 	clean_everything();
 	exit(status);

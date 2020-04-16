@@ -2,36 +2,36 @@
 #include "parser.h"
 
 /*
-** Simle to remove unused number (num_sym) of symbols by moving end of g_cmd
-** g_techline.line and resizing g_cmd_size and g_techline.len.
+** Simle to remove unused number (num_sym) of symbols by moving end of g_pline.cmd
+** g_pline.tech and resizing g_pline.len and g_pline.len.
 */
 
-int		ft_reglue(size_t *i, int num, t_ltree *sub)
+int		ft_reglue(int *i, int num, t_ltree *sub)
 {
-	size_t	z;
-	size_t	size;
+	int	z;
+	int	size;
 
-	ft_memmove(&(sub->l_cmd[*i]), &(sub->l_cmd[*i + num]),
-	sub->l_tline.len - (*i + num - 1));
-	ft_memmove(&(sub->l_tline.line[*i]), &(sub->l_tline.line[*i + num]),
-	sub->l_tline.len - (*i + num - 1));
-	sub->l_tline.len -= num;
+	ft_memmove(&(sub->lcmd.cmd[*i]), &(sub->lcmd.cmd[*i + num]),
+	sub->lcmd.len - (*i + num - 1));
+	ft_memmove(&(sub->lcmd.tech[*i]), &(sub->lcmd.tech[*i + num]),
+	sub->lcmd.len - (*i + num - 1));
+	sub->lcmd.len -= num;
 	sub->end -= num;
-	z = sub->l_tline.len;
+	z = sub->lcmd.len;
 	size = z + num;
 	while (++z <= size)
 	{
-		sub->l_cmd[z] = '\0';
-		sub->l_tline.line[z] = '\0';
+		sub->lcmd.cmd[z] = '\0';
+		sub->lcmd.tech[z] = '\0';
 	}
 	return (0);
 }
 
-int		pre_parsing_squote(size_t *i, t_ltree *sub)
+int		pre_parsing_squote(int *i, t_ltree *sub)
 {
 	char	*end;
 
-	end = sub->l_tline.line;
+	end = sub->lcmd.tech;
 	if (end[*i] == SQUOTE || end[*i] == DQUOTE)
 	{
 		ft_reglue(i, 1, sub);
@@ -50,11 +50,11 @@ int		pre_parsing_squote(size_t *i, t_ltree *sub)
 int		pre_parsing_cut_glue(t_ltree *sub)
 {
 	char	*end;
-	size_t	i;
+	int		i;
 
 	i = 0;
-	end = sub->l_tline.line;
-	while (i < sub->l_tline.len)
+	end = sub->lcmd.tech;
+	while (i < sub->lcmd.len)
 	{
 		pre_parsing_squote(&i, sub);
 		if (end[i] == ENTER)

@@ -2,7 +2,7 @@
 #include "parser.h"
 
 /*
-** Function to null NUM symbols in g_techline and g_cmd since "i" index
+** Function to null NUM symbols in g_techline and g_pline.cmd since "i" index
 */
 
 int			ft_null_redir(t_ltree *pos, size_t i, long long num)

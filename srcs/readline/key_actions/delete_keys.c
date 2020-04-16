@@ -77,7 +77,7 @@ int					delete_process(void)
 			pos->ar_v[0] = ft_strdup("exit");
 			pos->ar_v[1] = ft_strdup("0");
 			reset_canonical_input();
-			clean_readline21();
+			clean_readline();
 			btin_exit(pos);
 		}
 		if (g_prompt.prompt_func != main_prompt)

@@ -28,9 +28,10 @@ int				clean_everything(void)
 ** All the other cleanings are done within readline function
 */
 
-int				clean_readline21(void)
+int				clean_readline(void)
 {
 	free(g_rline.cmd);
+	g_rline.cmd = NULL;
 	return (0);
 }
 
@@ -39,14 +40,15 @@ int				clean_readline21(void)
 ** @g_start_list is a list that comes to execution of commands
 */
 
-int				clean_parser21(void)
+int				clean_parser(void)
 {
-	if (g_cmd)
-		free(g_cmd);
-	if (g_techline.line)
-		free(g_techline.line);
-	if (g_prompt.prompt_func != heredoc_prompt)
-		ft_lst_ltree_clear(&g_start_list);
+	free(g_pline.cmd);
+	free(g_pline.tech);
+	g_pline.cmd = NULL;
+	g_pline.tech = NULL;
+	g_pline.len = 0;
+	// if (g_prompt.prompt_func != heredoc_prompt)
+	// 	ft_lst_ltree_clear(&g_start_list);
 	return (0);
 }
 

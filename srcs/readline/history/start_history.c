@@ -92,18 +92,22 @@ int				add_to_history(char *cmd)
 		flag = (cmd[0] == EOF) ? EOF : 0;
 		add_other_prompts_history(cmd, flag);
 	}
+	g_hist.counter = g_hist.last + 1;
 	return (0);
 }
 
 int				add_other_prompts_history(char *cmd, int flag)
 {
+	int			i;
+
+	i = -1;
 	if (g_hist.hist[g_hist.last][0] != 0 && flag == 0)
 		g_hist.hist[g_hist.last] =
 			ft_strrejoin(g_hist.hist[g_hist.last], cmd);
-	clean_parser21();
-	g_cmd = ft_strdup(g_hist.hist[g_hist.last]);
-	g_cmd = (flag == EOF) ? ft_straddsy(g_cmd, EOF) : g_cmd;
-	g_cmd_size = ft_strlen(g_cmd);
-	ft_get_techline(g_cmd, &g_techline);
+	clean_parser();
+	g_pline.cmd = ft_strdup(g_hist.hist[g_hist.last]);
+	g_pline.cmd = (flag == EOF) ? ft_straddsy(g_pline.cmd, EOF) : g_pline.cmd;
+	g_pline.len = ft_strlen(g_pline.cmd) + 1;
+	g_pline.tech = ft_make_techline(g_pline.cmd, g_pline.len);
 	return (0);
 }

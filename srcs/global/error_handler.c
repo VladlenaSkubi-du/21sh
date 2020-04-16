@@ -108,14 +108,7 @@ int				options_errors(int status, char *str)
 int				syntax_errors(int status, char *str)
 {
 	if (status >> 9 & ERR_SQUOTE)
-	{
-		ft_putstr_fd("unexpected EOF while looking for matching `", STDERR_FILENO);
-		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd("'", STDERR_FILENO);
-		ft_putstr_fd("21sh: ", STDERR_FILENO);
-		ft_putstr_fd("syntax error: ", STDERR_FILENO);
-		ft_putendl_fd("unexpected end of file", STDERR_FILENO);
-	}
+		ft_putendl_fd("syntax error: unexpected EOF", STDERR_FILENO);
 	if (status >> 9 & ERR_REDIR)
 	{
 		ft_putstr_fd("syntax error near unexpected token `", STDERR_FILENO);
@@ -125,7 +118,7 @@ int				syntax_errors(int status, char *str)
 	if (status >> 9 & ERR_BAD_FD)
 	{
 		ft_putstr_fd(str, STDERR_FILENO);
-		ft_putendl_fd(": Bad file descriptor", STDERR_FILENO);
+		ft_putendl_fd(": bad file descriptor", STDERR_FILENO);
 	}
 	if (status >> 9 & ERR_NUMERIC)
 	{

@@ -1,6 +1,6 @@
 NAME = 21sh
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall #-Werror -Wextra
 FLAGS += -g
 
 #______________________________________________________________________________
@@ -45,20 +45,22 @@ SHELL_VARIABLES = \
 UNIX_FUNCS_DIR = unix_functions
 UNIX_FUNCTIONS = \
 			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_count_words.c \
-			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_find_token.c
+			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_find_token.c \
+			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_make_techline.c
 			
 #______________________________________________________________________________			
 
 PARSER_DIR = parser
-PARSER = 	$(PARSER_DIR)/before_execution.c \
-			$(PARSER_DIR)/find_spec.c \
+PARSER = \
 			$(PARSER_DIR)/parser21.c \
-			$(PARSER_DIR)/slice_to_blocks.c \
-			$(ASSIGNMENT) \
-			$(EXEC) \
-			$(QUOTING) \
-			$(REDIRECTION) \
-			$(SUBSTITUTION)
+			$(PARSER_DIR)/divide_into_blocks.c \
+			$(QUOTING)
+			# $(PARSER_DIR)/before_execution.c \
+			# $(PARSER_DIR)/find_spec.c \
+			# $(ASSIGNMENT) \
+			# $(EXEC) \
+			# $(REDIRECTION) \
+			# $(SUBSTITUTION)
 
 ASSIGNMENT_DIR = assignment
 ASSIGNMENT = \

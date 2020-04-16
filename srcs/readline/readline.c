@@ -33,7 +33,7 @@ int		start_readline21(int tmp)
 	reset_canonical_input();
 	check_menu();
 	final = finalize_cmd(g_rline.cmd);
-	clean_readline21();
+	clean_readline();
 	signals_reroute(2);
 	parser(final);
 	return (0);

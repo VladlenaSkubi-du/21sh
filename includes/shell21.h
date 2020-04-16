@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/09 03:13:50 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/04/16 23:02:45 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,8 @@ int					unset_from_array(char ***arr, int i);
 
 size_t				ft_count_words(char const *s, char c, size_t len);
 char				*ft_find_token_sep(char *str);
+char				*ft_make_techline(char *cmd, int len);
+char				get_tech_num(char check);
 
 /*
 **_____________________________________________________________________________
@@ -204,8 +206,8 @@ int					syntax_errors_files(int status, char *str);
 */
 
 int					clean_everything(void);
-int					clean_readline21(void);
-int					clean_parser21(void);
+int					clean_readline(void);
+int					clean_parser(void);
 int					clean_termcap(void);
 
 /*

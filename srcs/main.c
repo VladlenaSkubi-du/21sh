@@ -40,14 +40,14 @@ int					check_terminal(void)
 	if (!isatty(STDIN_FILENO))
 	{
 		error_handler(TERMINAL_EXISTS, NULL);
-		clean_readline21();
+		clean_readline();
 		clean_everything();
 		exit(TERMINAL_EXISTS);
 	}
 	if (set_noncanonical_input() == -1)
 	{
 		error_handler(TERMINAL_TO_NON, NULL);
-		clean_readline21();
+		clean_readline();
 		clean_everything();
 		exit(TERMINAL_TO_NON);
 	}

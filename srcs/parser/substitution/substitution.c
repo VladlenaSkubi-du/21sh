@@ -31,8 +31,8 @@ int		before_add(t_ltree *sub, t_list **list)
 {
 	int	err;
 	
-	sub->token = ft_find_token_sep(&g_cmd[sub->end]);
-	ft_local_copy_lines(sub, g_cmd, g_techline.line);
+	sub->token = ft_find_token_sep(&g_pline.cmd[sub->end]);
+	ft_local_copy_lines(sub, g_pline.cmd, g_pline.tech);
 	pre_parsing_cut_glue(sub);
 	if ((err = ft_find_redirection(sub)) & ERR_OUT)
 	{
@@ -87,8 +87,8 @@ int     insert_str_in_loc_strs(t_ltree *sub, char **insert, size_t *i, int flag)
 	ft_strcpy(buf + *i + len_ins, sub->l_cmd + *i + 1);
 	free(sub->l_cmd);
 	sub->l_cmd = buf;
-	sub->l_tline.alloc_size += len_ins - 1;
-	buf = (char *)ft_xmalloc(sizeof(char) * (sub->l_tline.alloc_size));
+	// sub->l_tline.alloc_size += len_ins - 1;
+	// buf = (char *)ft_xmalloc(sizeof(char) * (sub->l_tline.alloc_size));
 	ft_memcpy(buf, sub->l_tline.line, *i);
 	(sub->l_tline.len += len_ins - 1) > 0 ? sub->end = sub->l_tline.len : 0;
 	len_ins += *i;
