@@ -25,9 +25,9 @@ int				error_handler(int status, char *str)
 	else if ((status & 0x1FF) == OPTIONS_REQUIRED)
 		options_errors(status, str);
 	else if ((status & 0x1FF) == TERMINAL_EXISTS)
-		ft_putendl_fd("terminal does not exist, use -c flag", STDERR_FILENO);
+		ft_putendl_fd("terminal does not exist", STDERR_FILENO);
 	else if ((status & 0x1FF) == TERMINAL_TO_NON)
-		ft_putendl_fd("terminal can't be changed, use -c flag", STDERR_FILENO);
+		ft_putendl_fd("terminal can't be changed", STDERR_FILENO);
 	else if ((status & 0x1FF) == TERMINAL_TO_CAN)
 		ft_putendl_fd("terminal can't be changed, reset the terminal",
 			STDERR_FILENO); //TODO check
@@ -80,8 +80,6 @@ int				variable_errors(int status, char *str)
 	ft_putstr_fd(str, STDERR_FILENO);
 	if (status >> 9 & ERR_RDONLY)
 		ft_putendl_fd(": readonly variable", STDERR_FILENO);
-	else if (status >> 9 & ERR_HISTORY_NUM)
-		ft_putendl_fd(": history specification out of range", STDERR_FILENO);
 	else if (status >> 9 & ERR_HISTORY_EXEC)
 		ft_putendl_fd(": no command found", STDERR_FILENO);
 	else if (status >> 9 & ERR_UNSET)

@@ -6,7 +6,7 @@
 ** uses address of block, fd in and out and type of redirection input/output
 */
 
-int		add_redir_fd(t_ltree *final, t_fd_redir *redir)
+int		add_redir_fd(t_ltree *final, t_fd_redir *redir) //rename
 {
 	t_list		*new;
 	t_fd_redir	*fd_work;

@@ -2,7 +2,7 @@
 #include "parser.h"
 
 /*
-** Function to detect "[n]>word" n = STDOUT_FILENO- defualt
+** Function to detect "[n]>word"
 */
 
 int		ft_redir_great(t_ltree *final, size_t *i)
@@ -12,7 +12,7 @@ int		ft_redir_great(t_ltree *final, size_t *i)
 
 	f_name = NULL;
 	if (final->l_tline.line[*i] == GTHAN && (final->l_tline.line[*i + 1] != GTHAN &&
-		(final->l_tline.line[*i + 1] != AND)))
+		(final->l_tline.line[*i + 1] != AND || final->l_tline.line[*i + 1] == PIPE)))
 	{
 		fd_open.fd_out = ft_check_n_redir_op(*i, final, STDOUT_FILENO);
 		ft_null_redir(final, *i, 1);
@@ -106,7 +106,7 @@ int		ft_access_check(char **f_name, t_ltree *final, int type)
 	if ((st = access(path, F_OK)) == -1)
 	{
 		free(path);
-		return (final->flags |= ERR_IN | ERR_R | ERR_NO_FILE << 16); // сделать одну ошибку в перенаправлении
+		return (final->flags |= ERR_IN | ERR_R | ERR_NO_FILE << 16);
 	}
 	if ((st = access(path, type)) == -1)
 	{
