@@ -9,8 +9,8 @@
 char				*find_path_compl(char *compl, int tmp)
 {
 	char			*path;
-	size_t			i;
-	size_t			j;
+	int				i;
+	int				j;
 
 	if (g_rline.pos < 1)
 		return (NULL);
@@ -18,11 +18,11 @@ char				*find_path_compl(char *compl, int tmp)
 	{
 		i = g_rline.pos - 1;
 		while (i > 0 && (ft_isalnum(g_rline.cmd[i]) || g_rline.cmd[i] == '.' ||
-			g_rline.cmd[i] == '/' || g_rline.cmd[i] == '_'))
+				g_rline.cmd[i] == '/' || g_rline.cmd[i] == '_'))
 			i--;
 		j = g_rline.pos - 1;
 		while (j > 0 && (ft_isalnum(g_rline.cmd[j])
-			|| g_rline.cmd[j] == '.'))
+			|| g_rline.cmd[j] == '.' || g_rline.cmd[i] == '_'))
 		{
 			if (g_rline.cmd[j] == '/')
 				break ;

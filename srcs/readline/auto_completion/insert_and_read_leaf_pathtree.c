@@ -9,14 +9,14 @@
 */
 
 int				insert_to_path_tree(char *entry_name,
-					t_path **root, int *len)
+					t_pathtree **root, int *len)
 {
-	t_path			*new_leaf;
+	t_pathtree			*new_leaf;
 
-	new_leaf = (t_path*)ft_xmalloc(sizeof(t_path));
+	new_leaf = (t_pathtree*)ft_xmalloc(sizeof(t_pathtree));
 	new_leaf->name = ft_strdup(entry_name);
-	new_leaf->prev = NULL;
-	new_leaf->next = NULL;
+	new_leaf->right = NULL;
+	new_leaf->left = NULL;
 	new_leaf->flag = 0;
 	if (*root == NULL)
 	{
@@ -36,11 +36,11 @@ int				insert_to_path_tree(char *entry_name,
 ** one we are on
 */
 
-int				insert_new_leaf_to_tree(t_path **root,
-					t_path **new_leaf, int *len)
+int				insert_new_leaf_to_tree(t_pathtree **root,
+					t_pathtree **new_leaf, int *len)
 {
-	t_path			*current;
-	t_path			*parent;
+	t_pathtree			*current;
+	t_pathtree			*parent;
 
 	current = *root;
 	while (1)
@@ -53,13 +53,13 @@ int				insert_new_leaf_to_tree(t_path **root,
 		}
 		else if (ft_strcmp((*new_leaf)->name, parent->name) < 0)
 		{
-			if (!(insert_leaf_prev(&current,
+			if (!(insert_leaf_left(&current,
 					&parent, new_leaf, len)))
 				return (0);
 		}
 		else
 		{
-			if (!(insert_leaf_next(&current,
+			if (!(insert_leaf_right(&current,
 					&parent, new_leaf, len)))
 				return (0);
 		}
@@ -74,13 +74,13 @@ int				insert_new_leaf_to_tree(t_path **root,
 ** loop and try to find those current->prev that will be NULL
 */
 
-int				insert_leaf_prev(t_path **current,
-					t_path **parent, t_path **temp, int *len)
+int				insert_leaf_left(t_pathtree **current,
+					t_pathtree **parent, t_pathtree **temp, int *len)
 {
-	*current = (*current)->prev;
+	*current = (*current)->left;
 	if (*current == NULL)
 	{
-		(*parent)->prev = *temp;
+		(*parent)->left = *temp;
 		(*len) += 1;
 		return (0);
 	}
@@ -94,13 +94,13 @@ int				insert_leaf_prev(t_path **current,
 ** loop and try to find those current->next that will be NULL
 */
 
-int				insert_leaf_next(t_path **current, t_path **parent,
-					t_path **temp, int *len)
+int				insert_leaf_right(t_pathtree **current, t_pathtree **parent,
+					t_pathtree **temp, int *len)
 {
-	*current = (*current)->next;
+	*current = (*current)->right;
 	if (*current == NULL)
 	{
-		(*parent)->next = *temp;
+		(*parent)->right = *temp;
 		(*len) += 1;
 		return (0);
 	}
@@ -114,15 +114,15 @@ int				insert_leaf_next(t_path **current, t_path **parent,
 ** And count the maximal program name length among all selected
 */
 
-int				fill_array_from_tree(t_path **root, char **list,
+int				fill_array_from_tree(t_pathtree **root, char **list,
 					int *len, int *max)
 {
-	int			len_word;
+	int					len_word;
 
 	len_word = 0;
 	if (root != NULL && *root != NULL)
 	{
-		fill_array_from_tree(&((*root)->prev), list, len, max);
+		fill_array_from_tree(&((*root)->left), list, len, max);
 		if ((*root)->name != NULL)
 		{
 			list[*len] = ft_strdup((*root)->name);
@@ -130,7 +130,7 @@ int				fill_array_from_tree(t_path **root, char **list,
 			*max = (len_word > *max) ? len_word : *max;
 			(*len)++;
 		}
-		fill_array_from_tree(&((*root)->next), list, len, max);
+		fill_array_from_tree(&((*root)->right), list, len, max);
 	}
 	return (0);
 }

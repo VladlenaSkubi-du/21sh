@@ -86,6 +86,18 @@ typedef struct			s_completion
 	int					i;
 }						t_completion;
 
+/*
+** 
+*/
+
+typedef struct  		s_pathtree
+{
+	char				*name;
+	struct s_pathtree	*right;
+	struct s_pathtree	*left;
+	char				flag;
+}               		t_pathtree;
+
 t_rline					g_rline;
 struct winsize			g_screen;
 t_cap					g_cap;
@@ -312,20 +324,22 @@ int						route_to_arguments(char *compl,
 
 char					**get_variables(char *complete,
 							int *total, int *max_len);
-t_path					*fill_tree_with_variables(char *complete,
+t_pathtree				*fill_tree_with_variables(char *complete,
 							int *total);
 int						insert_variables_to_tree(char *array,
-							char *complete, t_path **root,
+							char *complete, t_pathtree **root,
 							int *total);
 char					**get_arguments(char **complete,
 							int *total, int *max_len);
-t_path					*fill_tree_with_arguments(char *path,
+t_pathtree				*fill_tree_with_arguments(char *path,
 							char *complete, int *total);
 
 /*
 ** File front_part_compl.c
 */
 
+int						insert_word_by_cases_compl(int *delete, int flag,
+							char *menu_word, int compl_len);
 int						print_menu(int pos_back, char **menu,
 							int total, int max_len);
 int						print_menu_buf_after_insert(int pos_back);
@@ -373,25 +387,25 @@ void					buf_add(char *str, int size);
 
 char					**start_search_in_path(char *find, char *path,
 							int *total, int *max);
-int						save_path_entry(char *name_d, t_path **root, int *len,
+int						save_path_entry(char *name_d, t_pathtree **root, int *len,
 							char *find);
-int						save_builtins(t_path **root, int *len, char *find);
-char					**form_result_array(t_path **root, int len, int *max);
-int						free_path_tree(t_path **root);
+int						save_builtins(t_pathtree **root, int *len, char *find);
+char					**form_result_array(t_pathtree **root, int len, int *max);
+int						free_path_tree(t_pathtree **root);
 
 /*
 ** File insert_and_read_leaf_pathtree.c
 */
 
 int						insert_to_path_tree(char *entry_name,
-							t_path **root, int *len);
-int						insert_new_leaf_to_tree(t_path **root,
-							t_path **new_leaf, int *len);
-int						insert_leaf_prev(t_path **current,
-							t_path **parent, t_path **temp, int *len);
-int						insert_leaf_next(t_path **current,
-							t_path **parent, t_path **temp, int *len);
-int						fill_array_from_tree(t_path **root, char **list,
+							t_pathtree **root, int *len);
+int						insert_new_leaf_to_tree(t_pathtree **root,
+							t_pathtree **new_leaf, int *len);
+int						insert_leaf_left(t_pathtree **current,
+							t_pathtree **parent, t_pathtree **temp, int *len);
+int						insert_leaf_right(t_pathtree **current,
+							t_pathtree **parent, t_pathtree **temp, int *len);
+int						fill_array_from_tree(t_pathtree **root, char **list,
 							int *len, int *max);
 
 /*

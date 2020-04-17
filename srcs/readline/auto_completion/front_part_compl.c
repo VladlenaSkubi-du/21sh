@@ -99,3 +99,25 @@ int					clean_menu_buf(void)
 	g_menu_buf.buffer = NULL;
 	return (0);
 }
+
+int					insert_word_by_cases_compl(int *delete, int flag,
+						char *menu_word, int compl_len)
+{
+	int				i;
+	int				space;
+	
+	i = -1;
+	space = 0;
+	while (++i < *delete - flag)
+	{
+		if (menu_word[compl_len + i] == ' ')
+		{
+			char_add('\\', NULL);
+			space++;
+		}
+		char_add(menu_word[compl_len + i], NULL);
+	}
+	(flag > 0) ? char_add('}', NULL) : 0;
+	*delete += space;
+	return (0);
+}

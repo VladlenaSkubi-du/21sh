@@ -101,9 +101,9 @@ int					route_to_arguments(char *compl, int i, int *pool)
 		return (i);
 	*pool = 3;
 	while (i > 0 && (ft_isalnum(compl[i]) ||
-		compl[i] == '/' || compl[i] == '_'))
+			compl[i] == '/' || compl[i] == '_'))
 		i--;
-	if (compl[i] == ' ')
+	if (i > 0 && compl[i] == ' ' && compl[i - 1] != '\\')
 		return (i + 1);
 	return (-1);
 }

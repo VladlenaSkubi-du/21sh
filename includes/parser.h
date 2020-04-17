@@ -41,8 +41,6 @@ typedef	struct			s_cmd
 }						t_cmd;
 
 
-
-
 typedef	struct			s_word
 {
 	size_t				start;
@@ -126,18 +124,6 @@ typedef struct  		s_block
 	struct s_block		*up;
 	char				flag;
 }               		t_block;
-
-/*
-** Struct to save and work with PATH
-*/
-
-typedef struct  		s_path
-{
-	char				*name;
-	struct s_path		*next;
-	struct s_path		*prev;
-	char				flag;
-}               		t_path;
 
 /*
 ** Struct to save and work with here-docs

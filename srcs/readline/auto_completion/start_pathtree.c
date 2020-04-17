@@ -16,7 +16,7 @@
 char			**start_search_in_path(char *find, char *path,
 					int *total, int *max)
 {
-	t_path			*root;
+	t_pathtree		*root;
 	char			**list;
 	int				len;
 	int				i;
@@ -44,7 +44,7 @@ char			**start_search_in_path(char *find, char *path,
 ** Go through builtin-global and save all the builtin names to tree
 */
 
-int				save_builtins(t_path **root, int *len, char *find)
+int				save_builtins(t_pathtree **root, int *len, char *find)
 {
 	int				i;
 	int				find_len;
@@ -64,8 +64,8 @@ int				save_builtins(t_path **root, int *len, char *find)
 ** If path can be open, reading its content and saving to tree
 */
 
-int				save_path_entry(char *dir_path, t_path **root, int *len,
-					char *find)
+int				save_path_entry(char *dir_path,
+					t_pathtree **root, int *len, char *find)
 {
 	DIR				*dir_name;
 	struct dirent	*entry;
@@ -84,7 +84,7 @@ int				save_path_entry(char *dir_path, t_path **root, int *len,
 	return (0);
 }
 
-char			**form_result_array(t_path **root, int len, int *max)
+char			**form_result_array(t_pathtree **root, int len, int *max)
 {
 	char		**list;
 	int			l;
@@ -95,13 +95,13 @@ char			**form_result_array(t_path **root, int len, int *max)
 	return (list);
 }
 
-int				free_path_tree(t_path **root)
+int				free_path_tree(t_pathtree **root)
 {
 	if (root != NULL && *root != NULL)
 	{
-		free_path_tree(&((*root)->next));
+		free_path_tree(&((*root)->right));
 		free((*root)->name);
-		free_path_tree(&((*root)->prev));
+		free_path_tree(&((*root)->left));
 		free(*root);
 	}
 	return (0);

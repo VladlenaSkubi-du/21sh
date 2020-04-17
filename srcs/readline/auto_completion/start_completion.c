@@ -72,7 +72,7 @@ int					auto_completion(void)
 char				**route_by_prompts(int *total, int *max_len)
 {
 	char			**menu;
-	t_path			*root;
+	t_pathtree		*root;
 
 	if (g_prompt.prompt_func == main_prompt)
 		menu = start_search_in_path("", path_parse_compl(),
@@ -147,7 +147,6 @@ int					insert_word_compl(void)
 	int				len_option;
 	int				counter;
 	int				flag;
-	int				i;
 
 	flag = 0;
 	(g_delete > 0) ? delete_till_compl(g_delete) : 0;
@@ -161,10 +160,7 @@ int					insert_word_compl(void)
 		len_option = ((flag == 1) ? ft_strlen(g_menu[counter]) + 1 :
 			ft_strlen(g_menu[counter]));
 		g_delete = len_option - g_len_compl;
-		i = -1;
-		while (++i < g_delete - flag)
-			char_add(g_menu[counter][g_len_compl + i], NULL);
-		(flag > 0) ? char_add('}', NULL) : 0;
+		insert_word_by_cases_compl(&g_delete, flag, g_menu[counter], g_len_compl);
 		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
 		print_menu_buf_after_insert(g_rline.pos);
 	}

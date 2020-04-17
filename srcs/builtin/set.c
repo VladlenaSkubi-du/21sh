@@ -1,7 +1,7 @@
 #include "shell21.h"
 #include "builtin.h"
 
-static int	sorting_vars(t_path **root, int *len)
+static int	sorting_vars(t_pathtree **root, int *len)
 {
 	int		i;
 	int		li;
@@ -25,7 +25,7 @@ static int	sorting_vars(t_path **root, int *len)
 
 int			btin_set(void)
 {
-	t_path	*root;
+	t_pathtree	*root;
 	char	**list;
 	int		len;
 	int 	max;
