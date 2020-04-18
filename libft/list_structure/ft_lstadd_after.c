@@ -1,26 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_lstadd_after.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/05 13:22:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/17 20:39:58 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/04/17 21:50:11 by vladlenasku       #+#    #+#             */
+/*   Updated: 2020/04/17 21:50:16 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_lstiter(t_list *lst, void (*f)(t_list *elem))
+void		ft_lstadd_after(t_list **current, t_list *new)
 {
-	if (lst && f)
-	{
-		while (lst->next)
-		{
-			f(lst);
-			lst = lst->next;
-		}
-		f(lst);
-	}
+	t_list	*after;
+
+	after = (*current)->next;
+	(*current)->next = new;
+	new->next = after;
 }

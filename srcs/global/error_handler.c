@@ -107,7 +107,7 @@ int				options_errors(int status, char *str)
 
 int				syntax_errors(int status, char *str)
 {
-	if (status >> 9 & ERR_SQUOTE)
+	if (status >> 9 & ERR_QUOTE)
 		ft_putendl_fd("syntax error: unexpected EOF", STDERR_FILENO);
 	if (status >> 9 & ERR_REDIR)
 	{

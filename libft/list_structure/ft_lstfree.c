@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_lstfree.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/05 13:22:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/17 20:39:58 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/04/17 21:49:56 by vladlenasku       #+#    #+#             */
+/*   Updated: 2020/04/17 21:51:20 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_lstiter(t_list *lst, void (*f)(t_list *elem))
+void			ft_lstfree(t_list **head)
 {
-	if (lst && f)
+	t_list		*runner;
+
+	runner = *head;
+	while (runner)
 	{
-		while (lst->next)
-		{
-			f(lst);
-			lst = lst->next;
-		}
-		f(lst);
+		free(runner->content);
+		runner->content = NULL;
+		runner = runner->next;
 	}
+	*head = NULL;
 }

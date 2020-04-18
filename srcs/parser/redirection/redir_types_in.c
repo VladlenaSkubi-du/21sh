@@ -117,7 +117,7 @@ int		ft_heredoc_form(t_fd_redir *fd_open, char **f_name, t_ltree *final,
 		g_heredoc.stop.stop_w = *f_name;
 		g_heredoc.stop.fd = fd_open->fd_in;
 		g_heredoc.stop.flag = flag;
-		ft_add_list_to_end(&(g_heredoc.list),
+		ft_lstadd_to_end(&(g_heredoc.list),
 			ft_lstnew(&g_heredoc.stop, sizeof(t_stop)));
 	}
 	return (0);

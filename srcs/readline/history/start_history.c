@@ -98,16 +98,16 @@ int				add_to_history(char *cmd)
 
 int				add_other_prompts_history(char *cmd, int flag)
 {
-	int			i;
+	int			len;
 
-	i = -1;
 	if (g_hist.hist[g_hist.last][0] != 0 && flag == 0)
 		g_hist.hist[g_hist.last] =
 			ft_strrejoin(g_hist.hist[g_hist.last], cmd);
-	clean_parser();
-	g_pline.cmd = ft_strdup(g_hist.hist[g_hist.last]);
-	g_pline.cmd = (flag == EOF) ? ft_straddsy(g_pline.cmd, EOF) : g_pline.cmd;
-	g_pline.len = ft_strlen(g_pline.cmd) + 1;
-	g_pline.tech = ft_make_techline(g_pline.cmd, g_pline.len);
+	g_pline = (t_cmd*)ft_xmalloc(sizeof(t_cmd));
+	g_pline->cmd = ft_strdup(g_hist.hist[g_hist.last]);
+	g_pline->cmd = (flag == EOF) ? ft_straddsy(g_pline->cmd, EOF) : g_pline->cmd;
+	len = ft_strlen(g_pline->cmd);
+	g_pline->tech = ft_make_techline(g_pline->cmd, len);
+	g_pline->len_tech = len + 1;
 	return (0);
 }

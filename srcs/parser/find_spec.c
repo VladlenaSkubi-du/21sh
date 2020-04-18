@@ -5,7 +5,7 @@
 ** Func to find another subblocks
 */
 
-t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final) //блок - от 0 до ;, а файнал, если я ничего не нашла, такой же, если я нашла пайп, то end final сместится на индекс пайпа
+t_ltree		*ft_find_logic(t_ltree *block, t_ltree *final)
 {
 	size_t		i;
 

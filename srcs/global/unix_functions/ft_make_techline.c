@@ -33,7 +33,7 @@ char		*ft_make_techline(char *cmd, int len)
 	char	*techline;
 
 	i = 0;
-	techline = (char*)ft_xmalloc(len + 1);
+	techline = (char*)ft_xmalloc(len + 2);
 	while (cmd[i])
 	{
 		techline[i] = get_tech_num(cmd[i]);
@@ -41,6 +41,6 @@ char		*ft_make_techline(char *cmd, int len)
 	}
 	techline[i] = END_T;
 	// result->len = i;
-	// // result->alloc_size = i + 2;
-	return (0);
+	// result->alloc_size = i + 2;
+	return (techline);
 }

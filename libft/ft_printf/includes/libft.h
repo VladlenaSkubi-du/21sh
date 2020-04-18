@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 11:48:24 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 14:49:53 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/04/17 21:52:14 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstlast(t_list **begin_list);
 int					ft_lstsize(t_list *begin_list);
+void				ft_lstadd_after(t_list **current, t_list *new);
+void				ft_lstfree(t_list **head);
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *s1);
 int					ft_strcmp(const char *s1, const char *s2);
@@ -121,7 +123,7 @@ void				swap_ints(int *a, int *b);
 int					ft_issign(char c);
 char				*ft_straddsy(char *dest, char sy);
 int					ft_strrchri(char *s, int c);
-void				ft_add_list_to_end(t_list **start,
+void				ft_lstadd_to_end(t_list **start,
 						t_list *new_list);
 char				**ft_realloc_array(char ***subj, int len_subj,
 						int len_needed);

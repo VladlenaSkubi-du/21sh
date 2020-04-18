@@ -1,6 +1,6 @@
 NAME = 21sh
 
-FLAGS = -Wall #-Werror -Wextra
+FLAGS = -Wall -Wextra #-Werror
 FLAGS += -g
 
 #______________________________________________________________________________
@@ -53,8 +53,12 @@ UNIX_FUNCTIONS = \
 PARSER_DIR = parser
 PARSER = \
 			$(PARSER_DIR)/parser21.c \
-			$(PARSER_DIR)/divide_into_blocks.c \
-			$(QUOTING)
+			$(PARSER_DIR)/quote_control.c \
+			$(PARSER_DIR)/grammar_analysis.c \
+			$(PARSER_DIR)/parser_processing.c \
+			$(PARSER_DIR)/start_redirections.c \
+			$(PARSER_DIR)/heredoc_processing.c
+			#$(QUOTING)
 			# $(PARSER_DIR)/before_execution.c \
 			# $(PARSER_DIR)/find_spec.c \
 			# $(ASSIGNMENT) \

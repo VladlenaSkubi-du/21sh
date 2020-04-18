@@ -6,7 +6,7 @@
 #    By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:34:17 by sschmele          #+#    #+#              #
-#    Updated: 2020/04/10 21:38:13 by vladlenasku      ###   ########.fr        #
+#    Updated: 2020/04/17 21:52:41 by vladlenasku      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,9 @@ LIST_STRUCTURE = ./list_structure/ft_lstadd.c \
 	./list_structure/ft_lstmap.c \
 	./list_structure/ft_lstnew.c \
 	./list_structure/ft_lstadd_to_end.c \
-	./list_structure/ft_lstsize.c
+	./list_structure/ft_lstsize.c \
+	./list_structure/ft_lstadd_after.c \
+	./list_structure/ft_lstfree.c
 
 MALLOC_FUNCTIONS = ./malloc_functions/ft_itoa.c \
 	./malloc_functions/ft_itoa_base.c \

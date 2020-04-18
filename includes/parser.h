@@ -37,8 +37,77 @@ typedef	struct			s_cmd
 {
 	char				*cmd;
 	char				*tech;
-	int					len;
+	int					len_tech;
 }						t_cmd;
+
+typedef struct			s_pblks
+{
+	t_cmd				*lcmd;
+	int					beg;
+	int					end;
+	t_list				*fd;
+	char				*err;
+	int					flag;
+}						t_pblks;
+
+t_cmd					*g_pline;
+t_list					*g_grblks;
+
+/*
+** ____________________________________________________________________________
+*/
+
+/*
+** File parser21.c
+*/
+
+int					parser(char *line);
+int					prepare_parser(char *line);
+int					slice_by_scolons(void);
+int					slice_by_pipes_cycle(void);
+int					slice_by_pipes(t_list **current, int beg, int end,
+						t_pblks *ptr_block_cont);
+
+
+/*
+** File quote_control.c
+*/
+
+int					start_quotes(char *techline);
+int					quotes_make_text_inside(t_stack **stack,
+						int i, char *techline);
+int					quotes_define_prompts(t_stack **stack);
+
+/*
+** File grammar_analysis.c
+*/
+
+int					gramlex_analysis(void);
+int					delete_quotes_from_line(t_pblks *ptr_block_cont);
+
+/*
+** File parser_processing.c
+*/
+
+t_cmd				*init_parser_line(char *line);
+int					delete_symbols_from_parser_line(t_cmd **pline,
+						int i, int num);
+t_list				*create_new_list(void);
+void				bzero_grammar_block(t_pblks *block);
+void				free_parser_blocks(t_list **head);
+void				print_all_lists(void);
+
+/*
+** File heredoc_processing.c
+*/
+
+int					check_heredoc_closure(void);
+
+/*
+** File start_redirections.c
+*/
+
+int					check_redirections(t_list **current);
 
 
 typedef	struct			s_word
@@ -110,22 +179,6 @@ typedef struct  		s_fd
 }              			t_fd_redir;
 
 /*
-** Struct to save and work with env
-** flag needs to know main list
-*/
-
-typedef struct  		s_block
-{
-	char				*name;
-	char				*path;
-	struct s_block		*next;
-	struct s_block		*prev;
-	struct s_block		*down;
-	struct s_block		*up;
-	char				flag;
-}               		t_block;
-
-/*
 ** Struct to save and work with here-docs
 */
 
@@ -149,20 +202,10 @@ typedef struct			s_here
 ** @g_pline is parser line
 */
 
-t_cmd					g_pline;
 // char					*g_pline.cmd;
 // size_t					g_cmd_size;
 // t_tech					g_techline;
 t_here					g_heredoc;
-t_list					*g_start_list;
-
-/*
-** File parser.c
-*/
-
-int						parser(char *line);
-int						pars_lex_exec(void);
-int						ltree_init(t_ltree *final);
 
 /*
 ** File slice_to_blocks.c
@@ -171,7 +214,7 @@ int						ltree_init(t_ltree *final);
 int 					ft_block_start(t_list **list);
 int						ft_block_foward(t_ltree **sub, t_list **start);
 int						ft_block_add_to_list(t_ltree *block, t_list **list);
-int     				gramlex_analysis_exec(void);
+int     				slice_by_scolons(void);
 int     				ft_slice_bg(size_t *i, t_ltree	*block, t_list **start_list);
 
 /*
@@ -256,7 +299,7 @@ int						ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
 ** File here_doc.c
 */
 
-int						ft_check_is_heredoc(int	ret);
+int						check_heredoc_closure(void);
 int						ft_check_heredoc_end(void);
 int						ft_heredoc_fill(int ret);
 int						ft_heredoc_rem(void);
@@ -379,8 +422,7 @@ int						ft_find_history(t_ltree *sub);
 ** File quote_control.c
 */
 
-int						start_quotes(void); //char **techline, size_t cmd_size
-int						quotes_define_prompts(t_stack **stack);
+
 
 /*
 ** File pre_parsing_work.c

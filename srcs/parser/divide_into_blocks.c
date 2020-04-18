@@ -23,7 +23,7 @@ int		ft_block_add_to_list(t_ltree *block, t_list **list)
 	// 		return (OUT);
 	// 	// if (ft_check_null(final, list) == OUT)
 	// 	// 	return (OUT);		
-	// 	ft_add_list_to_end(list, ft_lstnew(final, sizeof(t_ltree)));
+	// 	ft_lstadd_to_end(list, ft_lstnew(final, sizeof(t_ltree)));
 	// 	ltree_init(final);
 	// }
 	// free(final);

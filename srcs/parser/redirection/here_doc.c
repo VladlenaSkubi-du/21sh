@@ -5,7 +5,7 @@
 ** It needs to check must to go to here-doc mode or not. If not - starts exe
 */
 
-int		ft_check_is_heredoc(int ret)
+int		check_heredoc_closure(void)
 {
 	if (g_heredoc.list != NULL && g_prompt.prompt_func != heredoc_prompt)
 	{

@@ -42,13 +42,13 @@ int				clean_readline(void)
 
 int				clean_parser(void)
 {
-	free(g_pline.cmd);
-	free(g_pline.tech);
-	g_pline.cmd = NULL;
-	g_pline.tech = NULL;
-	g_pline.len = 0;
-	// if (g_prompt.prompt_func != heredoc_prompt)
-	// 	ft_lst_ltree_clear(&g_start_list);
+	free(g_pline->cmd);
+	free(g_pline->tech);
+	g_pline->cmd = NULL;
+	g_pline->tech = NULL;
+	g_pline->len_tech = 0;
+	free(g_pline);
+	g_pline = NULL;
 	return (0);
 }
 
