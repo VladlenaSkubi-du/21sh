@@ -2,32 +2,22 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# define HEREDOC_BUF 200
+# define HEREDOC_BUF	200
 
 /*
-** Defines for FLAGS
+** Defines for flags
 */
 
-# define PIPED_OUT		0x00000001U 
-# define PIPED_IN		0x00000002U
-# define ERR_IN			0x40000000U
-# define ERR_R			0x20000000U
-# define ERR_OUT		0x10000000U
+# define PIPED_OUT		0x1 
+# define PIPED_IN		0x2
 
-enum					e_way
-{
-	REW,
-	FF,
-	IN_R,
-	OUT_R,
-	CLOSE = -42,
-	MINUS = 5,
-	CONTINUE,
-	LINE,
-	ASSIGN,
-	LARGE,
-	SMALL
-};
+# define REDIR_HARD		0x4
+# define REDIR_SOFT		0x8
+# define CLOSE			0x10
+
+// # define ERR_IN			0x40000000U
+// # define ERR_R			0x20000000U
+// # define ERR_OUT		0x10000000U
 
 /*
 ** ____________________________________________________________________________
@@ -46,9 +36,17 @@ typedef struct			s_pblks
 	int					beg;
 	int					end;
 	t_list				*fd;
-	char				*err;
+	int					err;
 	int					flag;
 }						t_pblks;
+
+typedef struct  		s_fd
+{
+	int					fd_out;
+	int					fd_in;
+	char				*file;
+	int					flag;
+}              			t_fd;
 
 t_cmd					*g_pline;
 t_list					*g_grblks;
@@ -83,8 +81,10 @@ int					quotes_define_prompts(t_stack **stack);
 */
 
 int					gramlex_analysis(void);
-int					delete_quotes_from_line(t_pblks *ptr_block_cont);
-
+int					delete_quotes_from_line(t_pblks **current_cont,
+						t_cmd **ptr_lcmd);
+int					check_redirections(t_pblks **current_cont,
+						t_cmd **ptr_lcmd);
 /*
 ** File parser_processing.c
 */
@@ -98,17 +98,55 @@ void				free_parser_blocks(t_list **head);
 void				print_all_lists(void);
 
 /*
+** File redirections.c
+*/
+
+int					redir_inand(t_pblks **current_cont,
+						t_cmd **ptr_lcmd, int *i);
+int					redir_in(t_pblks **current_cont,
+						t_cmd **ptr_lcmd, int *i);
+int					redir_outout(t_pblks **current_cont,
+						t_cmd **ptr_lcmd, int *i);
+int					redir_outand(t_pblks **current_cont,
+						t_cmd **ptr_lcmd, int *i);
+int					redir_out(t_pblks **current_cont,
+						t_cmd **ptr_lcmd, int *i);
+
+/*
+** File redirection_processing.c
+*/
+
+void				bzero_fd_block(t_fd *fd_block);
+int					find_fdbefore_redir(t_cmd **ptr_lcmd,
+						t_fd *fd_inout, int *i);
+int					find_fdafter_redir(t_cmd **ptr_lcmd,
+						t_fd *fd_inout, int *i, char flag);
+t_list				*add_redir_to_block(t_pblks **current_cont, t_fd fd_inout);
+int					activate_redir_error(t_pblks **current_cont, int fd_flag);
+int					free_fd_blocks(t_pblks **current_cont); //MOVE
+
+/*
 ** File heredoc_processing.c
 */
 
+int					redir_heredoc(t_pblks **current_cont,
+						t_cmd **ptr_lcmd, int *i);
 int					check_heredoc_closure(void);
 
-/*
-** File start_redirections.c
-*/
-
-int					check_redirections(t_list **current);
-
+// enum					e_way
+// {
+// 	REW,
+// 	FF,
+// 	IN_R,
+// 	OUT_R,
+// 	CLOSE = -42,
+// 	MINUS = 5,
+// 	CONTINUE,
+// 	LINE,
+// 	ASSIGN,
+// 	LARGE,
+// 	SMALL
+// };
 
 typedef	struct			s_word
 {
@@ -172,11 +210,7 @@ typedef struct  		s_ltree
 ** Struct needs for list of redirections before exec
 */
 
-typedef struct  		s_fd
-{
-	int					fd_out;
-	int					fd_in;
-}              			t_fd_redir;
+
 
 /*
 ** Struct to save and work with here-docs
@@ -253,67 +287,67 @@ int						ft_tmpfile(void);
 ** File redirect.c
 */
 
-int						ft_find_redirection(t_ltree *final);
-char					*ft_word_to_redir(size_t *i, t_ltree *final,
-							int rew_ff);
-int						ft_word_to_redir_rew(size_t *i, t_ltree *final,
-						long long *size, size_t *start);
-int						ft_null_redir(t_ltree *pos, size_t i, long long num);
-int						ft_error_redir(t_ltree *final);
+// int						ft_find_redirection(t_ltree *final);
+// char					*ft_word_to_redir(size_t *i, t_ltree *final,
+// 							int rew_ff);
+// int						ft_word_to_redir_rew(size_t *i, t_ltree *final,
+// 						long long *size, size_t *start);
+// int						ft_null_redir(t_ltree *pos, size_t i, long long num);
+// int						ft_error_redir(t_ltree *final);
 
 /*
 ** File redir_types_out.c
 */
 
-int						ft_redir_great(t_ltree *final, size_t *i);
-int						ft_redir_dgreat(t_ltree *final, size_t *i);
-int						ft_redir_greatand(t_ltree *final, size_t *i);
-int						ft_access_check(char **f_name, t_ltree *final,
-							int type);
+// int						ft_redir_great(t_ltree *final, size_t *i);
+// int						ft_redir_dgreat(t_ltree *final, size_t *i);
+// int						ft_redir_greatand(t_ltree *final, size_t *i);
+// int						ft_access_check(char **f_name, t_ltree *final,
+// 							int type);
 
 
 /*
 ** File redir_types_in.c
 */
 
-int						ft_redir_less(t_ltree *final, size_t *i);
-int						ft_redir_dless(t_ltree *final, size_t *i);
-int						ft_redir_dless_min(t_ltree *final, size_t *i);
-int						ft_redir_lessand(t_ltree *final, size_t *i);
-int						ft_heredoc_form(t_fd_redir *fd_open, char **f_name,
-						t_ltree *final, int flag);
+// int						ft_redir_less(t_ltree *final, size_t *i);
+// int						ft_redir_dless(t_ltree *final, size_t *i);
+// int						ft_redir_dless_min(t_ltree *final, size_t *i);
+// int						ft_redir_lessand(t_ltree *final, size_t *i);
+// int						ft_heredoc_form(t_fd_redir *fd_open, char **f_name,
+// 						t_ltree *final, int flag);
 
 /*
 ** File fd_block.c
 */
 
-int						add_redir_fd(t_ltree *final, t_fd_redir *redir);
-int						ft_check_n_redir_op(size_t i, t_ltree *final, int std);
-int						ft_check_redir_op_n(char *find, int std);
-int						ft_num_or_word_out(char **f_name, t_fd_redir *fd_open,
-							t_ltree *final);
-int						ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
-							t_ltree *final);
+// int						add_redir_fd(t_ltree *final, t_fd_redir *redir);
+// int						ft_check_n_redir_op(size_t i, t_ltree *final, int std);
+// int						ft_check_redir_op_n(char *find, int std);
+// int						ft_num_or_word_out(char **f_name, t_fd_redir *fd_open,
+// 							t_ltree *final);
+// int						ft_num_or_word_in(char **f_name, t_fd_redir *fd_open,
+// 							t_ltree *final);
 
 /*
 ** File here_doc.c
 */
 
-int						check_heredoc_closure(void);
-int						ft_check_heredoc_end(void);
-int						ft_heredoc_fill(int ret);
-int						ft_heredoc_rem(void);
-int						ft_g_init_heredoc(void);
+// int						check_heredoc_closure(void);
+// int						ft_check_heredoc_end(void);
+// int						ft_heredoc_fill(int ret);
+// int						ft_heredoc_rem(void);
+// int						ft_g_init_heredoc(void);
 
 /*
 ** File here_doc_buffer.c
 */
 
-int						add_to_heredoc_buf(char ***array, char *add,
-						int *buf_size);
-int						null_here_line(void);
-int						recover_g_cmd_here(void);
-int						here_tab_remove(char **line);
+// int						add_to_heredoc_buf(char ***array, char *add,
+// 						int *buf_size);
+// int						null_here_line(void);
+// int						recover_g_cmd_here(void);
+// int						here_tab_remove(char **line);
 
 /*
 ** Folder assignment__________________________________________________________

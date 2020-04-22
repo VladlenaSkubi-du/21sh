@@ -7,26 +7,26 @@
 
 int		ft_block_add_to_list(t_ltree *block, t_list **list)
 {
-	// t_ltree	*final;
+	t_ltree	*final;
 
-	// final = (t_ltree *)ft_xmalloc(sizeof(t_ltree));
-	// while (ft_check_andor_pipes(block, final))
-	// {
-	// 	if (final->flags & ERR_OUT)
-	// 	{
-	// 		ft_one_ltree_clear(final);
-	// 		ft_lst_ltree_clear(list);
-	// 		return (OUT);
-	// 	}
-	// 	block->start = final->end + 1;
-	// 	if (before_add(final, list) == OUT)
-	// 		return (OUT);
-	// 	// if (ft_check_null(final, list) == OUT)
-	// 	// 	return (OUT);		
-	// 	ft_lstadd_to_end(list, ft_lstnew(final, sizeof(t_ltree)));
-	// 	ltree_init(final);
-	// }
-	// free(final);
+	final = (t_ltree *)ft_xmalloc(sizeof(t_ltree));
+	while (ft_check_andor_pipes(block, final))
+	{
+		if (final->flags & ERR_OUT)
+		{
+			ft_one_ltree_clear(final);
+			ft_lst_ltree_clear(list);
+			return (OUT);
+		}
+		block->start = final->end + 1;
+		if (before_add(final, list) == OUT)
+			return (OUT);
+		// if (ft_check_null(final, list) == OUT)
+		// 	return (OUT);		
+		ft_lstadd_to_end(list, ft_lstnew(final, sizeof(t_ltree)));
+		ltree_init(final);
+	}
+	free(final);
 	return (0);
 }
 

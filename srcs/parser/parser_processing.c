@@ -88,32 +88,31 @@ void			bzero_grammar_block(t_pblks *block)
 	block->beg = 0;
 	block->end = 0;
 	block->fd = NULL;
-	block->err = NULL; //question
-	block->flag = 0;
+	block->err = 0;
+	block->flag = 0; //question
 }
 
 void			free_parser_blocks(t_list **head)
 {
 	t_list		*runner;
+	t_list		*tmp;
 	t_pblks		*ptr_cont;
 	t_cmd		*ptr_lcmd;
 
 	runner = *head;
 	while (runner)
 	{
-		ptr_cont = runner->content;
+		tmp = runner;
+		runner = runner->next;
+		ptr_cont = tmp->content;
 		ptr_lcmd = ptr_cont->lcmd;
 		free(ptr_lcmd->cmd);
 		free(ptr_lcmd->tech);
-		ptr_lcmd->cmd = NULL;
-		ptr_lcmd->tech = NULL;
-		ptr_lcmd->len_tech = 0;
 		free(ptr_lcmd);
 		ptr_lcmd = NULL;
-		ft_lstfree(&ptr_cont->fd);
+		free_fd_blocks(&ptr_cont);
 		free(ptr_cont);
 		ptr_cont = NULL;
-		runner = runner->next;
 	}
 	*head = NULL;
 }

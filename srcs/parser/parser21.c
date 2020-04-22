@@ -23,10 +23,18 @@ int			parser(char *line)
 		{
 			slice_by_scolons();
 			slice_by_pipes_cycle();
-			gramlex_analysis();
+			if (gramlex_analysis() == OUT)
+			{
+				error_handler(SYNTAX_ERROR | ERR_REDIR, NULL);
+				check_heredoc_closure();
+			}
+			else
+			{
+				check_heredoc_closure();
+				// prepare_and_exec();
+			}
 			print_all_lists();
 			free_parser_blocks(&g_grblks);
-			// prepare_and_exec();
 		}
 	}
 	clean_parser();

@@ -56,9 +56,9 @@ PARSER = \
 			$(PARSER_DIR)/quote_control.c \
 			$(PARSER_DIR)/grammar_analysis.c \
 			$(PARSER_DIR)/parser_processing.c \
-			$(PARSER_DIR)/start_redirections.c \
+			$(PARSER_DIR)/redirections.c \
+			$(PARSER_DIR)/redirections_processing.c \
 			$(PARSER_DIR)/heredoc_processing.c
-			#$(QUOTING)
 			# $(PARSER_DIR)/before_execution.c \
 			# $(PARSER_DIR)/find_spec.c \
 			# $(ASSIGNMENT) \
@@ -76,10 +76,6 @@ EXEC = 		$(PARSER_DIR)/$(EXEC_DIR)/exec_init.c \
 			$(PARSER_DIR)/$(EXEC_DIR)/exec_core.c \
 			$(PARSER_DIR)/$(EXEC_DIR)/exec_utils.c \
 			$(PARSER_DIR)/$(EXEC_DIR)/path_parse.c
-
-QUOTING_DIR = quoting
-QUOTING =	$(PARSER_DIR)/$(QUOTING_DIR)/quote_control.c \
-			$(PARSER_DIR)/$(QUOTING_DIR)/pre_parsing_work.c
 
 REDIRECTION_DIR = redirection
 REDIRECTION = \
@@ -201,7 +197,6 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell21.h
 #_____________________________________________________	
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(EXEC_DIR)
-	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(QUOTING_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(ASSIGNMENT_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(SUBSTITUTION_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(REDIRECTION_DIR)

@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/17 19:45:52 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/04/22 18:38:53 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@
 */
 
 # define	ERR_QUOTE 0x1
-# define	ERR_REDIR 0x2
-# define	ERR_BAD_FD 0x4
-# define	ERR_NO_ACC 0x8
-# define	ERR_NO_FILE 0x10
-# define	ERR_NUMERIC 0x20
+# define	ERR_BAD_FD 0x2
+# define	ERR_NO_ACC 0x4
+# define	ERR_NO_FILE 0x8
+# define	ERR_NUMERIC 0x10
+
+# define	ERR_REDIR 0x20
+# define	ERR_REDIR_SOFT 0x40
 
 /*
 ** In reality bash returns code "2" for all the internal errors + adds mask for
