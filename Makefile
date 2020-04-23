@@ -58,6 +58,7 @@ PARSER = \
 			$(PARSER_DIR)/parser_processing.c \
 			$(PARSER_DIR)/redirections.c \
 			$(PARSER_DIR)/redirections_processing.c \
+			$(PARSER_DIR)/fd_content_processing.c \
 			$(PARSER_DIR)/heredoc_processing.c
 			# $(PARSER_DIR)/before_execution.c \
 			# $(PARSER_DIR)/find_spec.c \

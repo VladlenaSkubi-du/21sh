@@ -116,14 +116,23 @@ int					redir_out(t_pblks **current_cont,
 ** File redirection_processing.c
 */
 
-void				bzero_fd_block(t_fd *fd_block);
 int					find_fdbefore_redir(t_cmd **ptr_lcmd,
 						t_fd *fd_inout, int *i);
 int					find_fdafter_redir(t_cmd **ptr_lcmd,
-						t_fd *fd_inout, int *i, char flag);
-t_list				*add_redir_to_block(t_pblks **current_cont, t_fd fd_inout);
-int					activate_redir_error(t_pblks **current_cont, int fd_flag);
-int					free_fd_blocks(t_pblks **current_cont); //MOVE
+						t_fd *fd_inout, int *i);
+int					minus_close_redir(t_pblks **current_cont, t_cmd **ptr_lcmd,
+						t_fd fd_inout, int *i);
+int					activate_redir_error(t_pblks **current_cont, t_fd fd_inout);
+int					only_num_fdafter_redir(t_cmd **ptr_lcmd,
+						t_fd *fd_inout, int *i);
+
+/*
+** File fd_content_processing.c
+*/
+
+void				bzero_fd_redir(t_fd *fd_block);
+t_list				*add_redir_to_block(t_fd fd_inout);
+int					free_fd_redir(t_pblks **current_cont);
 
 /*
 ** File heredoc_processing.c

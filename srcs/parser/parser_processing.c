@@ -14,6 +14,8 @@ void			print_all_lists(void)
 	t_list		*runner;
 	t_pblks		*ptr_block_cont;
 	t_cmd		*ptr_lcmd;
+	t_list		*ptr_struct_fd;
+	t_fd		*ptr_fd;
 	int			end;
 
 	runner = g_grblks;
@@ -31,11 +33,26 @@ void			print_all_lists(void)
 		ptr_lcmd = ptr_block_cont->lcmd;
 		printf("Local saved is the same: %s\n", ptr_lcmd->cmd);
 		printf("Size tech: %d\n", ptr_lcmd->len_tech);
+		if (ptr_block_cont->fd)
+		{
+			ptr_struct_fd = ptr_block_cont->fd;
+			ptr_fd = ptr_struct_fd->content;
+			printf("******************************\n");
+			printf("Fd_in is %d\n", ptr_fd->fd_in);
+			printf("Fd_out is %d\n", ptr_fd->fd_out);
+			printf("Fd_file is %s\n", ptr_fd->file);
+			if (ptr_fd->flag)
+				printf("close fd\n");
+		}
 		printf("******************************\n");
 		if (ptr_block_cont->flag & PIPED_IN)
 			printf("pipe in\n");
 		if (ptr_block_cont->flag & PIPED_OUT)
 			printf("pipe out\n");
+		if (ptr_block_cont->err & REDIR_HARD)
+			printf("redir_hard error\n");
+		if (ptr_block_cont->err & REDIR_SOFT)
+			printf("redir_soft mistake\n");
 		printf("______________________________\n");
 		printf("\n");
 		runner = runner->next;
@@ -110,7 +127,7 @@ void			free_parser_blocks(t_list **head)
 		free(ptr_lcmd->tech);
 		free(ptr_lcmd);
 		ptr_lcmd = NULL;
-		free_fd_blocks(&ptr_cont);
+		free_fd_redir(&ptr_cont);
 		free(ptr_cont);
 		ptr_cont = NULL;
 	}
