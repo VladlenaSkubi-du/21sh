@@ -5,15 +5,28 @@
 # define HEREDOC_BUF	200
 
 /*
-** Defines for flags
+** Defines for @flags in blocks
 */
 
 # define PIPED_OUT		0x1 
 # define PIPED_IN		0x2
 
+/*
+** Define for @err in blocks and
+** @flags (temporarily) in fd_blocks
+*/
+
 # define REDIR_HARD		0x4
 # define REDIR_SOFT		0x8
-# define CLOSE			0x10
+
+/*
+** Define for @flags (permanantly) in
+** fd_blocks
+*/
+
+# define CLOSE_FD		0x10
+# define CREATE_FD		0x20
+# define OPEN_FD		0x40
 
 // # define ERR_IN			0x40000000U
 // # define ERR_R			0x20000000U
@@ -148,7 +161,7 @@ int					check_heredoc_closure(void);
 // 	FF,
 // 	IN_R,
 // 	OUT_R,
-// 	CLOSE = -42,
+// 	CLOSE_FD = -42,
 // 	MINUS = 5,
 // 	CONTINUE,
 // 	LINE,

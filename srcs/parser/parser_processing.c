@@ -9,12 +9,20 @@
 		// 	printf("%3d", g_pline->tech[count]);
 		// printf("\n");
 
+	// printf("g_cmd nul=%s - len=%d\n", (*ptr_lcmd)->cmd, (*ptr_lcmd)->len_tech);//печать для проверки
+	// printf("techline cur:");
+	// int count = -1;
+	// while (++count < (*ptr_lcmd)->len_tech)
+	// 	printf("%3d", (*ptr_lcmd)->tech[count]);
+	// printf("\n");
+
 void			print_all_lists(void)
 {
 	t_list		*runner;
 	t_pblks		*ptr_block_cont;
 	t_cmd		*ptr_lcmd;
 	t_list		*ptr_struct_fd;
+	t_list		*fd_runner;
 	t_fd		*ptr_fd;
 	int			end;
 
@@ -36,13 +44,22 @@ void			print_all_lists(void)
 		if (ptr_block_cont->fd)
 		{
 			ptr_struct_fd = ptr_block_cont->fd;
-			ptr_fd = ptr_struct_fd->content;
-			printf("******************************\n");
-			printf("Fd_in is %d\n", ptr_fd->fd_in);
-			printf("Fd_out is %d\n", ptr_fd->fd_out);
-			printf("Fd_file is %s\n", ptr_fd->file);
-			if (ptr_fd->flag)
-				printf("close fd\n");
+			fd_runner = ptr_struct_fd;
+			while (fd_runner)
+			{
+				ptr_fd = fd_runner->content;
+				printf("******************************\n");
+				printf("Fd_in is %d\n", ptr_fd->fd_in);
+				printf("Fd_out is %d\n", ptr_fd->fd_out);
+				printf("Fd_file is %s\n", ptr_fd->file);
+				if (ptr_fd->flag)
+				{
+					(ptr_fd->flag & CLOSE_FD) ? printf("close fd\n") : 0;
+					(ptr_fd->flag & CREATE_FD) ? printf("create file\n") : 0;
+					(ptr_fd->flag & OPEN_FD) ? printf("open file\n") : 0;
+				}
+				fd_runner = fd_runner->next;
+			}
 		}
 		printf("******************************\n");
 		if (ptr_block_cont->flag & PIPED_IN)

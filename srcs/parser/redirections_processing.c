@@ -9,7 +9,7 @@ int				find_fdbefore_redir(t_cmd **ptr_lcmd,
 	if (*i == 0)
 		return (0);
 	j = (*i) - 1;
-	while (j > 0 &&
+	while (j >= 0 &&
 			(*ptr_lcmd)->tech[j] == WORD_P &&
 			ft_isdigit((*ptr_lcmd)->cmd[j]))
 		j--;
@@ -43,15 +43,15 @@ int				find_fdafter_redir(t_cmd **ptr_lcmd,
 	int			start;
 
 	j = *i;
-	while ((*ptr_lcmd)->tech[j] != END_T && (*ptr_lcmd)->tech[j] == SPACE)
+	while (j < (*ptr_lcmd)->len_tech && (*ptr_lcmd)->tech[j] == SPACE)
 		j++;
-	if ((*ptr_lcmd)->tech[j] == END_T)
+	if (j == (*ptr_lcmd)->len_tech - 1)
 	{
 		fd_inout->flag |= REDIR_HARD;
 		return (OUT);
 	}
 	start = j;
-	while ((*ptr_lcmd)->tech[j] != END_T && ((*ptr_lcmd)->tech[j] == WORD_P ||
+	while (j < (*ptr_lcmd)->len_tech && ((*ptr_lcmd)->tech[j] == WORD_P ||
 			(*ptr_lcmd)->tech[j] == TEXT))
 		j++;
 	if (start - j == 0)
@@ -60,6 +60,7 @@ int				find_fdafter_redir(t_cmd **ptr_lcmd,
 		return (OUT);
 	}
 	fd_inout->file = ft_strndup((*ptr_lcmd)->cmd + start, j - start);
+	delete_symbols_from_parser_line(ptr_lcmd, j, start - j);
 	return (0);
 }
 
@@ -80,7 +81,7 @@ int				minus_close_redir(t_pblks **current_cont, t_cmd **ptr_lcmd,
 {
 	t_list		*new_fd;
 
-	fd_inout.flag |= CLOSE;
+	fd_inout.flag |= CLOSE_FD;
 	delete_symbols_from_parser_line(ptr_lcmd, *i + 1, -1);
 	new_fd = add_redir_to_block(fd_inout);
 	ft_lstadd_after(&(*current_cont)->fd, new_fd);
@@ -105,6 +106,5 @@ int				only_num_fdafter_redir(t_cmd **ptr_lcmd,
 	fd_inout->fd_in = ft_atoi(fd_inout->file);
 	free(fd_inout->file);
 	fd_inout->file = NULL;
-	delete_symbols_from_parser_line(ptr_lcmd, *i + j, j * -1);
 	return (0);
 }

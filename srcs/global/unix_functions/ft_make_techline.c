@@ -40,7 +40,5 @@ char		*ft_make_techline(char *cmd, int len)
 		i++;
 	}
 	techline[i] = END_T;
-	// result->len = i;
-	// result->alloc_size = i + 2;
 	return (techline);
 }

@@ -17,6 +17,7 @@ int			gramlex_analysis(void)
 			current_cont->end - current_cont->beg);
 		current_cont->lcmd = init_parser_line(tmp);
 		ptr_lcmd = current_cont->lcmd;
+
 		delete_quotes_from_line(&current_cont, &ptr_lcmd);
 		if (check_redirections(&current_cont, &ptr_lcmd) == OUT)
 		{
@@ -37,12 +38,12 @@ int			delete_quotes_from_line(t_pblks **current_cont,
 	int			i;
 
 	i = 0;
-	while ((*ptr_lcmd)->tech[i] != END_T)
+	while (i < (*ptr_lcmd)->len_tech)
 	{
 		if ((*ptr_lcmd)->tech[i] == SQUOTE || (*ptr_lcmd)->tech[i] == DQUOTE)
 		{
 			delete_symbols_from_parser_line(ptr_lcmd, i + 1, -1);
-			while ((*ptr_lcmd)->tech[i] != END_T &&
+			while (i < (*ptr_lcmd)->len_tech &&
 					(*ptr_lcmd)->tech[i] != SQUOTE &&
 					(*ptr_lcmd)->tech[i] != DQUOTE)
 				i++;
@@ -68,7 +69,7 @@ int			check_redirections(t_pblks **current_cont,
 	int			i;
 
 	i = -1;
-	while ((*ptr_lcmd)->tech[++i] != END_T)
+	while (++i < (*ptr_lcmd)->len_tech)
 	{
 		if ((*ptr_lcmd)->tech[i] == LTHAN)
 		{

@@ -25,7 +25,7 @@ int			parser(char *line)
 			slice_by_pipes_cycle();
 			if (gramlex_analysis() == OUT)
 			{
-				error_handler(SYNTAX_ERROR | ERR_REDIR, NULL);
+				error_handler(SYNTAX_ERROR | ERR_REDIR << 9, NULL);
 				check_heredoc_closure();
 			}
 			else
