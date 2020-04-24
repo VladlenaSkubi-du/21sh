@@ -27,6 +27,7 @@
 # define CLOSE_FD		0x10
 # define CREATE_FD		0x20
 # define OPEN_FD		0x40
+# define REDIRECTION_FD	0x80
 
 // # define ERR_IN			0x40000000U
 // # define ERR_R			0x20000000U
@@ -59,10 +60,18 @@ typedef struct  		s_fd
 	int					fd_in;
 	char				*file;
 	int					flag;
-}              			t_fd;
+}						t_fd;
+
+typedef struct  		s_hered
+{
+	int					fd_hered;
+	char				*stop_word;
+	int					flag;
+}						t_hered;
 
 t_cmd					*g_pline;
 t_list					*g_grblks;
+t_list					*g_heredoc;
 
 /*
 ** ____________________________________________________________________________
@@ -107,7 +116,8 @@ int					delete_symbols_from_parser_line(t_cmd **pline,
 						int i, int num);
 t_list				*create_new_list(void);
 void				bzero_grammar_block(t_pblks *block);
-void				free_parser_blocks(t_list **head);
+int					free_parser_blocks(t_list **head);
+
 void				print_all_lists(void);
 
 /*
@@ -136,8 +146,7 @@ int					find_fdafter_redir(t_cmd **ptr_lcmd,
 int					minus_close_redir(t_pblks **current_cont, t_cmd **ptr_lcmd,
 						t_fd fd_inout, int *i);
 int					activate_redir_error(t_pblks **current_cont, t_fd fd_inout);
-int					only_num_fdafter_redir(t_cmd **ptr_lcmd,
-						t_fd *fd_inout, int *i);
+int					only_num_fdafter_redir(t_fd *fd_inout);
 
 /*
 ** File fd_content_processing.c
@@ -146,6 +155,8 @@ int					only_num_fdafter_redir(t_cmd **ptr_lcmd,
 void				bzero_fd_redir(t_fd *fd_block);
 t_list				*add_redir_to_block(t_fd fd_inout);
 int					free_fd_redir(t_pblks **current_cont);
+int					free_if_not_redir(t_list **start_fd, t_list **runner_fd,
+						t_fd *ptr_fd);
 
 /*
 ** File heredoc_processing.c
@@ -261,7 +272,7 @@ typedef struct			s_here
 // char					*g_pline.cmd;
 // size_t					g_cmd_size;
 // t_tech					g_techline;
-t_here					g_heredoc;
+// t_here					g_heredoc;
 
 /*
 ** File slice_to_blocks.c

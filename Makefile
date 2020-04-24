@@ -46,26 +46,31 @@ UNIX_FUNCS_DIR = unix_functions
 UNIX_FUNCTIONS = \
 			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_count_words.c \
 			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_find_token.c \
-			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_make_techline.c
+			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_make_techline.c \
+			$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)/ft_tmpfile.c
 			
 #______________________________________________________________________________			
 
 PARSER_DIR = parser
 PARSER = \
 			$(PARSER_DIR)/parser21.c \
-			$(PARSER_DIR)/quote_control.c \
-			$(PARSER_DIR)/grammar_analysis.c \
-			$(PARSER_DIR)/parser_processing.c \
-			$(PARSER_DIR)/redirections.c \
-			$(PARSER_DIR)/redirections_processing.c \
-			$(PARSER_DIR)/fd_content_processing.c \
-			$(PARSER_DIR)/heredoc_processing.c
+			$(MY_FUNCS)
 			# $(PARSER_DIR)/before_execution.c \
 			# $(PARSER_DIR)/find_spec.c \
 			# $(ASSIGNMENT) \
 			# $(EXEC) \
 			# $(REDIRECTION) \
 			# $(SUBSTITUTION)
+
+MY_FUNCS_DIR = my_funcs
+MY_FUNCS = 	$(PARSER_DIR)/$(MY_FUNCS_DIR)/quote_control.c \
+			$(PARSER_DIR)/$(MY_FUNCS_DIR)/grammar_analysis.c \
+			$(PARSER_DIR)/$(MY_FUNCS_DIR)/parser_processing.c \
+			$(PARSER_DIR)/$(MY_FUNCS_DIR)/redirections.c \
+			$(PARSER_DIR)/$(MY_FUNCS_DIR)/redirections_processing.c \
+			$(PARSER_DIR)/$(MY_FUNCS_DIR)/fd_content_processing.c \
+			$(PARSER_DIR)/$(MY_FUNCS_DIR)/heredoc.c
+
 
 ASSIGNMENT_DIR = assignment
 ASSIGNMENT = \
@@ -197,6 +202,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell21.h
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)	
 #_____________________________________________________	
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)
+	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(MY_FUNCS_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(EXEC_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(ASSIGNMENT_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(SUBSTITUTION_DIR)

@@ -26,6 +26,7 @@ int			parser(char *line)
 			if (gramlex_analysis() == OUT)
 			{
 				error_handler(SYNTAX_ERROR | ERR_REDIR << 9, NULL);
+				print_all_lists();
 				check_heredoc_closure();
 			}
 			else
@@ -33,8 +34,8 @@ int			parser(char *line)
 				check_heredoc_closure();
 				// prepare_and_exec();
 			}
-			print_all_lists();
-			free_parser_blocks(&g_grblks);
+			// print_all_lists();
+			// free_parser_blocks(&g_grblks);
 		}
 	}
 	clean_parser();

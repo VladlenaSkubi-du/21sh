@@ -18,10 +18,10 @@ int			redir_inand(t_pblks **current_cont,
 			return (minus_close_redir(current_cont, ptr_lcmd, fd_inout, i));
 		if (find_fdafter_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
-		if (only_num_fdafter_redir(ptr_lcmd, &fd_inout, i) == OUT)
+		if (only_num_fdafter_redir(&fd_inout) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
 		new_fd = add_redir_to_block(fd_inout);
-		ft_lstadd_after(&(*current_cont)->fd, new_fd);
+		ft_lstadd_to_end(&(*current_cont)->fd, new_fd);
 		if (*i == 0)
 			*i = -1;
 	}
@@ -46,7 +46,7 @@ int			redir_in(t_pblks **current_cont,
 			return (activate_redir_error(current_cont, fd_inout));
 		fd_inout.flag |= OPEN_FD;
 		new_fd = add_redir_to_block(fd_inout);
-		ft_lstadd_after(&(*current_cont)->fd, new_fd);
+		ft_lstadd_to_end(&(*current_cont)->fd, new_fd);
 		if (*i == 0)
 			*i = -1;
 	}
@@ -70,7 +70,7 @@ int			redir_outout(t_pblks **current_cont,
 			return (activate_redir_error(current_cont, fd_inout));
 		fd_inout.flag |= CREATE_FD;
 		new_fd = add_redir_to_block(fd_inout);
-		ft_lstadd_after(&(*current_cont)->fd, new_fd);
+		ft_lstadd_to_end(&(*current_cont)->fd, new_fd);
 		if (*i == 0)
 			*i = -1;
 	}
@@ -94,10 +94,10 @@ int			redir_outand(t_pblks **current_cont,
 			return (minus_close_redir(current_cont, ptr_lcmd, fd_inout, i));
 		if (find_fdafter_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
-		if (only_num_fdafter_redir(ptr_lcmd, &fd_inout, i) == OUT)
+		if (only_num_fdafter_redir(&fd_inout) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
 		new_fd = add_redir_to_block(fd_inout);
-		ft_lstadd_after(&(*current_cont)->fd, new_fd);
+		ft_lstadd_to_end(&(*current_cont)->fd, new_fd);
 		if (*i == 0)
 			*i = -1;
 	}
@@ -122,7 +122,7 @@ int			redir_out(t_pblks **current_cont,
 			return (activate_redir_error(current_cont, fd_inout));
 		fd_inout.flag |= OPEN_FD;
 		new_fd = add_redir_to_block(fd_inout);
-		ft_lstadd_after(&(*current_cont)->fd, new_fd);
+		ft_lstadd_to_end(&(*current_cont)->fd, new_fd);
 		if (*i == 0)
 			*i = -1;
 	}

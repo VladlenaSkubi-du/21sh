@@ -16,6 +16,24 @@
 	// 	printf("%3d", (*ptr_lcmd)->tech[count]);
 	// printf("\n");
 
+	// runner_fd = start_fd;
+	// while (runner_fd)
+	// {
+	// 	ptr_fd = runner_fd->content;
+	// 	printf("******************************\n");
+	// 	printf("Fd_in is %d\n", ptr_fd->fd_in);
+	// 	printf("Fd_out is %d\n", ptr_fd->fd_out);
+	// 	printf("Fd_file is %s\n", ptr_fd->file);
+	// 	if (ptr_fd->flag)
+	// 	{
+	// 		(ptr_fd->flag & CLOSE_FD) ? printf("close fd\n") : 0;
+	// 		(ptr_fd->flag & CREATE_FD) ? printf("create file\n") : 0;
+	// 		(ptr_fd->flag & OPEN_FD) ? printf("open file\n") : 0;
+	// 		(ptr_fd->flag & REDIRECTION_FD) ? printf("redirection\n") : 0;
+	// 	}
+	// 	runner_fd = runner_fd->next;
+	// }
+
 void			print_all_lists(void)
 {
 	t_list		*runner;
@@ -57,6 +75,7 @@ void			print_all_lists(void)
 					(ptr_fd->flag & CLOSE_FD) ? printf("close fd\n") : 0;
 					(ptr_fd->flag & CREATE_FD) ? printf("create file\n") : 0;
 					(ptr_fd->flag & OPEN_FD) ? printf("open file\n") : 0;
+					(ptr_fd->flag & REDIRECTION_FD) ? printf("redirection\n") : 0;
 				}
 				fd_runner = fd_runner->next;
 			}
@@ -123,15 +142,16 @@ void			bzero_grammar_block(t_pblks *block)
 	block->end = 0;
 	block->fd = NULL;
 	block->err = 0;
-	block->flag = 0; //question
+	block->flag = 0;
 }
 
-void			free_parser_blocks(t_list **head)
+int				free_parser_blocks(t_list **head)
 {
 	t_list		*runner;
 	t_list		*tmp;
 	t_pblks		*ptr_cont;
 	t_cmd		*ptr_lcmd;
+	t_fd		*fd_heredoc;
 
 	runner = *head;
 	while (runner)
@@ -139,14 +159,15 @@ void			free_parser_blocks(t_list **head)
 		tmp = runner;
 		runner = runner->next;
 		ptr_cont = tmp->content;
+		free_fd_redir(&ptr_cont);
 		ptr_lcmd = ptr_cont->lcmd;
 		free(ptr_lcmd->cmd);
 		free(ptr_lcmd->tech);
 		free(ptr_lcmd);
 		ptr_lcmd = NULL;
-		free_fd_redir(&ptr_cont);
 		free(ptr_cont);
 		ptr_cont = NULL;
 	}
 	*head = NULL;
+	return (0);
 }

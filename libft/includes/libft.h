@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 11:48:24 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/17 21:51:50 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/04/24 18:33:55 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstlast(t_list **begin_list);
 int					ft_lstsize(t_list *begin_list);
 void				ft_lstadd_after(t_list **current, t_list *new);
+int					ft_lstfree_after(t_list **current);
+int					ft_lstfree_current(t_list **head);
 void				ft_lstfree(t_list **head);
 size_t				ft_strlen(const char *s);
 char				*ft_strdup(const char *s1);

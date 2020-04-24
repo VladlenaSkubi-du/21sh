@@ -13,7 +13,8 @@ int				find_fdbefore_redir(t_cmd **ptr_lcmd,
 			(*ptr_lcmd)->tech[j] == WORD_P &&
 			ft_isdigit((*ptr_lcmd)->cmd[j]))
 		j--;
-	if (j > 0 && (*ptr_lcmd)->tech[j] != SPACE)
+	if (j >= 0 && !((*ptr_lcmd)->tech[j] == SPACE ||
+			(*ptr_lcmd)->tech[j] == WORD_P))
 	{
 		fd_inout->flag |= REDIR_SOFT;
 		return (OUT);
@@ -88,8 +89,7 @@ int				minus_close_redir(t_pblks **current_cont, t_cmd **ptr_lcmd,
 	return (0);
 }
 
-int				only_num_fdafter_redir(t_cmd **ptr_lcmd,
-					t_fd *fd_inout, int *i)
+int				only_num_fdafter_redir(t_fd *fd_inout)
 {
 	int			j;
 	
