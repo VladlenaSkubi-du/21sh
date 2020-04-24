@@ -26,7 +26,6 @@ int			parser(char *line)
 			if (gramlex_analysis() == OUT)
 			{
 				error_handler(SYNTAX_ERROR | ERR_REDIR << 9, NULL);
-				print_all_lists();
 				check_heredoc_closure();
 			}
 			else

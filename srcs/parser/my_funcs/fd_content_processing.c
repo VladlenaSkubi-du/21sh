@@ -24,29 +24,54 @@ void			bzero_fd_redir(t_fd *fd_block)
 	fd_block->flag = 0;
 }
 
+/*
+** We go through the list of fd_blocks and free all the blocks
+** without heredoc but from the head, so that all the
+** lists with heredoc are in the beginning but only till RUNNER is not NULL:
+** 1) HEAD/RUNNER/NOT::next (step 0) -> NOT::next -> HERE::next-> NOT::next
+** 2) HEAD/RUNNER/NOT::next (step 0) -> HERE::next-> NOT::next
+** 3) HEAD/RUNNER/HERE::next (step 0) -> HERE::next-> NOT::next
+** 4) HEAD/HERE::next-> RUNNER/HERE::next (step 1) -> NOT::next
+** 5) HEAD/HERE::next-> HERE::next (step 1) -> RUNNER/NOT::next
+** Finally we have: HEAD/HERE::next-> HERE::next (step 1) -> NULL
+** @last_here_fd rememberes last heredoc in order to make right
+** next link
+** if there were no heredocs, step will be 0 and there will be NULL
+** left in the @current_cont->fd
+*/
+
 int				free_fd_redir(t_pblks **current_cont)
 {
 	t_list		*runner_fd;
-	t_list		*tmp_fd;
+	t_list		*last_here_fd;
 	t_fd		*ptr_fd;
+	int			step;
 
 	runner_fd = (*current_cont)->fd;
-	while (runner_fd && runner_fd->next)
+	last_here_fd = runner_fd;
+	step = 0;
+	while (runner_fd)
 	{
 		ptr_fd = runner_fd->content;
 		if (ptr_fd->flag && (ptr_fd->flag & REDIRECTION_FD))
+		{
+			if (step == 0)
+				(*current_cont)->fd = runner_fd;
+			last_here_fd = runner_fd;
 			runner_fd = runner_fd->next;
+			step++;
+		}
 		else
-			free_if_not_redir(&(*current_cont)->fd, &runner_fd, ptr_fd);
+		{
+			ft_lstfree_current(&runner_fd);
+			if (step == 0)
+				last_here_fd = runner_fd;
+			else
+				last_here_fd->next = runner_fd;
+		}
 	}
-	ptr_fd = runner_fd->content;
-	if (ptr_fd->flag && (ptr_fd->flag & REDIRECTION_FD))
-		return (0);
-	tmp_fd = (*current_cont)->fd;
-	while (tmp_fd->next != runner_fd)
-		tmp_fd = tmp_fd->next;
-	ptr_fd = tmp_fd->next->content;
-	free_if_not_redir(NULL, &tmp_fd, ptr_fd);
+	if (step == 0)
+		(*current_cont)->fd = NULL;
 	return (0);
 }
 
