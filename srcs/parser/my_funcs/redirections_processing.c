@@ -72,7 +72,7 @@ int				activate_redir_error(t_pblks **current_cont, t_fd fd_inout)
 	else
 	{
 		(*current_cont)->err |= REDIR_HARD;
-		free_fd_redir(current_cont);
+		free_fdredir_except_heredoc(current_cont);
 	}
 	return (OUT);
 }

@@ -22,7 +22,7 @@ int			gramlex_analysis(void)
 		{
 			if (current_cont->err & REDIR_HARD)
 			{
-				free_parser_blocks(&g_grblks);
+				free_pblocks_except_heredoc(&g_grblks);
 				return (OUT);
 			}
 		}

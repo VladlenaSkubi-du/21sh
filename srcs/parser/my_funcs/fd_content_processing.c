@@ -40,7 +40,7 @@ void			bzero_fd_redir(t_fd *fd_block)
 ** left in the @current_cont->fd
 */
 
-int				free_fd_redir(t_pblks **current_cont)
+int				free_fdredir_except_heredoc(t_pblks **current_cont)
 {
 	t_list		*runner_fd;
 	t_list		*last_here_fd;
@@ -62,30 +62,48 @@ int				free_fd_redir(t_pblks **current_cont)
 			step++;
 		}
 		else
-		{
-			ft_lstfree_current(&runner_fd);
-			if (step == 0)
-				last_here_fd = runner_fd;
-			else
-				last_here_fd->next = runner_fd;
-		}
+			free_fd_not_heredoc(&runner_fd, &last_here_fd,
+				ptr_fd, step);
 	}
 	if (step == 0)
 		(*current_cont)->fd = NULL;
 	return (0);
 }
 
-int				free_if_not_redir(t_list **start_fd, t_list **runner_fd,
-					t_fd *ptr_fd)
+int				free_fd_not_heredoc(t_list **runner_fd,
+					t_list **last_here_fd, t_fd *ptr_fd, int step)
 {
 	free(ptr_fd->file);
-	free(ptr_fd);
-	if (start_fd && runner_fd && *runner_fd == *start_fd)
-	{
-		ft_lstfree_current(start_fd);
-		*runner_fd = *start_fd;
-	}
+	ptr_fd->file = NULL;
+	free((*runner_fd)->content);
+	(*runner_fd)->content = NULL;
+	ft_lstfree_current(runner_fd);
+	if (step == 0)
+		*last_here_fd = *runner_fd;
 	else
-		ft_lstfree_after(runner_fd);
+		(*last_here_fd)->next = *runner_fd;
+	return (0);
+}
+
+int				free_fdredir_all(t_pblks **current_cont)
+{
+	t_list		*runner_fd;
+	t_list		*delete_fd;
+	t_fd		*ptr_fd;
+
+	runner_fd = (*current_cont)->fd;
+	while (runner_fd)
+	{
+		delete_fd = runner_fd;
+		runner_fd = runner_fd->next;
+		ptr_fd = delete_fd->content;
+		free(ptr_fd->file);
+		ptr_fd->file = NULL;
+		free(delete_fd->content);
+		delete_fd->content = NULL;
+		free(delete_fd);
+		delete_fd = NULL;
+	}
+	(*current_cont)->fd = NULL;
 	return (0);
 }

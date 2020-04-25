@@ -66,6 +66,7 @@ MY_FUNCS_DIR = my_funcs
 MY_FUNCS = 	$(PARSER_DIR)/$(MY_FUNCS_DIR)/quote_control.c \
 			$(PARSER_DIR)/$(MY_FUNCS_DIR)/grammar_analysis.c \
 			$(PARSER_DIR)/$(MY_FUNCS_DIR)/parser_processing.c \
+			$(PARSER_DIR)/$(MY_FUNCS_DIR)/parser_blocks_processing.c \
 			$(PARSER_DIR)/$(MY_FUNCS_DIR)/redirections.c \
 			$(PARSER_DIR)/$(MY_FUNCS_DIR)/redirections_processing.c \
 			$(PARSER_DIR)/$(MY_FUNCS_DIR)/fd_content_processing.c \

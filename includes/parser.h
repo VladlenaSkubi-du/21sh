@@ -56,22 +56,14 @@ typedef struct			s_pblks
 
 typedef struct  		s_fd
 {
-	int					fd_out;
 	int					fd_in;
+	int					fd_out;
 	char				*file;
 	int					flag;
 }						t_fd;
 
-typedef struct  		s_hered
-{
-	int					fd_hered;
-	char				*stop_word;
-	int					flag;
-}						t_hered;
-
 t_cmd					*g_pline;
 t_list					*g_grblks;
-t_list					*g_heredoc;
 
 /*
 ** ____________________________________________________________________________
@@ -112,13 +104,21 @@ int					check_redirections(t_pblks **current_cont,
 */
 
 t_cmd				*init_parser_line(char *line);
+void				free_parser_line(t_cmd **pline);
 int					delete_symbols_from_parser_line(t_cmd **pline,
 						int i, int num);
+void				print_all_lists(void);
+
+/*
+** File parser_blocks_processing.c
+*/
+
 t_list				*create_new_list(void);
 void				bzero_grammar_block(t_pblks *block);
-int					free_parser_blocks(t_list **head);
-
-void				print_all_lists(void);
+int					free_pblocks_except_heredoc(t_list **head);
+int					free_pblock_not_heredoc(t_list **runner_blk,
+						t_list **last_here_blk, t_pblks	**ptr_cont, int step);
+int					free_parser_blocks_all(t_list **head);
 
 /*
 ** File redirections.c
@@ -154,9 +154,10 @@ int					only_num_fdafter_redir(t_fd *fd_inout);
 
 void				bzero_fd_redir(t_fd *fd_block);
 t_list				*add_redir_to_block(t_fd fd_inout);
-int					free_fd_redir(t_pblks **current_cont);
-int					free_if_not_redir(t_list **start_fd, t_list **runner_fd,
-						t_fd *ptr_fd);
+int					free_fdredir_except_heredoc(t_pblks **current_cont);
+int					free_fd_not_heredoc(t_list **runner_fd,
+						t_list **last_here_fd, t_fd *ptr_fd, int step);
+int					free_fdredir_all(t_pblks **current_cont);
 
 /*
 ** File heredoc_processing.c

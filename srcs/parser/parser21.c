@@ -26,15 +26,16 @@ int			parser(char *line)
 			if (gramlex_analysis() == OUT)
 			{
 				error_handler(SYNTAX_ERROR | ERR_REDIR << 9, NULL);
+				print_all_lists();
 				check_heredoc_closure();
 			}
 			else
 			{
+				print_all_lists();
 				check_heredoc_closure();
 				// prepare_and_exec();
 			}
-			// print_all_lists();
-			// free_parser_blocks(&g_grblks);
+			free_parser_blocks_all(&g_grblks);
 		}
 	}
 	clean_parser();
