@@ -52,22 +52,22 @@ int		ft_block_foward(t_ltree **sub, t_list **start)
 
 int		ft_block_start(t_list **list)
 {
-	// t_ltree	*sub;
-	// t_list	*start;
-	// int		out_flag;
+	t_ltree	*sub;
+	t_list	*start;
+	int		out_flag;
 
-	// start = *list;
-	// out_flag = 0;
-	// while (start)
-	// {
-	// 	sub = (t_ltree *)(start->content);
-	// 	if (before_exec(sub) == OUT)
-	// 		break ;
-	// 	if (!(sub->flags & ERR_IN))
-	// 		out_flag = exec_init(sub);
-	// 	start = start->next;
-	// }
-	// ft_lst_ltree_clear(list);
+	start = *list;
+	out_flag = 0;
+	while (start)
+	{
+		sub = (t_ltree *)(start->content);
+		if (before_exec(sub) == OUT)
+			break ;
+		if (!(sub->flags & ERR_IN))
+			out_flag = exec_init(sub);
+		start = start->next;
+	}
+	ft_lst_ltree_clear(list);
 	return (0);
 }
 

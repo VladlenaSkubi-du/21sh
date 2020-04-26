@@ -65,18 +65,14 @@ int				free_fdredir_except_heredoc(t_pblks **current_cont)
 			free_fd_not_heredoc(&runner_fd, &last_here_fd,
 				ptr_fd, step);
 	}
-	if (step == 0)
-		(*current_cont)->fd = NULL;
+	(step == 0) ? (*current_cont)->fd = NULL : 0; 
 	return (0);
 }
 
 int				free_fd_not_heredoc(t_list **runner_fd,
 					t_list **last_here_fd, t_fd *ptr_fd, int step)
 {
-	free(ptr_fd->file);
-	ptr_fd->file = NULL;
-	free((*runner_fd)->content);
-	(*runner_fd)->content = NULL;
+	free_fdredir_content(runner_fd, ptr_fd);
 	ft_lstfree_current(runner_fd);
 	if (step == 0)
 		*last_here_fd = *runner_fd;
@@ -97,10 +93,7 @@ int				free_fdredir_all(t_pblks **current_cont)
 		delete_fd = runner_fd;
 		runner_fd = runner_fd->next;
 		ptr_fd = delete_fd->content;
-		free(ptr_fd->file);
-		ptr_fd->file = NULL;
-		free(delete_fd->content);
-		delete_fd->content = NULL;
+		free_fdredir_content(&delete_fd, ptr_fd);
 		free(delete_fd);
 		delete_fd = NULL;
 	}

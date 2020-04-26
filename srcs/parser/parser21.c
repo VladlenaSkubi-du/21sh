@@ -13,28 +13,38 @@
 
 int			parser(char *line)
 {
+	int		msg;
+	
 	if (prepare_parser(line) == OUT)
 		return (0);
 	if (g_prompt.prompt_func == heredoc_prompt)
-		check_heredoc_closure();
+	{
+		if (check_heredoc_closure(g_pline) == OUT)
+		{
+			clean_parser();
+			return (OUT);
+		}
+		prepare_and_exec();
+		free_parser_blocks_all(&g_grblks);
+	}	
 	else
 	{
+		g_herenum = 0;
 		if (start_quotes(g_pline->tech) != OUT)
 		{
 			slice_by_scolons();
 			slice_by_pipes_cycle();
-			if (gramlex_analysis() == OUT)
+			msg = gramlex_analysis();
+			if (g_herenum > 0 && check_heredoc_closure(g_pline) == OUT)
 			{
+				clean_parser();
+				return (OUT);
+			}
+			if (msg == OUT)
 				error_handler(SYNTAX_ERROR | ERR_REDIR << 9, NULL);
-				print_all_lists();
-				check_heredoc_closure();
-			}
 			else
-			{
-				print_all_lists();
-				check_heredoc_closure();
-				// prepare_and_exec();
-			}
+				prepare_and_exec();
+			print_all_lists(); //DELETE
 			free_parser_blocks_all(&g_grblks);
 		}
 	}

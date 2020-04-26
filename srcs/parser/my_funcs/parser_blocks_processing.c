@@ -60,9 +60,7 @@ int				free_pblocks_except_heredoc(t_list **head)
 int				free_pblock_not_heredoc(t_list **runner_blk,
 					t_list **last_here_blk, t_pblks	**ptr_cont, int step)
 {
-	free_parser_line(&(*ptr_cont)->lcmd);
-	free((*runner_blk)->content);
-	(*runner_blk)->content = NULL;
+	free_pblock_content(runner_blk, ptr_cont);
 	ft_lstfree_current(runner_blk);
 	if (step == 0)
 		*last_here_blk = *runner_blk;
@@ -84,9 +82,7 @@ int				free_parser_blocks_all(t_list **head)
 		runner_blk = runner_blk->next;
 		ptr_cont = delete_blk->content;
 		free_fdredir_all(&ptr_cont);
-		free_parser_line(&ptr_cont->lcmd);
-		free(delete_blk->content);
-		delete_blk->content = NULL;
+		free_pblock_content(&delete_blk, &ptr_cont);
 		free(delete_blk);
 		delete_blk = NULL;
 	}

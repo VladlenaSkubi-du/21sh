@@ -62,8 +62,15 @@ typedef struct  		s_fd
 	int					flag;
 }						t_fd;
 
-t_cmd					*g_pline;
+/*
+** Globals:
+** @g_pline = global parser line
+** @g_grblks = global grammar blocks
+*/
+
+t_cmd					*g_pline; //question
 t_list					*g_grblks;
+int						g_herenum;
 
 /*
 ** ____________________________________________________________________________
@@ -100,7 +107,7 @@ int					delete_quotes_from_line(t_pblks **current_cont,
 int					check_redirections(t_pblks **current_cont,
 						t_cmd **ptr_lcmd);
 /*
-** File parser_processing.c
+** File parser_line_processing.c
 */
 
 t_cmd				*init_parser_line(char *line);
@@ -119,6 +126,15 @@ int					free_pblocks_except_heredoc(t_list **head);
 int					free_pblock_not_heredoc(t_list **runner_blk,
 						t_list **last_here_blk, t_pblks	**ptr_cont, int step);
 int					free_parser_blocks_all(t_list **head);
+
+/*
+** File parser_global_processing.c
+*/
+
+void				free_fdredir_content(t_list **runner_fd,
+						t_fd *ptr_fd);
+void				free_pblock_content(t_list **runner_blk,
+						t_pblks	**ptr_cont);
 
 /*
 ** File redirections.c
@@ -165,7 +181,20 @@ int					free_fdredir_all(t_pblks **current_cont);
 
 int					redir_heredoc(t_pblks **current_cont,
 						t_cmd **ptr_lcmd, int *i);
-int					check_heredoc_closure(void);
+int					check_heredoc_closure(t_cmd *pline);
+t_list				*find_first_heredoc(void);
+int					close_heredoc(t_list **fd_hered, t_cmd *pline,
+						char **heredoc_buf, int *buf_size);
+int					load_heredocbuf_into_file(int fd, char *heredoc_buf);
+int					save_heredoc_buffer(char **here_buf, int *buf_size,
+						char *cmd, int mode);
+
+/*
+** File prepare and exec.c
+*/
+
+int					prepare_and_exec(void);
+int					dollar_expansion(char **cmd_part);
 
 // enum					e_way
 // {
@@ -273,7 +302,7 @@ typedef struct			s_here
 // char					*g_pline.cmd;
 // size_t					g_cmd_size;
 // t_tech					g_techline;
-// t_here					g_heredoc;
+t_here					g_heredoc;
 
 /*
 ** File slice_to_blocks.c
