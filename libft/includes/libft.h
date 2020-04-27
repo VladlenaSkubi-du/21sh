@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 11:48:24 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/24 18:33:55 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/04/27 14:12:32 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ size_t				ft_strlenchri(const char *s, char c);
 int					ft_gnl(const int fd, char **line);
 void				ft_putnendl_fd(char *str, int n, int fd);
 void				ft_putnstr_fd(char *str, int n, int fd);
+int					ft_strchrdiff(const char *s1, const char *s2, char sy);
 
 /*
 ** Folder stack_structure______________________________________________________

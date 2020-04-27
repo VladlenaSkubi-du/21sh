@@ -6,7 +6,7 @@
 #    By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:34:17 by sschmele          #+#    #+#              #
-#    Updated: 2020/04/24 18:32:31 by vladlenasku      ###   ########.fr        #
+#    Updated: 2020/04/27 14:12:27 by vladlenasku      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -133,7 +133,8 @@ STRING_FUNCTIONS = ./string_functions/ft_straddsy.c \
 	./string_functions/ft_strnstr.c \
 	./string_functions/ft_strrchr.c \
 	./string_functions/ft_strrchri.c \
-	./string_functions/ft_strstr.c
+	./string_functions/ft_strstr.c \
+	./string_functions/ft_strchrdiff.c
 
 DIR_O = objs
 OBJS = $(addprefix $(DIR_O)/,$(SRCS:.c=.o))

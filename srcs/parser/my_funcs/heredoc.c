@@ -31,26 +31,49 @@ int			redir_heredoc(t_pblks **current_cont,
 	return (0);
 }
 
+static void	print_fd(t_list *fd_hered)
+{
+	t_fd *ptr_fd = fd_hered->content;
+
+	ft_printf("******************************\n");
+	// ft_printf("Fd_in %d\nFd_out %d\n", ptr_fd->fd_in, ptr_fd->fd_out);
+	ft_putstr("Fd_in is ");
+	ft_putnbr(ptr_fd->fd_in);
+	ft_putstr("\nFd_out is ");
+	ft_putnbr(ptr_fd->fd_out);
+	ft_printf("\nFd_file is %s\n", ptr_fd->file);
+	if (ptr_fd->flag)
+	{
+		(ptr_fd->flag & CLOSE_FD) ? ft_printf("close fd\n") : 0;
+		(ptr_fd->flag & CREATE_FD) ? ft_printf("create file\n") : 0;
+		(ptr_fd->flag & OPEN_FD) ? ft_printf("open file\n") : 0;
+		(ptr_fd->flag & REDIRECTION_FD) ? ft_printf("redirection\n") : 0;
+	}
+}
+
 int			check_heredoc_closure(t_cmd *pline)
 {
-	t_list		*fd_hered;
-	static char	*heredoc_buf;
-	static int	buf_size;
+	static t_list	*fd_hered;
+	static char		*heredoc_buf;
+	static int		buf_size;
 
-	fd_hered = NULL;
 	if (g_prompt.prompt_func != heredoc_prompt)
 	{
 		g_prompt.prompt_func = heredoc_prompt;
 		save_heredoc_buffer(&heredoc_buf, &buf_size, NULL, INIT_BUF);
+		fd_hered = find_first_heredoc();
+		print_fd(fd_hered);
+		return (OUT);
 	}
-	fd_hered = find_first_heredoc();
-	if (fd_hered == NULL) //циклится здесь
+	if (fd_hered == NULL)
 	{
-		printf("error - can't find redir\n"); //DELETE
-		return (0);
+		
 	}
-	return ((close_heredoc(&fd_hered,
-		pline, &heredoc_buf, &buf_size) == OUT) ? OUT : 0);
+	if (close_heredoc(&fd_hered, pline,
+			&heredoc_buf, &buf_size) == OUT)
+		return (OUT);
+	fd_hered = find_first_heredoc();
+	return (0);
 }
 
 t_list		*find_first_heredoc(void)
@@ -94,20 +117,26 @@ int			close_heredoc(t_list **fd_hered,
 	char		*final;
 	
 	fd_cont = (*fd_hered)->content;
-	if (ft_strncmp(pline->cmd, fd_cont->file, pline->len_tech - 2) == 0)
+	if (ft_strchrdiff(pline->cmd, fd_cont->file, '\n') || pline->cmd[0] == EOF)
 	{
+		g_prompt.prompt_func = main_prompt;
 		final = ft_strdup(*heredoc_buf);
-		save_heredoc_buffer(heredoc_buf, buf_size, NULL, CLEAR_BUF);
 		dollar_expansion(&final);
 		load_heredocbuf_into_file(fd_cont->fd_in, final);
 		free(final);
 		free(fd_cont->file);
 		fd_cont->file = NULL;
+		save_heredoc_buffer(heredoc_buf, buf_size, NULL, CLEAR_BUF);
 		g_herenum--;
+		if (g_herenum > 0)
+		{
+			if (check_heredoc_closure(pline) == OUT)
+				return (OUT);
+		}
+		return (0);
 	}
-	else
-		save_heredoc_buffer(heredoc_buf, buf_size, pline->cmd, ADD_BUF);
-	return (0);
+	save_heredoc_buffer(heredoc_buf, buf_size, pline->cmd, ADD_BUF);
+	return (OUT);
 }
 
 int			load_heredocbuf_into_file(int fd, char *heredoc_buf)
@@ -126,6 +155,7 @@ int			load_heredocbuf_into_file(int fd, char *heredoc_buf)
 		}
 		i++;
 	}
+	lseek(fd, 0, SEEK_SET);
 	return (0);
 }
 
@@ -148,7 +178,7 @@ int			save_heredoc_buffer(char **here_buf, int *buf_size,
 				(size_t)*buf_size, (size_t)*buf_size * 2);
 			*buf_size *= 2;
 		}
-		ft_strcpy(*here_buf, cmd);
+		ft_strcat(*here_buf, cmd);
 	}
 	else if (mode == CLEAR_BUF)
 	{
