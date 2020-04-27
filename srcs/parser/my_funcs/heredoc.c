@@ -5,52 +5,6 @@
 #define ADD_BUF		2
 #define CLEAR_BUF	-1
 
-int			redir_heredoc(t_pblks **current_cont,
-							t_cmd **ptr_lcmd, int *i)
-{
-	t_list		*new_fd;
-	t_fd		fd_inout;
-
-	bzero_fd_redir(&fd_inout);
-	if ((*ptr_lcmd)->tech[*i] == LTHAN && (*ptr_lcmd)->tech[*i + 1] == LTHAN)
-	{
-		if (find_fdbefore_redir(ptr_lcmd, &fd_inout, i) == OUT)
-			return (activate_redir_error(current_cont, fd_inout));
-		(fd_inout.fd_out == -1) ? fd_inout.fd_out = STDIN_FILENO : 0;
-		delete_symbols_from_parser_line(ptr_lcmd, *i + 2, -2);
-		if (find_fdafter_redir(ptr_lcmd, &fd_inout, i) == OUT)
-			return (activate_redir_error(current_cont, fd_inout));
-		fd_inout.flag |= REDIRECTION_FD;
-		g_herenum++;
-		fd_inout.fd_in = ft_tmpfile();
-		new_fd = add_redir_to_block(fd_inout);
-		ft_lstadd_to_end(&(*current_cont)->fd, new_fd);
-		if (*i == 0)
-			*i = -1;
-	}
-	return (0);
-}
-
-static void	print_fd(t_list *fd_hered)
-{
-	t_fd *ptr_fd = fd_hered->content;
-
-	ft_printf("******************************\n");
-	// ft_printf("Fd_in %d\nFd_out %d\n", ptr_fd->fd_in, ptr_fd->fd_out);
-	ft_putstr("Fd_in is ");
-	ft_putnbr(ptr_fd->fd_in);
-	ft_putstr("\nFd_out is ");
-	ft_putnbr(ptr_fd->fd_out);
-	ft_printf("\nFd_file is %s\n", ptr_fd->file);
-	if (ptr_fd->flag)
-	{
-		(ptr_fd->flag & CLOSE_FD) ? ft_printf("close fd\n") : 0;
-		(ptr_fd->flag & CREATE_FD) ? ft_printf("create file\n") : 0;
-		(ptr_fd->flag & OPEN_FD) ? ft_printf("open file\n") : 0;
-		(ptr_fd->flag & REDIRECTION_FD) ? ft_printf("redirection\n") : 0;
-	}
-}
-
 int			check_heredoc_closure(t_cmd *pline)
 {
 	static t_list	*fd_hered;
@@ -62,12 +16,13 @@ int			check_heredoc_closure(t_cmd *pline)
 		g_prompt.prompt_func = heredoc_prompt;
 		save_heredoc_buffer(&heredoc_buf, &buf_size, NULL, INIT_BUF);
 		fd_hered = find_first_heredoc();
-		print_fd(fd_hered);
 		return (OUT);
 	}
 	if (fd_hered == NULL)
 	{
-		
+		g_prompt.prompt_func = main_prompt;
+		error_handler(SYNTAX_ERROR | ERR_REDIR << 9, NULL);
+		return (0);
 	}
 	if (close_heredoc(&fd_hered, pline,
 			&heredoc_buf, &buf_size) == OUT)
@@ -103,11 +58,13 @@ t_list		*find_first_heredoc(void)
 }
 
 /*
-** Expression: pline->len_tech - 2 means that we compare the line
-** coming to parser without the last '\n'
-** If ft_strncmp function returns 0, it means that the heredoc is
+** If ft_strchrdiff function returns 1 or there is a EOF
+** (ctrl + D was pushed), it means that the heredoc is
 ** closed and we rewrite the whole buffer to the file and
-** delete the heredoc
+** mark the fd_block as done by freeing the @fd_cont->file
+** As though inside the heredoc all the dollar expansions
+** are valid, we also change the buffer going to the file
+** according to dollar-expansion rules
 */
 
 int			close_heredoc(t_list **fd_hered,
@@ -141,8 +98,8 @@ int			close_heredoc(t_list **fd_hered,
 
 int			load_heredocbuf_into_file(int fd, char *heredoc_buf)
 {
-	int			i;
-	int			start;
+	int				i;
+	int				start;
 	
 	i = 0;
 	start = 0;
@@ -162,7 +119,7 @@ int			load_heredocbuf_into_file(int fd, char *heredoc_buf)
 int			save_heredoc_buffer(char **here_buf, int *buf_size,
 				char *cmd, int mode)
 {
-	int			buf_len;
+	int				buf_len;
 
 	if (mode == INIT_BUF)
 	{

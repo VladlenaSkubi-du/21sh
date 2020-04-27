@@ -106,15 +106,16 @@ int					delete_quotes_from_line(t_pblks **current_cont,
 						t_cmd **ptr_lcmd);
 int					check_redirections(t_pblks **current_cont,
 						t_cmd **ptr_lcmd);
+int					redir_heredoc(t_pblks **current_cont,
+						t_cmd **ptr_lcmd, int *i);
+
 /*
 ** File parser_line_processing.c
 */
 
-t_cmd				*init_parser_line(char *line);
-void				free_parser_line(t_cmd **pline);
-int					delete_symbols_from_parser_line(t_cmd **pline,
-						int i, int num);
 void				print_all_lists(void);
+void				print_fd_blocks(t_pblks	*ptr_block_cont);
+void				print_techline(char *cmd, char *techline, int len_tech);
 
 /*
 ** File parser_blocks_processing.c
@@ -131,6 +132,10 @@ int					free_parser_blocks_all(t_list **head);
 ** File parser_global_processing.c
 */
 
+t_cmd				*init_parser_line(char *line);
+void				free_parser_line(t_cmd **pline);
+int					delete_symbols_from_parser_line(t_cmd **pline,
+						int i, int num);
 void				free_fdredir_content(t_list **runner_fd,
 						t_fd *ptr_fd);
 void				free_pblock_content(t_list **runner_blk,
@@ -176,11 +181,9 @@ int					free_fd_not_heredoc(t_list **runner_fd,
 int					free_fdredir_all(t_pblks **current_cont);
 
 /*
-** File heredoc_processing.c
+** File heredoc.c
 */
 
-int					redir_heredoc(t_pblks **current_cont,
-						t_cmd **ptr_lcmd, int *i);
 int					check_heredoc_closure(t_cmd *pline);
 t_list				*find_first_heredoc(void);
 int					close_heredoc(t_list **fd_hered, t_cmd *pline,

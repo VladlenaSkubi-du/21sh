@@ -1,40 +1,7 @@
 #include "shell21.h"
 #include "parser.h"
 
-//int count
-// printf("g_cmd nul=%s\n", g_pline->cmd);//печать для проверки
-		// printf("techline cur:");
-		// count = -1;
-		// while (++count <= g_pline->len_tech)
-		// 	printf("%3d", g_pline->tech[count]);
-		// printf("\n");
-
-	// printf("g_cmd nul=%s - len=%d\n", (*ptr_lcmd)->cmd, (*ptr_lcmd)->len_tech);//печать для проверки
-	// printf("techline cur:");
-	// int count = -1;
-	// while (++count < (*ptr_lcmd)->len_tech)
-	// 	printf("%3d", (*ptr_lcmd)->tech[count]);
-	// printf("\n");
-
-	// runner_fd = start_fd;
-	// while (runner_fd)
-	// {
-	// 	ptr_fd = runner_fd->content;
-	// 	printf("******************************\n");
-	// 	printf("Fd_in is %d\n", ptr_fd->fd_in);
-	// 	printf("Fd_out is %d\n", ptr_fd->fd_out);
-	// 	printf("Fd_file is %s\n", ptr_fd->file);
-	// 	if (ptr_fd->flag)
-	// 	{
-	// 		(ptr_fd->flag & CLOSE_FD) ? printf("close fd\n") : 0;
-	// 		(ptr_fd->flag & CREATE_FD) ? printf("create file\n") : 0;
-	// 		(ptr_fd->flag & OPEN_FD) ? printf("open file\n") : 0;
-	// 		(ptr_fd->flag & REDIRECTION_FD) ? printf("redirection\n") : 0;
-	// 	}
-	// 	runner_fd = runner_fd->next;
-	// }
-
-static void		print_fd_blocks(t_pblks	*ptr_block_cont)
+void			print_fd_blocks(t_pblks	*ptr_block_cont)
 {
 	t_list		*fd_runner;
 	t_fd		*ptr_fd;
@@ -89,34 +56,14 @@ void			print_all_lists(void)
 	}
 }
 
-t_cmd			*init_parser_line(char *line)
+void			print_techline(char *cmd, char *techline, int len_tech)
 {
-	t_cmd		*parser;
-	int			len_cmd;
+	int			i;
 
-	parser = (t_cmd*)ft_xmalloc(sizeof(t_cmd));
-	parser->cmd = line;
-	len_cmd = ft_strlen(parser->cmd);
-	parser->tech = ft_make_techline(parser->cmd, len_cmd);
-	parser->len_tech = len_cmd + 1;
-	return (parser);
-}
-
-void			free_parser_line(t_cmd **pline)
-{
-	free((*pline)->cmd);
-	(*pline)->cmd = NULL;
-	free((*pline)->tech);
-	(*pline)->tech = NULL;
-	free(*pline);
-	*pline = NULL;
-}
-
-int				delete_symbols_from_parser_line(t_cmd **pline,
-					int i, int num)
-{
-	str_shift((*pline)->cmd + i, num);
-	str_shift((*pline)->tech + i, num);
-	(*pline)->len_tech += num;
-	return (0);
+	i = -1;
+	ft_printf("g_cmd = %s\n", cmd);
+	ft_printf("techline cur:");
+	while (++i <= len_tech)
+		ft_printf("%3d", g_pline->tech[i]);
+	ft_printf("\n");
 }
