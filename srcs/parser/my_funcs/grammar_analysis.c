@@ -23,7 +23,7 @@ int			gramlex_analysis(void)
 			if (current_cont->err & REDIR_HARD)
 			{
 				free_pblocks_except_heredoc(&g_grblks);
-				return (OUT);
+				return (shift_harderror_to_last_heredoc());
 			}
 		}
 		runner = runner->next;
@@ -116,4 +116,23 @@ int			redir_heredoc(t_pblks **current_cont,
 			*i = -1;
 	}
 	return (0);
+}
+
+int			shift_harderror_to_last_heredoc(void)
+{
+	t_list		*runner;
+	t_pblks		*current_cont;
+	t_list		*last_heredoc;
+
+	runner = g_grblks;
+	while (runner)
+	{
+		current_cont = runner->content;
+		if (current_cont->fd)
+			last_heredoc = runner;
+		runner = runner->next;
+	}
+	current_cont = last_heredoc->content;
+	current_cont->err |= REDIR_HARD;
+	return (OUT);
 }

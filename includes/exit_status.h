@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/22 18:38:53 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/04/27 17:15:06 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@
 
 # define	ERR_REDIR 0x20
 # define	ERR_REDIR_SOFT 0x40
+# define	ERR_PIPE 0x80
+# define	ERR_SCOLON 0x100
 
 /*
 ** In reality bash returns code "2" for all the internal errors + adds mask for

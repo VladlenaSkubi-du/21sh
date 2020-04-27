@@ -3,6 +3,8 @@
 
 int			prepare_and_exec(void)
 {
+	if (check_hard_errors() == OUT)
+		return (0);
 	return (0);
 }
 

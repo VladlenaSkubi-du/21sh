@@ -35,6 +35,8 @@ void			print_all_lists(void)
 	t_cmd		*ptr_lcmd;
 	int			end;
 
+	if (g_grblks == NULL)
+		ft_printf("empty grammar blocks\n");
 	runner = g_grblks;
 	while (runner)
 	{
@@ -64,6 +66,6 @@ void			print_techline(char *cmd, char *techline, int len_tech)
 	ft_printf("g_cmd = %s\n", cmd);
 	ft_printf("techline cur:");
 	while (++i <= len_tech)
-		ft_printf("%3d", g_pline->tech[i]);
+		ft_printf("%3d", techline[i]);
 	ft_printf("\n");
 }

@@ -108,9 +108,13 @@ int				options_errors(int status, char *str) //delete if no options
 int				syntax_errors(int status, char *str)
 {
 	if (status >> 9 & ERR_QUOTE)
-		ft_putendl_fd("syntax error: unexpected EOF", STDERR_FILENO);
+		ft_putendl_fd("syntax error: unexpected EOF in quotes", STDERR_FILENO);
 	if (status >> 9 & ERR_REDIR)
 		ft_putendl_fd("syntax error: redirection error", STDERR_FILENO);
+	if (status >> 9 & ERR_PIPE)
+		ft_putendl_fd("syntax error: pipe error", STDERR_FILENO);
+	if (status >> 9 & ERR_SCOLON)
+		ft_putendl_fd("syntax error near ';' token", STDERR_FILENO);
 	if (status >> 9 & ERR_REDIR_SOFT)
 		ft_putendl_fd("redirection can't be performed", STDERR_FILENO);
 	if (status >> 9 & ERR_BAD_FD)

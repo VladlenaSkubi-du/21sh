@@ -29,10 +29,6 @@
 # define OPEN_FD		0x40
 # define REDIRECTION_FD	0x80
 
-// # define ERR_IN			0x40000000U
-// # define ERR_R			0x20000000U
-// # define ERR_OUT		0x10000000U
-
 /*
 ** ____________________________________________________________________________
 */
@@ -108,6 +104,7 @@ int					check_redirections(t_pblks **current_cont,
 						t_cmd **ptr_lcmd);
 int					redir_heredoc(t_pblks **current_cont,
 						t_cmd **ptr_lcmd, int *i);
+int					shift_harderror_to_last_heredoc(void);
 
 /*
 ** File parser_line_processing.c
@@ -198,6 +195,14 @@ int					save_heredoc_buffer(char **here_buf, int *buf_size,
 
 int					prepare_and_exec(void);
 int					dollar_expansion(char **cmd_part);
+
+/*
+** File check_hard_errors.c
+*/
+
+int					check_hard_errors(void);
+int					check_empty_pblock(t_pblks **pblk_cont);
+int					close_empty_fd_blocks(t_list **fd_runner);
 
 // enum					e_way
 // {

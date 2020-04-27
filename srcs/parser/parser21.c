@@ -13,8 +13,6 @@
 
 int			parser(char *line)
 {
-	int		msg;
-	
 	if (prepare_parser(line) == OUT)
 		return (0);
 	if (g_prompt.prompt_func == heredoc_prompt)
@@ -24,8 +22,10 @@ int			parser(char *line)
 			clean_parser();
 			return (OUT);
 		}
+					print_all_lists(); //DELETE
 		prepare_and_exec();
 		free_parser_blocks_all(&g_grblks);
+					print_all_lists(); //DELETE
 	}	
 	else
 	{
@@ -34,18 +34,16 @@ int			parser(char *line)
 		{
 			slice_by_scolons();
 			slice_by_pipes_cycle();
-			msg = gramlex_analysis();
+			gramlex_analysis();
 			if (g_herenum > 0 && check_heredoc_closure(g_pline) == OUT)
 			{
 				clean_parser();
 				return (OUT);
 			}
-			if (msg == OUT)
-				error_handler(SYNTAX_ERROR | ERR_REDIR << 9, NULL);
-			else
-				prepare_and_exec();
-			print_all_lists(); //DELETE
+						print_all_lists(); //DELETE
+			prepare_and_exec();
 			free_parser_blocks_all(&g_grblks);
+						print_all_lists(); //DELETE
 		}
 	}
 	clean_parser();

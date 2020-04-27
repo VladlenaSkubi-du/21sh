@@ -72,7 +72,8 @@ MY_FUNCS = 	$(PARSER_DIR)/$(MY_FUNCS_DIR)/quote_control.c \
 			$(PARSER_DIR)/$(MY_FUNCS_DIR)/redirections_processing.c \
 			$(PARSER_DIR)/$(MY_FUNCS_DIR)/fd_content_processing.c \
 			$(PARSER_DIR)/$(MY_FUNCS_DIR)/heredoc.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/prepare_and_exec.c
+			$(PARSER_DIR)/$(MY_FUNCS_DIR)/prepare_and_exec.c \
+			$(PARSER_DIR)/$(MY_FUNCS_DIR)/check_hard_errors.c \
 
 ASSIGNMENT_DIR = assignment
 ASSIGNMENT = \
