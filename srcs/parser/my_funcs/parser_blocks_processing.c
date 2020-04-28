@@ -73,6 +73,7 @@ int				free_parser_blocks_all(t_list **head)
 {
 	t_list		*runner_blk;
 	t_list		*delete_blk;
+	t_list		*delete_fd;
 	t_pblks		*ptr_cont;
 
 	runner_blk = *head;
@@ -81,7 +82,9 @@ int				free_parser_blocks_all(t_list **head)
 		delete_blk = runner_blk;
 		runner_blk = runner_blk->next;
 		ptr_cont = delete_blk->content;
-		free_fdredir_all(&ptr_cont);
+		delete_fd = ptr_cont->fd;
+		free_fdredir_from(&delete_fd);
+		ptr_cont->fd = NULL;
 		free_pblock_content(&delete_blk, &ptr_cont);
 		free(delete_blk);
 		delete_blk = NULL;

@@ -22,8 +22,8 @@ int				find_fdbefore_redir(t_cmd **ptr_lcmd,
 	if ((*i) - 1 != j)
 	{
 		j++;
-		fd_inout->fd_out = ft_atoi(&(*ptr_lcmd)->cmd[j]);
-		delete_symbols_from_parser_line(ptr_lcmd, *i, j - (*i));
+		fd_inout->fd_old = ft_atoi(&(*ptr_lcmd)->cmd[j]);
+		delete_or_insert_to_pline(ptr_lcmd, *i, j - (*i));
 		*i -= (*i) - j;
 	}
 	return (0);
@@ -61,7 +61,7 @@ int				find_fdafter_redir(t_cmd **ptr_lcmd,
 		return (OUT);
 	}
 	fd_inout->file = ft_strndup((*ptr_lcmd)->cmd + start, j - start);
-	delete_symbols_from_parser_line(ptr_lcmd, j, start - j);
+	delete_or_insert_to_pline(ptr_lcmd, j, start - j);
 	return (0);
 }
 
@@ -83,9 +83,9 @@ int				minus_close_redir(t_pblks **current_cont, t_cmd **ptr_lcmd,
 	t_list		*new_fd;
 
 	fd_inout.flag |= CLOSE_FD;
-	delete_symbols_from_parser_line(ptr_lcmd, *i + 1, -1);
+	delete_or_insert_to_pline(ptr_lcmd, *i + 1, -1);
 	new_fd = add_redir_to_block(fd_inout);
-	ft_lstadd_after(&(*current_cont)->fd, new_fd);
+	ft_lstadd_to_end(&(*current_cont)->fd, new_fd);
 	return (0);
 }
 
@@ -103,7 +103,7 @@ int				only_num_fdafter_redir(t_fd *fd_inout)
 		}
 		j++;
 	}
-	fd_inout->fd_in = ft_atoi(fd_inout->file);
+	fd_inout->fd_new = ft_atoi(fd_inout->file);
 	free(fd_inout->file);
 	fd_inout->file = NULL;
 	return (0);

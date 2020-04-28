@@ -24,7 +24,7 @@ void			free_parser_line(t_cmd **pline)
 	*pline = NULL;
 }
 
-int				delete_symbols_from_parser_line(t_cmd **pline,
+int				delete_or_insert_to_pline(t_cmd **pline,
 					int i, int num)
 {
 	str_shift((*pline)->cmd + i, num);

@@ -9,8 +9,8 @@ t_list			*add_redir_to_block(t_fd fd_inout)
 	result = ft_lstnew(NULL, 0);
 	result->content = (t_fd*)ft_xmalloc(sizeof(t_fd));
 	ptr_fd = result->content;
-	ptr_fd->fd_in = fd_inout.fd_in;
-	ptr_fd->fd_out = fd_inout.fd_out;
+	ptr_fd->fd_old = fd_inout.fd_old;
+	ptr_fd->fd_new = fd_inout.fd_new;
 	ptr_fd->file = fd_inout.file;
 	ptr_fd->flag = fd_inout.flag;
 	return (result);
@@ -18,8 +18,8 @@ t_list			*add_redir_to_block(t_fd fd_inout)
 
 void			bzero_fd_redir(t_fd *fd_block)
 {
-	fd_block->fd_in = -1;
-	fd_block->fd_out = -1;
+	fd_block->fd_old = -1;
+	fd_block->fd_new = -1;
 	fd_block->file = NULL;
 	fd_block->flag = 0;
 }
@@ -81,13 +81,13 @@ int				free_fd_not_heredoc(t_list **runner_fd,
 	return (0);
 }
 
-int				free_fdredir_all(t_pblks **current_cont)
+int				free_fdredir_from(t_list **fd_from)
 {
 	t_list		*runner_fd;
 	t_list		*delete_fd;
 	t_fd		*ptr_fd;
 
-	runner_fd = (*current_cont)->fd;
+	runner_fd = *fd_from;
 	while (runner_fd)
 	{
 		delete_fd = runner_fd;
@@ -97,6 +97,5 @@ int				free_fdredir_all(t_pblks **current_cont)
 		free(delete_fd);
 		delete_fd = NULL;
 	}
-	(*current_cont)->fd = NULL;
 	return (0);
 }

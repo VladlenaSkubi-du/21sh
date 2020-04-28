@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/16 23:02:45 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/04/28 17:32:08 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int					find_in_variables(char **arr, int *j, char *name);
 char				**init_exec_environ(void);
 int					insert_assign_to_arrays(char *find, char *insert,
 						char **array);
+char				*find_var_in_arrays(char **find);
 
 /*
 ** File variables_array_processing.c

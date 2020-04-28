@@ -12,8 +12,8 @@ int			redir_inand(t_pblks **current_cont,
 	{
 		if (find_fdbefore_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
-		(fd_inout.fd_out == -1) ? fd_inout.fd_out = STDIN_FILENO : 0;
-		delete_symbols_from_parser_line(ptr_lcmd, *i + 2, -2);
+		(fd_inout.fd_old == -1) ? fd_inout.fd_old = STDIN_FILENO : 0;
+		delete_or_insert_to_pline(ptr_lcmd, *i + 2, -2);
 		if ((*ptr_lcmd)->cmd[*i] == '-')
 			return (minus_close_redir(current_cont, ptr_lcmd, fd_inout, i));
 		if (find_fdafter_redir(ptr_lcmd, &fd_inout, i) == OUT)
@@ -40,8 +40,8 @@ int			redir_in(t_pblks **current_cont,
 	{
 		if (find_fdbefore_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
-		(fd_inout.fd_out == -1) ? fd_inout.fd_out = STDIN_FILENO : 0;
-		delete_symbols_from_parser_line(ptr_lcmd, *i + 1, -1);
+		(fd_inout.fd_old == -1) ? fd_inout.fd_old = STDIN_FILENO : 0;
+		delete_or_insert_to_pline(ptr_lcmd, *i + 1, -1);
 		if (find_fdafter_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
 		fd_inout.flag |= OPEN_FD;
@@ -64,8 +64,8 @@ int			redir_outout(t_pblks **current_cont,
 	{
 		if (find_fdbefore_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
-		(fd_inout.fd_out == -1) ? fd_inout.fd_out = STDOUT_FILENO : 0;
-		delete_symbols_from_parser_line(ptr_lcmd, *i + 2, -2);
+		(fd_inout.fd_old == -1) ? fd_inout.fd_old = STDOUT_FILENO : 0;
+		delete_or_insert_to_pline(ptr_lcmd, *i + 2, -2);
 		if (find_fdafter_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
 		fd_inout.flag |= CREATE_FD;
@@ -88,8 +88,8 @@ int			redir_outand(t_pblks **current_cont,
 	{
 		if (find_fdbefore_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
-		(fd_inout.fd_out == -1) ? fd_inout.fd_out = STDOUT_FILENO : 0;
-		delete_symbols_from_parser_line(ptr_lcmd, *i + 2, -2);
+		(fd_inout.fd_old == -1) ? fd_inout.fd_old = STDOUT_FILENO : 0;
+		delete_or_insert_to_pline(ptr_lcmd, *i + 2, -2);
 		if ((*ptr_lcmd)->cmd[*i] == '-')
 			return (minus_close_redir(current_cont, ptr_lcmd, fd_inout, i));
 		if (find_fdafter_redir(ptr_lcmd, &fd_inout, i) == OUT)
@@ -116,8 +116,8 @@ int			redir_out(t_pblks **current_cont,
 	{
 		if (find_fdbefore_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
-		(fd_inout.fd_out == -1) ? fd_inout.fd_out = STDOUT_FILENO : 0;
-		delete_symbols_from_parser_line(ptr_lcmd, *i + 1, -1);
+		(fd_inout.fd_old == -1) ? fd_inout.fd_old = STDOUT_FILENO : 0;
+		delete_or_insert_to_pline(ptr_lcmd, *i + 1, -1);
 		if (find_fdafter_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
 		fd_inout.flag |= OPEN_FD;

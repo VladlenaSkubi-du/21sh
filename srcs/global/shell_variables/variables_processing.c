@@ -90,3 +90,25 @@ int				insert_assign_to_arrays(char *find, char *insert,
 	*array = insert;
 	return (0);
 }
+
+char			*find_var_in_arrays(char **find)
+{
+	char		*res;
+	int			li;
+	int			sj;
+
+	li = -1;
+	sj = -1;
+	res = NULL;
+	if ((li = find_in_variables(g_rdovar, &sj, *find)) != -1)
+		res = ft_strdup(&g_rdovar[li][sj]);
+	else if ((li = find_in_variables(g_env, &sj, *find)) != -1)
+		res = ft_strdup(&g_env[li][sj]);
+	else if ((li = find_in_variables(g_shvar, &sj, *find)) != -1)
+		res = ft_strdup(&g_shvar[li][sj]);
+	else if ((li = find_in_variables(g_lovar, &sj, *find)) != -1)
+		res = ft_strdup(&g_lovar[li][sj]);
+	free(*find);
+	*find = NULL;
+	return (res);
+}

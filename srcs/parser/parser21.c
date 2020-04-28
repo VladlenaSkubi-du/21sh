@@ -24,6 +24,8 @@ int			parser(char *line)
 		}
 					print_all_lists(); //DELETE
 		prepare_and_exec();
+					printf("AFTER PREPARE\n");
+					print_all_lists(); //DELETE
 		free_parser_blocks_all(&g_grblks);
 					print_all_lists(); //DELETE
 	}	
@@ -42,6 +44,8 @@ int			parser(char *line)
 			}
 						print_all_lists(); //DELETE
 			prepare_and_exec();
+						printf("AFTER PREPARE\n");
+						print_all_lists(); //DELETE
 			free_parser_blocks_all(&g_grblks);
 						print_all_lists(); //DELETE
 		}

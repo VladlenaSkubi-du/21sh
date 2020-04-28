@@ -41,15 +41,15 @@ int			delete_quotes_from_line(t_pblks **current_cont,
 	{
 		if ((*ptr_lcmd)->tech[i] == SQUOTE || (*ptr_lcmd)->tech[i] == DQUOTE)
 		{
-			delete_symbols_from_parser_line(ptr_lcmd, i + 1, -1);
+			delete_or_insert_to_pline(ptr_lcmd, i + 1, -1);
 			while (i < (*ptr_lcmd)->len_tech &&
 					(*ptr_lcmd)->tech[i] != SQUOTE &&
 					(*ptr_lcmd)->tech[i] != DQUOTE)
 				i++;
-			delete_symbols_from_parser_line(ptr_lcmd, i + 1, -1);
+			delete_or_insert_to_pline(ptr_lcmd, i + 1, -1);
 		}
 		if ((*ptr_lcmd)->tech[i] == ENTER)
-			delete_symbols_from_parser_line(ptr_lcmd, i + 1, -1);
+			delete_or_insert_to_pline(ptr_lcmd, i + 1, -1);
 		i++;
 	}
 	(*current_cont)->beg = -1;
@@ -103,13 +103,13 @@ int			redir_heredoc(t_pblks **current_cont,
 	{
 		if (find_fdbefore_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
-		(fd_inout.fd_out == -1) ? fd_inout.fd_out = STDIN_FILENO : 0;
-		delete_symbols_from_parser_line(ptr_lcmd, *i + 2, -2);
+		(fd_inout.fd_old == -1) ? fd_inout.fd_old = STDIN_FILENO : 0;
+		delete_or_insert_to_pline(ptr_lcmd, *i + 2, -2);
 		if (find_fdafter_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
 		fd_inout.flag |= REDIRECTION_FD;
 		g_herenum++;
-		fd_inout.fd_in = ft_tmpfile();
+		fd_inout.fd_new = ft_tmpfile();
 		new_fd = add_redir_to_block(fd_inout);
 		ft_lstadd_to_end(&(*current_cont)->fd, new_fd);
 		if (*i == 0)

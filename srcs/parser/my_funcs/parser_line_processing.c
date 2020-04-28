@@ -12,10 +12,10 @@ void			print_fd_blocks(t_pblks	*ptr_block_cont)
 		ptr_fd = fd_runner->content;
 		ft_printf("******************************\n");
 		// ft_printf("Fd_in %d\nFd_out %d\n", ptr_fd->fd_in, ptr_fd->fd_out);
-		ft_putstr("Fd_in is ");
-		ft_putnbr(ptr_fd->fd_in);
-		ft_putstr("\nFd_out is ");
-		ft_putnbr(ptr_fd->fd_out);
+		ft_putstr("Fd_old is ");
+		ft_putnbr(ptr_fd->fd_old);
+		ft_putstr("\nFd_new is ");
+		ft_putnbr(ptr_fd->fd_new);
 		ft_printf("\nFd_file is %s\n", ptr_fd->file);
 		if (ptr_fd->flag)
 		{

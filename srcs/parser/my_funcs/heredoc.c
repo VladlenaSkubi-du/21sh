@@ -78,8 +78,8 @@ int			close_heredoc(t_list **fd_hered,
 	{
 		g_prompt.prompt_func = main_prompt;
 		final = ft_strdup(*heredoc_buf);
-		dollar_expansion(&final);
-		load_heredocbuf_into_file(fd_cont->fd_in, final);
+		dollar_expansion(NULL, &final);
+		load_heredocbuf_into_file(fd_cont->fd_new, final);
 		free(final);
 		free(fd_cont->file);
 		fd_cont->file = NULL;

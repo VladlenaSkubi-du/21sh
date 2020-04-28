@@ -52,8 +52,8 @@ typedef struct			s_pblks
 
 typedef struct  		s_fd
 {
-	int					fd_in;
-	int					fd_out;
+	int					fd_old;
+	int					fd_new;
 	char				*file;
 	int					flag;
 }						t_fd;
@@ -131,7 +131,7 @@ int					free_parser_blocks_all(t_list **head);
 
 t_cmd				*init_parser_line(char *line);
 void				free_parser_line(t_cmd **pline);
-int					delete_symbols_from_parser_line(t_cmd **pline,
+int					delete_or_insert_to_pline(t_cmd **pline,
 						int i, int num);
 void				free_fdredir_content(t_list **runner_fd,
 						t_fd *ptr_fd);
@@ -175,7 +175,7 @@ t_list				*add_redir_to_block(t_fd fd_inout);
 int					free_fdredir_except_heredoc(t_pblks **current_cont);
 int					free_fd_not_heredoc(t_list **runner_fd,
 						t_list **last_here_fd, t_fd *ptr_fd, int step);
-int					free_fdredir_all(t_pblks **current_cont);
+int					free_fdredir_from(t_list **fd_from);
 
 /*
 ** File heredoc.c
@@ -194,7 +194,9 @@ int					save_heredoc_buffer(char **here_buf, int *buf_size,
 */
 
 int					prepare_and_exec(void);
-int					dollar_expansion(char **cmd_part);
+int					prepare_fdredir(t_pblks **pblk_cont);
+int					prepare_fdredir_fd(t_list **fd_runner);
+
 
 /*
 ** File check_hard_errors.c
@@ -203,6 +205,14 @@ int					dollar_expansion(char **cmd_part);
 int					check_hard_errors(void);
 int					check_empty_pblock(t_pblks **pblk_cont);
 int					close_empty_fd_blocks(t_list **fd_runner);
+
+/*
+** File expansions.c
+*/
+
+int					tilda_expansion(t_cmd **cmd_part);
+int					dollar_expansion(t_cmd **cmd_part, char **str);
+int					dollar_expansion_processing(t_cmd **str_cmd, int *i, int start);
 
 // enum					e_way
 // {

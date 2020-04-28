@@ -58,6 +58,6 @@ int			close_empty_fd_blocks(t_list **fd_runner)
 
 	fd_cont = (*fd_runner)->content;
 	if (fd_cont->flag & REDIRECTION_FD)
-		close(fd_cont->fd_in);
+		close(fd_cont->fd_new);
 	return (0);
 }

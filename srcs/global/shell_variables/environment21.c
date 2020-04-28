@@ -41,19 +41,18 @@ int					save_readonly_variables(void)
 	int				num;
 	char			*tmp;
 
-	num = 5;
+	num = 6;
 	g_rdovar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
 	g_rdovar[0] = (char*)ft_xmalloc(sizeof(char) * MAX_EXIT_STATUS);
 	g_rdovar[0] = ft_strcpy(g_rdovar[0], "?=0");
 	g_rdovar[1] = ft_strdup("0=21sh");
-	tmp = getcwd(NULL, MAXDIR);
-	g_rdovar[2] = ft_strjoin("PWD=", tmp);
+	tmp = ft_itoa(getpid());
+	g_rdovar[2] = ft_strjoin("$=", tmp);
 	free(tmp);
 	tmp = getcwd(NULL, MAXDIR);
-	g_rdovar[3] = ft_strjoin("OLDPWD=", tmp);
-	free(tmp);
-	tmp = getcwd(NULL, MAXDIR);
-	g_rdovar[4] = ft_strjoin("21SH=", tmp);
+	g_rdovar[3] = ft_strjoin("PWD=", tmp);
+	g_rdovar[4] = ft_strjoin("OLDPWD=", tmp);
+	g_rdovar[5] = ft_strjoin("21SH=", tmp);
 	free(tmp);
 	return (0);
 }

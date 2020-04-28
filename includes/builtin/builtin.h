@@ -2,7 +2,6 @@
 #ifndef BUILTIN42_H
 # define BUILTIN42_H
 
-# include "fc.h"
 # include "cd.h"
 
 # define SUBOPTION_STARTS			16
@@ -30,11 +29,6 @@ int				usage_btin(char *str);
 int				usage_btin_fc(void);
 
 /*
-** Folder fc, file fc.c
-*/
-int             btin_fc(t_ltree *pos);
-
-/*
 ** Folder cd, file cd.c
 */
 
@@ -47,8 +41,6 @@ int				btin_cd(t_ltree *pos);
 void            init_builtins(void);
 int				builtins_call_void(int call_num);
 int				builtins_call(int call_num, t_ltree *pos);
-t_btin_fc		*init_btin_fc(void);
-
 
 /*
 ** File set.c
