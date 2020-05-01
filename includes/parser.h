@@ -212,7 +212,9 @@ int					close_empty_fd_blocks(t_list **fd_runner);
 
 int					tilda_expansion(t_cmd **cmd_part);
 int					dollar_expansion(t_cmd **cmd_part, char **str);
-int					dollar_expansion_processing(t_cmd **str_cmd, int *i, int start);
+int					dollar_expansion_loop(t_cmd **lcmd);
+int					dollar_expansion_processing(t_cmd **str_cmd, int *i,
+						int start, char *find);
 
 // enum					e_way
 // {

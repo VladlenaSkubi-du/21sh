@@ -50,7 +50,7 @@ int			parser(char *line)
 						print_all_lists(); //DELETE
 		}
 	}
-	clean_parser();
+ 	clean_parser();
 	return (0);
 }
 

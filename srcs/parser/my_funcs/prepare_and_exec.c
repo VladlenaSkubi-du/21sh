@@ -22,6 +22,7 @@ int			prepare_and_exec(void)
 			dollar_expansion(&ptr_lcmd, NULL);
 			pblk_cont->lcmd = ptr_lcmd;
 		}
+		pblk_hered->content = pblk_cont;
 		pblk_hered = pblk_hered->next;
 	}
 	return (0);
