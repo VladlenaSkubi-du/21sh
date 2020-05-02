@@ -133,6 +133,8 @@ t_cmd				*init_parser_line(char *line);
 void				free_parser_line(t_cmd **pline);
 int					delete_or_insert_to_pline(t_cmd **pline,
 						int i, int num);
+int					expansion_pline_processing(t_cmd **lcmd, int *i,
+						int start, char *find);
 void				free_fdredir_content(t_list **runner_fd,
 						t_fd *ptr_fd);
 void				free_pblock_content(t_list **runner_blk,
@@ -211,6 +213,7 @@ int					close_empty_fd_blocks(t_list **fd_runner);
 */
 
 int					tilda_expansion(t_cmd **cmd_part);
+char				*home_from_etcpasswd(void);
 int					dollar_expansion(t_cmd **cmd_part, char **str);
 int					dollar_expansion_loop(t_cmd **lcmd);
 int					dollar_expansion_processing(t_cmd **str_cmd, int *i,

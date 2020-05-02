@@ -70,14 +70,14 @@ int					save_shell_variables(void)
 	int				num;
 	char			*tmp;
 	int				li;
-	int				co;
+	int				sy;
 
 	num = 3
 	;
 	g_shvar = (char**)ft_xmalloc((num + 1) * (sizeof(char*)));
-	li = find_in_variables(g_env, &co, "HOME=");
+	li = find_in_variables(g_env, &sy, "HOME=");
 	tmp = (li < 0) ? define_history_file() :
-		ft_strjoin(&g_env[li][co], "/.42sh_history");
+		ft_strjoin(&g_env[li][sy], "/.42sh_history");
 	g_shvar[0] = ft_strjoin("HISTFILE=", tmp);
 	free(tmp);
 	tmp = ft_itoa(MAX_HISTBUF);

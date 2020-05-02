@@ -78,14 +78,14 @@ char			**make_hist_buffer_smaller(int size)
 
 int				check_if_histsize_changed(void)
 {
-	int			i;
-	int			j;
+	int			li;
+	int			sy;
 	int			user_len;
 
-	i = find_in_variables(g_shvar, &j, "HISTSIZE=");
-	if (!ft_isdigit(g_shvar[i][j]))
+	li = find_in_variables(g_shvar, &sy, "HISTSIZE=");
+	if (!ft_isdigit(g_shvar[li][sy]))
 		return (0);
-	user_len = ft_atoi(g_shvar[i] + j);
+	user_len = ft_atoi(g_shvar[li] + sy);
 	if (user_len < 0 || user_len > HISTORY_LIMIT)
 		return (0);
 	else if (user_len > 0 && user_len > g_hist.len)

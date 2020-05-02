@@ -32,21 +32,21 @@ int                 read_hist_from_file(int fd)
 
 int					fill_hist_in_file(void)
 {
-	int				i;
-	int				j;
+	int				li;
+	int				sy;
 	int				fd;
 	char			*path;
 	int				user_len;
 
-	j = 0;
-	i = find_in_variables(g_shvar, &j, "HISTFILE=");
-	path = ft_strdup(g_shvar[i] + j);
-	i = find_in_variables(g_shvar, &j, "HISTFILESIZE=");
-	if (!ft_isdigit(g_shvar[i][j]))
+	sy = 0;
+	li = find_in_variables(g_shvar, &sy, "HISTFILE=");
+	path = ft_strdup(g_shvar[li] + sy);
+	li = find_in_variables(g_shvar, &sy, "HISTFILESIZE=");
+	if (!ft_isdigit(g_shvar[li][sy]))
 		user_len = MAX_HISTFILE;
 	else
 	{
-		user_len = ft_atoi(g_shvar[i] + j);
+		user_len = ft_atoi(g_shvar[li] + sy);
 		if (user_len < 0 || user_len > HISTORY_LIMIT)
 			user_len = MAX_HISTFILE;
 	}

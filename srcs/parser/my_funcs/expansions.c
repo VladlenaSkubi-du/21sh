@@ -3,7 +3,58 @@
 
 int			tilda_expansion(t_cmd **cmd_part)
 {
+	int		i;
+	char	*find;
+	int		li;
+	int		sy;
+	
+	i = -1;
+	while (++i < (*cmd_part)->len_tech)
+	{
+		if ((*cmd_part)->tech[i] == TILDA &&
+				((*cmd_part)->tech[i + 1] == SPACE ||
+				(*cmd_part)->tech[i + 1] == END_T))
+		{
+			if ((li = find_in_variables(g_env, &sy, "HOME")) < 0)
+				find = home_from_etcpasswd(); //check
+			else
+				find = ft_strdup(&g_env[li][sy]);
+			if (find == NULL)
+				return (0);
+			delete_or_insert_to_pline(cmd_part, i + 1, -1);
+			expansion_pline_processing(cmd_part, &i, i + 1, find);
+		}
+	}
 	return (0);
+}
+
+char		*home_from_etcpasswd(void)
+{
+	int		li;
+	int		sy;
+	int		fd;
+	char	*line;
+	char	**info;
+
+	if ((li = find_in_variables(g_rdovar, &sy, "UID")) < 0)
+		return (NULL);
+	fd = open("/etc/passwd", O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	while (ft_gnl(fd, &line) > 0)
+	{
+		info = ft_strsplit(line, ':');
+		free(line);
+		if (ft_strcmp(info[2], &g_rdovar[li][sy]) == 0)
+		{
+			line = ft_strdup(info[5]);
+			ft_arrdel(info);
+			return (line);
+		}
+	}
+	ft_arrdel(info);
+	close(fd);
+	return (NULL);
 }
 
 int			dollar_expansion(t_cmd **cmd_part, char **str)
@@ -54,20 +105,9 @@ int			dollar_expansion_loop(t_cmd **lcmd)
 int			dollar_expansion_processing(t_cmd **lcmd, int *i,
 				int start, char *find)
 {
-	char	*old_cmd;
-	int		len;
-
 	find = find_var_in_arrays(&find);
 	if (find == NULL)
 		return (0);
-	len = ft_strlen(find);
-	old_cmd = (char*)ft_xmalloc(ft_strlen((*lcmd)->cmd) + len + 1);
-	ft_strncpy(old_cmd, (*lcmd)->cmd, start - 1);
-	ft_strcpy(old_cmd + start - 1, find);
-	ft_strcpy(old_cmd + start - 1 + len, (*lcmd)->cmd + start - 1);
-	free(find);
-	free_parser_line(lcmd);
-	*lcmd = init_parser_line(old_cmd);
-	*i = start - 1 + len;
+	expansion_pline_processing(lcmd, i, start, find);
 	return (0);
 }

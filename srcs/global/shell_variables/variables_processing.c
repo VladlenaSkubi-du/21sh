@@ -95,19 +95,19 @@ char			*find_var_in_arrays(char **find)
 {
 	char		*res;
 	int			li;
-	int			sj;
+	int			sy;
 
 	li = -1;
-	sj = -1;
+	sy = -1;
 	res = NULL;
-	if ((li = find_in_variables(g_rdovar, &sj, *find)) != -1)
-		res = ft_strdup(&g_rdovar[li][sj]);
-	else if ((li = find_in_variables(g_env, &sj, *find)) != -1)
-		res = ft_strdup(&g_env[li][sj]);
-	else if ((li = find_in_variables(g_shvar, &sj, *find)) != -1)
-		res = ft_strdup(&g_shvar[li][sj]);
-	else if ((li = find_in_variables(g_lovar, &sj, *find)) != -1)
-		res = ft_strdup(&g_lovar[li][sj]);
+	if ((li = find_in_variables(g_rdovar, &sy, *find)) != -1)
+		res = ft_strdup(&g_rdovar[li][sy]);
+	else if ((li = find_in_variables(g_env, &sy, *find)) != -1)
+		res = ft_strdup(&g_env[li][sy]);
+	else if ((li = find_in_variables(g_shvar, &sy, *find)) != -1)
+		res = ft_strdup(&g_shvar[li][sy]);
+	else if ((li = find_in_variables(g_lovar, &sy, *find)) != -1)
+		res = ft_strdup(&g_lovar[li][sy]);
 	free(*find);
 	*find = NULL;
 	return (res);

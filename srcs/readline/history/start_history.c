@@ -4,12 +4,12 @@
 int				start_history(void)
 {
 	int			fd;
-	int			j;
-	int			i;
+	int			sy;
+	int			li;
 
 	init_history_buffer();
-	i = find_in_variables(g_shvar, &j, "HISTFILE=");
-	fd = open(g_shvar[i] + j, O_RDONLY);
+	li = find_in_variables(g_shvar, &sy, "HISTFILE=");
+	fd = open(g_shvar[li] + sy, O_RDONLY);
 	if (fd < 0)
 		return (0);
 	save_hist_buffer(fd);
