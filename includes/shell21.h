@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/28 17:32:08 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/05/04 21:34:45 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ size_t				ft_count_words(char const *s, char c, size_t len);
 char				*ft_find_token_sep(char *str);
 char				*ft_make_techline(char *cmd, int len);
 char				get_tech_num(char check);
+int					ft_tmpfile(void);
 
 /*
 **_____________________________________________________________________________

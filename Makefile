@@ -7,11 +7,11 @@ FLAGS += -g
 
 BUILTIN_DIR = builtin
 BUILTIN = \
+			$(BUILTIN_DIR)/builtin_processing.c \
 			$(BUILTIN_DIR)/echo.c \
 			$(BUILTIN_DIR)/env.c \
 			$(BUILTIN_DIR)/exit.c \
 			$(BUILTIN_DIR)/history.c \
-			$(BUILTIN_DIR)/builtin_processing.c \
 			$(BUILTIN_DIR)/pwd.c \
 			$(BUILTIN_DIR)/set.c \
 			$(BUILTIN_DIR)/unset.c \
@@ -53,61 +53,28 @@ UNIX_FUNCTIONS = \
 PARSER_DIR = parser
 PARSER = \
 			$(PARSER_DIR)/parser21.c \
-			$(MY_FUNCS)
-			# $(PARSER_DIR)/before_execution.c \
-			# $(PARSER_DIR)/find_spec.c \
-			# $(ASSIGNMENT) \
-			# $(EXEC) \
-			# $(REDIRECTION) \
-			# $(SUBSTITUTION)
-
-MY_FUNCS_DIR = my_funcs
-MY_FUNCS = 	$(PARSER_DIR)/$(MY_FUNCS_DIR)/quote_control.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/grammar_analysis.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/parser_line_processing.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/parser_blocks_processing.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/parser_global_processing.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/redirections.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/redirections_processing.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/fd_content_processing.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/heredoc.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/prepare_and_exec.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/check_hard_errors.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/expansions.c \
+			$(PARSER_DIR)/quote_control.c \
+			$(PARSER_DIR)/grammar_analysis.c \
+			$(PARSER_DIR)/parser_line_processing.c \
+			$(PARSER_DIR)/parser_blocks_processing.c \
+			$(PARSER_DIR)/parser_global_processing.c \
+			$(PARSER_DIR)/prepare_and_exec.c \
+			$(PARSER_DIR)/check_hard_errors.c \
+			$(PARSER_DIR)/expansions.c \
+			$(REDIRECTION) \
 			$(EXEC)
 
-ASSIGNMENT_DIR = assignment
-ASSIGNMENT = \
-			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/backend_variables.c \
-			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/assignment.c
-
 EXEC_DIR = exec
-EXEC = 		$(PARSER_DIR)/$(MY_FUNCS_DIR)/$(EXEC_DIR)/start_exec.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/$(EXEC_DIR)/pathparse_exec.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/$(EXEC_DIR)/exec_processing.c
-
-			# $(PARSER_DIR)/$(EXEC_DIR)/exec_init.c
-			# $(PARSER_DIR)/$(EXEC_DIR)/exec_core.c
-			# $(PARSER_DIR)/$(EXEC_DIR)/exec_utils.c
-			# $(PARSER_DIR)/$(EXEC_DIR)/path_parse.c
+EXEC = 		$(PARSER_DIR)/$(EXEC_DIR)/start_exec.c \
+			$(PARSER_DIR)/$(EXEC_DIR)/pathparse_exec.c \
+			$(PARSER_DIR)/$(EXEC_DIR)/exec_processing.c
 
 REDIRECTION_DIR = redirection
 REDIRECTION = \
-			$(PARSER_DIR)/$(REDIRECTION_DIR)/redirect.c \
-			$(PARSER_DIR)/$(REDIRECTION_DIR)/ft_tmpfile.c \
-			$(PARSER_DIR)/$(REDIRECTION_DIR)/redir_types_out.c \
-			$(PARSER_DIR)/$(REDIRECTION_DIR)/redir_types_in.c \
-			$(PARSER_DIR)/$(REDIRECTION_DIR)/fd_block.c \
-			$(PARSER_DIR)/$(REDIRECTION_DIR)/here_doc.c \
-			$(PARSER_DIR)/$(REDIRECTION_DIR)/here_doc_buffer.c
-
-SUBSTITUTION_DIR = substitution
-SUBSTITUTION = \
-			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/substitution.c \
-			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/ft_find_var.c \
-			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/param_help_func.c \
-			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/tilda.c \
-			$(PARSER_DIR)/$(SUBSTITUTION_DIR)/history_sign.c
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/redirections.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/redirections_processing.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/fd_content_processing.c \
+			$(PARSER_DIR)/$(REDIRECTION_DIR)/heredoc.c			
 
 #______________________________________________________________________________
 
@@ -210,11 +177,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell21.h
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(UNIX_FUNCS_DIR)	
 #_____________________________________________________	
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)
-	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(MY_FUNCS_DIR)
-	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(MY_FUNCS_DIR)/$(EXEC_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(EXEC_DIR)
-	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(ASSIGNMENT_DIR)
-	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(SUBSTITUTION_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(REDIRECTION_DIR)
 #_____________________________________________________	
 	@mkdir -p $(DIR_O)/$(READLINE_DIR)

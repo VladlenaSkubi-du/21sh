@@ -19,13 +19,13 @@ char			**g_builtins;
 ** File exit.c
 */
 
-int				btin_exit(t_exec *pos);
+int				btin_exit(t_exec *exec);
 
 /*
 ** Folder cd, file cd.c
 */
 
-int				btin_cd(t_exec *pos);
+int				btin_cd(t_exec *exec);
 
 /*
 ** File builtin_processing.c
@@ -33,7 +33,7 @@ int				btin_cd(t_exec *pos);
 
 void            init_builtins(void);
 int				builtins_call_void(int call_num);
-int				builtins_call(int call_num, t_exec *pos);
+int				builtins_call(int call_num, t_exec *exec);
 int				usage_btin(char *str);
 
 /*
@@ -47,7 +47,7 @@ int				btin_return_exit_status(void);
 ** File unset.c
 */
 
-int				btin_unset(t_exec *pos);
+int				btin_unset(t_exec *exec);
 
 /*
 ** File history.c
@@ -59,13 +59,13 @@ int				btin_history(void);
 ** File echo.c
 */
 
-int             btin_echo(t_exec *pos);
+int             btin_echo(t_exec *exec);
 
 /*
 ** File pwd.c
 */
 
-int             btin_pwd(t_exec *pos);
+int             btin_pwd(t_exec *exec);
 
 /*
 ** File env.c

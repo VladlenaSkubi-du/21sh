@@ -23,6 +23,7 @@ int			prepare_and_exec(void)
 			pblk_cont->lcmd = ptr_lcmd;
 		}
 		pblk_hered->content = pblk_cont;
+		print_all_lists(); //DELETE
 		form_and_exec(pblk_cont);
 		pblk_hered = pblk_hered->next;
 	}

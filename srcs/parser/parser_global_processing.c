@@ -1,33 +1,6 @@
 #include "shell21.h"
 #include "parser.h"
 
-void			print_fd_blocks(t_pblks	*ptr_block_cont)
-{
-	t_list		*fd_runner;
-	t_fd		*ptr_fd;
-
-	fd_runner = ptr_block_cont->fd;
-	while (fd_runner)
-	{
-		ptr_fd = (t_fd*)fd_runner->content;
-		ft_printf("******************************\n");
-		// ft_printf("Fd_in %d\nFd_out %d\n", ptr_fd->fd_in, ptr_fd->fd_out);
-		ft_putstr("Fd_old is ");
-		ft_putnbr(ptr_fd->fd_old);
-		ft_putstr("\nFd_new is ");
-		ft_putnbr(ptr_fd->fd_new);
-		ft_printf("\nFd_file is %s\n", ptr_fd->file);
-		if (ptr_fd->flag)
-		{
-			(ptr_fd->flag & CLOSE_FD) ? ft_printf("close fd\n") : 0;
-			(ptr_fd->flag & CREATE_FD) ? ft_printf("create file\n") : 0;
-			(ptr_fd->flag & OPEN_FD) ? ft_printf("open file\n") : 0;
-			(ptr_fd->flag & REDIRECTION_FD) ? ft_printf("redirection\n") : 0;
-		}
-		fd_runner = fd_runner->next;
-	}
-}
-
 void			print_all_lists(void)
 {
 	t_list		*runner;
@@ -58,6 +31,32 @@ void			print_all_lists(void)
 	}
 }
 
+void			print_fd_blocks(t_pblks	*ptr_block_cont)
+{
+	t_list		*fd_runner;
+	t_fd		*ptr_fd;
+
+	fd_runner = ptr_block_cont->fd;
+	while (fd_runner)
+	{
+		ptr_fd = (t_fd*)fd_runner->content;
+		ft_printf("******************************\n");
+		ft_putstr("Fd_old is ");
+		ft_putnbr(ptr_fd->fd_old);
+		ft_putstr("\nFd_new is ");
+		ft_putnbr(ptr_fd->fd_new);
+		ft_printf("\nFd_file is %s\n", ptr_fd->file);
+		if (ptr_fd->flag)
+		{
+			(ptr_fd->flag & CLOSE_FD) ? ft_printf("close fd\n") : 0;
+			(ptr_fd->flag & CREATE_FD) ? ft_printf("create file\n") : 0;
+			(ptr_fd->flag & OPEN_FD) ? ft_printf("open file\n") : 0;
+			(ptr_fd->flag & REDIRECTION_FD) ? ft_printf("redirection\n") : 0;
+		}
+		fd_runner = fd_runner->next;
+	}
+}
+
 void			print_techline(char *cmd, char *techline, int len_tech)
 {
 	int			i;
@@ -68,4 +67,21 @@ void			print_techline(char *cmd, char *techline, int len_tech)
 	while (++i <= len_tech - 1)
 		ft_printf("%3d", techline[i]);
 	ft_printf("\n");
+}
+
+void			free_fdredir_content(t_list **runner_fd,
+					t_fd *ptr_fd)
+{
+	free(ptr_fd->file);
+	ptr_fd->file = NULL;
+	free((*runner_fd)->content);
+	(*runner_fd)->content = NULL;
+}
+
+void			free_pblock_content(t_list **runner_blk,
+					t_pblks	**ptr_cont)
+{
+	free_parser_line(&(*ptr_cont)->lcmd);
+	free((*runner_blk)->content);
+	(*runner_blk)->content = NULL;
 }
