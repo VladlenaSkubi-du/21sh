@@ -93,14 +93,14 @@ void     write_text(char **argv, int i, t_ec *echo_flags)
         write(1, "\n", 1);
 }
 
-int     btin_echo(t_ltree *pos)
+int     btin_echo(t_exec *pos)
 {
     t_ec    *echo_flags;
     int     i;
 
     echo_flags = ft_xmalloc(sizeof(t_ec));
-    i = parse_echo_flags(pos->ar_v, echo_flags);
-    write_text(pos->ar_v, i, echo_flags);
+    i = parse_echo_flags(pos->argv, echo_flags);
+    write_text(pos->argv, i, echo_flags);
     free(echo_flags);
     return (0);
 }

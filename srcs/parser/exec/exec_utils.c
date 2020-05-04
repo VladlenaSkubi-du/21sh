@@ -1,7 +1,7 @@
 #include "shell21.h"
 #include "parser.h"
 
-void	free_vec(char **vec)
+void	у(char **vec)
 {
 	size_t	i;
 
@@ -42,19 +42,7 @@ char	*get_env(char *var)
 ** 2) If only PIPED_IN -- delete pipe
 */
 
-/*
-** consider changing architecture to... well, something else
-*/
 
-int	exec_clean(char *path, int exit_status, char *err_msg)
-{
-	if (path)
-		exit_status_variable(exit_status);
-	free(path);
-	if (err_msg)
-		ft_putendl_fd(err_msg, STDERR_FILENO);
-	return (exit_status);
-}
 
 /*
 ** Check if programm to start is buildin and if it is - start builtin

@@ -10,7 +10,7 @@ int			check_hard_errors(void)
 	pblk_hered = g_grblks;
 	while (pblk_hered)
 	{
-		pblk_cont = pblk_hered->content;
+		pblk_cont = (t_pblks*)pblk_hered->content;
 		if (check_empty_pblock(&pblk_cont) == OUT)
 			return (OUT);
 		fd_runner = pblk_cont->fd;
@@ -56,7 +56,7 @@ int			close_empty_fd_blocks(t_list **fd_runner)
 {
 	t_fd		*fd_cont;
 
-	fd_cont = (*fd_runner)->content;
+	fd_cont = (t_fd*)(*fd_runner)->content;
 	if (fd_cont->flag & REDIRECTION_FD)
 		close(fd_cont->fd_new);
 	return (0);

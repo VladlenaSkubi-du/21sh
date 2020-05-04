@@ -8,7 +8,7 @@ t_list			*add_redir_to_block(t_fd fd_inout)
 
 	result = ft_lstnew(NULL, 0);
 	result->content = (t_fd*)ft_xmalloc(sizeof(t_fd));
-	ptr_fd = result->content;
+	ptr_fd = (t_fd*)result->content;
 	ptr_fd->fd_old = fd_inout.fd_old;
 	ptr_fd->fd_new = fd_inout.fd_new;
 	ptr_fd->file = fd_inout.file;
@@ -52,7 +52,7 @@ int				free_fdredir_except_heredoc(t_pblks **current_cont)
 	step = 0;
 	while (runner_fd)
 	{
-		ptr_fd = runner_fd->content;
+		ptr_fd = (t_fd*)runner_fd->content;
 		if (ptr_fd->flag && (ptr_fd->flag & REDIRECTION_FD))
 		{
 			if (step == 0)
@@ -92,7 +92,7 @@ int				free_fdredir_from(t_list **fd_from)
 	{
 		delete_fd = runner_fd;
 		runner_fd = runner_fd->next;
-		ptr_fd = delete_fd->content;
+		ptr_fd = (t_fd*)delete_fd->content;
 		free_fdredir_content(&delete_fd, ptr_fd);
 		free(delete_fd);
 		delete_fd = NULL;

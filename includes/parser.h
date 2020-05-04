@@ -58,6 +58,14 @@ typedef struct  		s_fd
 	int					flag;
 }						t_fd;
 
+typedef	struct			s_exec
+{
+	char				**argv;
+	int					argc;
+	int					flag;
+	t_list				*fd;
+}						t_exec;
+
 /*
 ** Globals:
 ** @g_pline = global parser line
@@ -192,13 +200,14 @@ int					save_heredoc_buffer(char **here_buf, int *buf_size,
 						char *cmd, int mode);
 
 /*
-** File prepare and exec.c
+** File prepare_and_exec.c
 */
 
 int					prepare_and_exec(void);
 int					prepare_fdredir(t_pblks **pblk_cont);
 int					prepare_fdredir_fd(t_list **fd_runner);
-
+char				**form_argv(t_cmd *lcmd, int *eargc);
+char				*new_arg_from_lcmd(t_cmd *lcmd, int *j);
 
 /*
 ** File check_hard_errors.c
@@ -218,6 +227,19 @@ int					dollar_expansion(t_cmd **cmd_part, char **str);
 int					dollar_expansion_loop(t_cmd **lcmd);
 int					dollar_expansion_processing(t_cmd **str_cmd, int *i,
 						int start, char *find);
+
+
+int			form_and_exec(t_pblks *pblk_cont);
+int			start_exec(t_exec *exec);
+int			builtins_exec(t_exec *exec, int flag);
+int			exec_clean(char *path, int exit_status, char *err_msg);
+int			redirection_exec(t_exec *exec);
+char		*path_start_exec(t_exec *exec);
+char		*search_cmd_exec(char *name);
+char		*cmd_binary_path(char *env_path, char *name);
+char		*form_path(char *ret, char *env_path, char *name);
+int			save_streams(int mode);
+int			cmd_fork_and_exec(t_exec *pos, char *path, pid_t *child_pid);
 
 // enum					e_way
 // {

@@ -38,11 +38,11 @@ int					btin_history(void)
 ** the last cmd
 */
 
-int					btin_exsign(t_ltree *pos)
+int					btin_exsign(t_exec *pos)
 {
 	if (g_hist.len < 1 || g_hist.last < 0)
 	{
-		error_handler(SUCCESS | (ERR_EXSIGN << 9), pos->ar_v[0]);
+		error_handler(SUCCESS | (ERR_EXSIGN << 9), pos->argv[0]);
 		return (0);
 	}
 

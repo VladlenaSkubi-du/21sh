@@ -41,11 +41,11 @@ t_list		*find_first_heredoc(void)
 	pblk_hered = g_grblks;
 	while (pblk_hered)
 	{
-		pblk_cont = pblk_hered->content;
+		pblk_cont = (t_pblks*)pblk_hered->content;
 		fd_runner = pblk_cont->fd;
 		while (fd_runner)
 		{
-			fd_cont = fd_runner->content;
+			fd_cont = (t_fd*)fd_runner->content;
 			if (fd_cont->flag &&
 				(fd_cont->flag & REDIRECTION_FD) &&
 				fd_cont->file)
@@ -73,7 +73,7 @@ int			close_heredoc(t_list **fd_hered,
 	t_fd		*fd_cont;
 	char		*final;
 	
-	fd_cont = (*fd_hered)->content;
+	fd_cont = (t_fd*)(*fd_hered)->content;
 	if (ft_strchrdiff(pline->cmd, fd_cont->file, '\n') || pline->cmd[0] == EOF)
 	{
 		g_prompt.prompt_func = main_prompt;

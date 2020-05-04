@@ -26,16 +26,16 @@ int					builtins_call_void(int call_num)
 	return ((*builtins_func[call_num])());
 }
 
-int					builtins_call(int call_num, t_ltree *pos)
+int					builtins_call(int call_num, t_exec *exec)
 {
-	int				(*builtins_func[BUILTINS_NUM])(t_ltree *pos);
+	int				(*builtins_func[BUILTINS_NUM])(t_exec *exec);
 
 	builtins_func[3] = btin_cd;
 	builtins_func[4] = btin_exit;
 	builtins_func[5] = btin_echo;
 	builtins_func[6] = btin_unset;
 	builtins_func[7] = btin_pwd;
-	return ((*builtins_func[call_num])(pos));
+	return ((*builtins_func[call_num])(exec));
 }
 
 int					btin_return_exit_status(void)
@@ -45,4 +45,11 @@ int					btin_return_exit_status(void)
 	
 	li = find_in_variables(g_rdovar, &sy, "?");
 	return (ft_atoi(&g_rdovar[li][sy]));
+}
+
+int					usage_btin(char *str)
+{
+	ft_putstr_fd(str, STDOUT_FILENO);
+	ft_putstr_fd(": usage: ", STDOUT_FILENO);
+	return (0);
 }

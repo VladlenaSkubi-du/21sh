@@ -11,11 +11,10 @@ BUILTIN = \
 			$(BUILTIN_DIR)/env.c \
 			$(BUILTIN_DIR)/exit.c \
 			$(BUILTIN_DIR)/history.c \
-			$(BUILTIN_DIR)/init_structures.c \
+			$(BUILTIN_DIR)/builtin_processing.c \
 			$(BUILTIN_DIR)/pwd.c \
 			$(BUILTIN_DIR)/set.c \
 			$(BUILTIN_DIR)/unset.c \
-			$(BUILTIN_DIR)/usages.c \
             $(CD)
 
 CD_DIR = cd
@@ -74,7 +73,8 @@ MY_FUNCS = 	$(PARSER_DIR)/$(MY_FUNCS_DIR)/quote_control.c \
 			$(PARSER_DIR)/$(MY_FUNCS_DIR)/heredoc.c \
 			$(PARSER_DIR)/$(MY_FUNCS_DIR)/prepare_and_exec.c \
 			$(PARSER_DIR)/$(MY_FUNCS_DIR)/check_hard_errors.c \
-			$(PARSER_DIR)/$(MY_FUNCS_DIR)/expansions.c
+			$(PARSER_DIR)/$(MY_FUNCS_DIR)/expansions.c \
+			$(EXEC)
 
 ASSIGNMENT_DIR = assignment
 ASSIGNMENT = \
@@ -82,10 +82,14 @@ ASSIGNMENT = \
 			$(PARSER_DIR)/$(ASSIGNMENT_DIR)/assignment.c
 
 EXEC_DIR = exec
-EXEC = 		$(PARSER_DIR)/$(EXEC_DIR)/exec_init.c \
-			$(PARSER_DIR)/$(EXEC_DIR)/exec_core.c \
-			$(PARSER_DIR)/$(EXEC_DIR)/exec_utils.c \
-			$(PARSER_DIR)/$(EXEC_DIR)/path_parse.c
+EXEC = 		$(PARSER_DIR)/$(MY_FUNCS_DIR)/$(EXEC_DIR)/start_exec.c \
+			$(PARSER_DIR)/$(MY_FUNCS_DIR)/$(EXEC_DIR)/pathparse_exec.c \
+			$(PARSER_DIR)/$(MY_FUNCS_DIR)/$(EXEC_DIR)/exec_processing.c
+
+			# $(PARSER_DIR)/$(EXEC_DIR)/exec_init.c
+			# $(PARSER_DIR)/$(EXEC_DIR)/exec_core.c
+			# $(PARSER_DIR)/$(EXEC_DIR)/exec_utils.c
+			# $(PARSER_DIR)/$(EXEC_DIR)/path_parse.c
 
 REDIRECTION_DIR = redirection
 REDIRECTION = \
@@ -207,6 +211,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell21.h
 #_____________________________________________________	
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(MY_FUNCS_DIR)
+	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(MY_FUNCS_DIR)/$(EXEC_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(EXEC_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(ASSIGNMENT_DIR)
 	@mkdir -p $(DIR_O)/$(PARSER_DIR)/$(SUBSTITUTION_DIR)

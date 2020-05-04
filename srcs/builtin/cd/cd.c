@@ -53,20 +53,20 @@ int		ft_error(char *name, int en)
     return (1);
 }
 
-int         btin_cd(t_ltree *pos)
+int         btin_cd(t_exec *pos)
 {
 	int     i;
 	t_cd    *flags;
 
 	flags = ft_xmalloc(sizeof(t_cd *));
-	i = ft_cd_flags(pos->ar_v, flags);
-	if (ft_valid_cd(pos->ar_v, i))
+	i = ft_cd_flags(pos->argv, flags);
+	if (ft_valid_cd(pos->argv, i))
 	{
 		free(flags->curpath);
 		free(flags);
 		return (1);
 	}
-	if (ft_cd_pars(pos->ar_v[i], g_env, flags))
+	if (ft_cd_pars(pos->argv[i], g_env, flags))
 	{
 		free(flags->curpath);
 		free(flags);

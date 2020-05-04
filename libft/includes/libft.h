@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 11:48:24 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/27 14:12:32 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/05/02 17:59:00 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ int					ft_gnl(const int fd, char **line);
 void				ft_putnendl_fd(char *str, int n, int fd);
 void				ft_putnstr_fd(char *str, int n, int fd);
 int					ft_strchrdiff(const char *s1, const char *s2, char sy);
+void				ft_delelem_array(char ***array, int len, int start, int num);
 
 /*
 ** Folder stack_structure______________________________________________________

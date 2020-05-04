@@ -41,15 +41,15 @@ int		valid(char **argv)
 	return (0);
 }
 
-int     btin_pwd(t_ltree *pos)
+int     btin_pwd(t_exec *pos)
 {
 	t_cd	*flags;
 	char	dir[MAXDIR];
 
-	if (valid(pos->ar_v))
+	if (valid(pos->argv))
 		return (1);
 	flags = ft_xmalloc(sizeof(t_cd *));
-	ft_cd_flags(pos->ar_v, flags); //there was return i comp - where is used?
+	ft_cd_flags(pos->argv, flags); //there was return i comp - where is used?
 	if (flags->l)
 		ft_putstr(g_rdovar[5] + 4);
 	else

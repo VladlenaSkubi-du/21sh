@@ -9,7 +9,7 @@ void			print_fd_blocks(t_pblks	*ptr_block_cont)
 	fd_runner = ptr_block_cont->fd;
 	while (fd_runner)
 	{
-		ptr_fd = fd_runner->content;
+		ptr_fd = (t_fd*)fd_runner->content;
 		ft_printf("******************************\n");
 		// ft_printf("Fd_in %d\nFd_out %d\n", ptr_fd->fd_in, ptr_fd->fd_out);
 		ft_putstr("Fd_old is ");
@@ -40,7 +40,7 @@ void			print_all_lists(void)
 	runner = g_grblks;
 	while (runner)
 	{
-		ptr_block_cont = runner->content;
+		ptr_block_cont = (t_pblks*)runner->content;
 		end = ptr_block_cont->end -
 			((g_pline->tech[ptr_block_cont->end] == END_T) ? 1 : 0);
 		ft_printf("NEW LIST\n******************************\n");
@@ -65,7 +65,7 @@ void			print_techline(char *cmd, char *techline, int len_tech)
 	i = -1;
 	ft_printf("g_cmd = %s\n", cmd);
 	ft_printf("techline cur:");
-	while (++i <= len_tech)
+	while (++i <= len_tech - 1)
 		ft_printf("%3d", techline[i]);
 	ft_printf("\n");
 }

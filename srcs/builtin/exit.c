@@ -1,7 +1,7 @@
 #include "shell21.h"
 #include "builtin.h"
 
-int				btin_exit(t_ltree *pos)
+int				btin_exit(t_exec *pos)
 {
 	int			status;
 	int			i;
@@ -9,21 +9,21 @@ int				btin_exit(t_ltree *pos)
 
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	i = 0;
-	if (pos->ar_c > 1)
+	if (pos->argc > 1)
 	{
-		while (pos->ar_v[1][i])
+		while (pos->argv[1][i])
 		{
-			if (!(pos->ar_v[1][i] >= '0' && pos->ar_v[1][i] <= '9'))
+			if (!(pos->argv[1][i] >= '0' && pos->argv[1][i] <= '9'))
 			{
-				str = ft_strjoin(pos->ar_v[0], ": ");
-				str = ft_strrejoin(str, pos->ar_v[1]);
+				str = ft_strjoin(pos->argv[0], ": ");
+				str = ft_strrejoin(str, pos->argv[1]);
 				error_handler(SYNTAX_ERROR | (ERR_NUMERIC << 9), str);
 				free(str);
 				break ;
 			}
 			i++;
 		}
-		status = ft_atoi(pos->ar_v[1]);
+		status = ft_atoi(pos->argv[1]);
 	}
 	else
 		status = 0;

@@ -12,7 +12,7 @@ int			gramlex_analysis(void)
 	runner = g_grblks;
 	while (runner)
 	{
-		current_cont = runner->content;
+		current_cont = (t_pblks*)runner->content;
 		tmp = ft_strndup(g_pline->cmd + current_cont->beg,
 			current_cont->end - current_cont->beg);
 		current_cont->lcmd = init_parser_line(tmp);
@@ -127,12 +127,12 @@ int			shift_harderror_to_last_heredoc(void)
 	runner = g_grblks;
 	while (runner)
 	{
-		current_cont = runner->content;
+		current_cont = (t_pblks*)runner->content;
 		if (current_cont->fd)
 			last_heredoc = runner;
 		runner = runner->next;
 	}
-	current_cont = last_heredoc->content;
+	current_cont = (t_pblks*)last_heredoc->content;
 	current_cont->err |= REDIR_HARD;
 	return (OUT);
 }

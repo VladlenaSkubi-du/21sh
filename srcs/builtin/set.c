@@ -26,9 +26,9 @@ static int	sorting_vars(t_pathtree **root, int *len)
 int			btin_set(void)
 {
 	t_pathtree	*root;
-	char	**list;
-	int		len;
-	int 	max;
+	char		**list;
+	int			len;
+	int 		max;
 
 	root = NULL;
 	list = NULL;

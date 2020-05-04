@@ -12,7 +12,7 @@ int			prepare_and_exec(void)
 	pblk_hered = g_grblks;
 	while (pblk_hered)
 	{
-		pblk_cont = pblk_hered->content;
+		pblk_cont = (t_pblks*)pblk_hered->content;
 		prepare_fdredir(&pblk_cont);
 		pblk_hered->content = pblk_cont;
 		ptr_lcmd = pblk_cont->lcmd;
@@ -23,6 +23,7 @@ int			prepare_and_exec(void)
 			pblk_cont->lcmd = ptr_lcmd;
 		}
 		pblk_hered->content = pblk_cont;
+		form_and_exec(pblk_cont);
 		pblk_hered = pblk_hered->next;
 	}
 	return (0);
@@ -57,7 +58,7 @@ int			prepare_fdredir_fd(t_list **fd_runner)
 {
 	t_fd		*fd_cont;
 
-	fd_cont = (*fd_runner)->content;
+	fd_cont = (t_fd*)(*fd_runner)->content;
 	if (!(fd_cont->flag & REDIRECTION_FD))
 	{
 		if (fd_cont->flag & CLOSE_FD)
@@ -78,4 +79,63 @@ int			prepare_fdredir_fd(t_list **fd_runner)
 			return (-1);
 	}
 	return (0);
+}
+
+char		**form_argv(t_cmd *lcmd, int *eargc)
+{
+	char		**args;
+	int			len;
+	char		*arg;
+	int			i;
+	int			j;
+
+	// print_techline(lcmd->cmd, lcmd->tech, lcmd->len_tech);
+
+	i = 0;
+	j = 0;
+	len = lcmd->len_tech / 2 * 2;
+	arg = NULL;
+	args = (char**)ft_xmalloc(sizeof(char*) * len);
+	while (i < lcmd->len_tech - 1)
+	{
+		arg = new_arg_from_lcmd(lcmd, &i);
+		args[j] = arg;
+		arg = NULL;
+		j++;
+		if (j >= len)
+		{
+			args = ft_realloc_array(&args, len, len * 2);
+			len *= 2;
+		}
+	}
+	*eargc = j;
+
+	// i = 0;
+	// while (args[i])
+	// {
+	// 	printf("%s - ", args[i]);	
+	// 	i++;
+	// }
+	return (args);
+}
+
+char		*new_arg_from_lcmd(t_cmd *lcmd, int *i)
+{
+	char		*cmd;
+	int			start;
+
+	cmd = NULL;
+	while (*i < lcmd->len_tech - 1 && lcmd->tech[*i] == SPACE)
+		(*i)++;
+	start = *i;
+	if (lcmd->tech[*i] == WORD_P)
+		while (*i < lcmd->len_tech - 1 && lcmd->tech[*i] == WORD_P)
+			(*i)++;
+	else if (lcmd->tech[*i] == TEXT)
+		while (*i < lcmd->len_tech - 1 && lcmd->tech[*i] == TEXT)
+			(*i)++;
+	else
+		(*i)++;
+	cmd = ft_strndup(lcmd->cmd + start, *i - start);
+	return (cmd);
 }

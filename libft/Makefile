@@ -6,7 +6,7 @@
 #    By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:34:17 by sschmele          #+#    #+#              #
-#    Updated: 2020/04/27 14:12:27 by vladlenasku      ###   ########.fr        #
+#    Updated: 2020/05/02 16:43:25 by vladlenasku      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRCS =	$(ARROW_FUNCTIONS) \
 	$(OTHER_FUNCTIONS)
 	
 ARROW_FUNCTIONS = ./arrow_functions/ft_arrdel.c \
-	./arrow_functions/ft_realloc_array.c
+	./arrow_functions/ft_realloc_array.c \
+	./arrow_functions/ft_delelem_array.c
 	
 LIST_STRUCTURE = ./list_structure/ft_lstadd.c \
 	./list_structure/ft_lstclear.c \

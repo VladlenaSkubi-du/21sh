@@ -64,21 +64,21 @@ int					backspace_newline(char *swap, int len_swap)
 
 int					delete_process(void)
 {
-	t_ltree			*pos;
+	t_exec			*exec;
 	
 	check_menu();
 	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
 	{
 		if (g_prompt.prompt_func == main_prompt)
 		{
-			pos = (t_ltree*)ft_xmalloc(sizeof(t_ltree));
+			exec = (t_exec*)ft_xmalloc(sizeof(t_exec));
 			// ltree_init(pos);
-			pos->ar_v = (char**)ft_xmalloc(3 * sizeof(char*));
-			pos->ar_v[0] = ft_strdup("exit");
-			pos->ar_v[1] = ft_strdup("0");
+			exec->argv = (char**)ft_xmalloc(3 * sizeof(char*));
+			exec->argv[0] = ft_strdup("exit");
+			exec->argv[1] = ft_strdup("0");
 			reset_canonical_input();
 			clean_readline();
-			btin_exit(pos);
+			btin_exit(exec);
 		}
 		if (g_prompt.prompt_func != main_prompt)
 		{

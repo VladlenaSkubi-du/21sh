@@ -8,9 +8,9 @@ t_list			*create_new_list(void)
 
 	result = ft_lstnew(NULL, 0);
 	result->content = (t_pblks*)ft_xmalloc(sizeof(t_pblks));
-	ptr_cont = result->content;
+	ptr_cont = (t_pblks*)result->content;
 	ptr_cont->lcmd = (t_cmd*)ft_xmalloc(sizeof(t_cmd));
-	bzero_grammar_block(result->content);
+	bzero_grammar_block((t_pblks*)result->content);
 	return (result);
 }
 
@@ -41,7 +41,7 @@ int				free_pblocks_except_heredoc(t_list **head)
 	step = 0;
 	while (runner_blk)
 	{
-		ptr_cont = runner_blk->content;
+		ptr_cont = (t_pblks*)runner_blk->content;
 		if (ptr_cont->fd)
 		{
 			(step == 0) ? *head = runner_blk : 0;
@@ -81,7 +81,7 @@ int				free_parser_blocks_all(t_list **head)
 	{
 		delete_blk = runner_blk;
 		runner_blk = runner_blk->next;
-		ptr_cont = delete_blk->content;
+		ptr_cont = (t_pblks*)delete_blk->content;
 		delete_fd = ptr_cont->fd;
 		free_fdredir_from(&delete_fd);
 		ptr_cont->fd = NULL;
