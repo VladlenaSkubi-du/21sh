@@ -8,6 +8,8 @@ int			form_and_exec(t_pblks *pblk_cont)
 	exec = (t_exec*)ft_xmalloc(sizeof(t_exec));
 	exec->argv = form_argv(pblk_cont->lcmd, &exec->argc);
 	exec->flag = pblk_cont->flag;
+	if (pblk_cont->err & REDIR_SOFT)
+		exec->flag |= REDIR_SOFT;
 	exec->fd = pblk_cont->fd;
 	start_exec(exec);
 	ft_arrdel(exec->argv);
@@ -103,9 +105,11 @@ int			redirection_exec(t_exec *exec)
 		else
 		{
 			// dup2(fd_cont->fd_new, fd_cont->fd_new);
-			close (fd_cont->fd_new);
+			close(fd_cont->fd_new);
 		}
 		fd_runner = fd_runner->next;
 	}
+	if (exec->flag == REDIR_SOFT)
+		error_handler(SYNTAX_ERROR | ERR_REDIR_SOFT << 9, NULL);
 	return (0);
 }

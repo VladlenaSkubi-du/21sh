@@ -78,6 +78,7 @@ int			prepare_fdredir_fd(t_list **fd_runner)
 				S_IRUSR | S_IWUSR);
 		if (fd_cont->fd_new < 0)
 			return (-1);
+		lseek(fd_cont->fd_new, 0, SEEK_SET);
 	}
 	return (0);
 }
