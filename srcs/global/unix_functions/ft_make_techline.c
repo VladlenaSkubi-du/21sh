@@ -33,6 +33,12 @@ char		*ft_make_techline(char *cmd, int len)
 	char	*techline;
 
 	i = 0;
+	if (cmd == NULL || cmd[0] == 0)
+	{
+		techline = (char*)ft_xmalloc(2);
+		techline[0] = END_T;
+		return (techline);
+	}
 	techline = (char*)ft_xmalloc(len + 2);
 	while (cmd[i])
 	{

@@ -147,6 +147,7 @@ void				free_fdredir_content(t_list **runner_fd,
 						t_fd *ptr_fd);
 void				free_pblock_content(t_list **runner_blk,
 						t_pblks	**ptr_cont);
+int					check_if_fd_open(int fd);
 
 /*
 ** File prepare_and_exec.c
@@ -242,7 +243,7 @@ int			form_and_exec(t_pblks *pblk_cont);
 int			start_exec(t_exec *exec);
 int			builtins_exec(t_exec *exec, int flag);
 int			exec_clean(char *path, int exit_status, char *err_msg);
-int			redirection_exec(t_exec *exec);
+int			redirection_exec(t_exec *exec, int mode);
 char		*path_start_exec(t_exec *exec);
 char		*search_cmd_exec(char *name);
 char		*cmd_binary_path(char *env_path, char *name);

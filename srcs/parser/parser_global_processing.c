@@ -85,3 +85,13 @@ void			free_pblock_content(t_list **runner_blk,
 	free((*runner_blk)->content);
 	(*runner_blk)->content = NULL;
 }
+
+int				check_if_fd_open(int fd)
+{
+	struct stat	*buf;
+
+	buf = NULL;
+	if (fstat(fd, buf) == 0)
+		return (1);
+	return (0);
+}

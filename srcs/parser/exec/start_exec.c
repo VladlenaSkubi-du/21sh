@@ -27,25 +27,26 @@ int			start_exec(t_exec *exec) //28 строк
 
 	path = NULL;
 	child_pid = 0;
+	save_streams(0);
 	if (builtins_exec(exec, 0) == -1 && !(path = path_start_exec(exec)))
 	{
 		close(pipe_next[1]);
+		save_streams(1);
 		return (exec_clean(path, -1, 0));
 	}
 	(exec->flag & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((exec->flag & PIPED_OUT) && pipe(pipe_next) == -1)
 		return (exec_clean(path, -1, "21sh: Pipe failed")); //через hadler
-	save_streams(0);
+	redirection_exec(exec, 0);
 	(exec->flag & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
 	(exec->flag & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
-	redirection_exec(exec);
 	child_pid = 0;
 	if (builtins_exec(exec, 1) == -1 &&
 		cmd_fork_and_exec(exec, path, &child_pid) == -1)
 		return (-1);
 	(exec->flag & PIPED_OUT) ? close(pipe_next[1]) : 0;
 	(exec->flag & PIPED_IN) ? close(pipe_prev) : 0;
-	save_streams(1);
+	redirection_exec(exec, 1);
 	return (exec_clean(path, WIFEXITED(child_pid) ?
 		WEXITSTATUS(child_pid) : (-1), 0));
 }
@@ -56,6 +57,8 @@ int			builtins_exec(t_exec *exec, int flag)
 	int				tmp;
 
 	i = 0;
+	if (exec->argv == NULL)
+		return (-1);
 	while (g_builtins[i])
 	{
 		if (!ft_strcmp(exec->argv[0], g_builtins[i]))
@@ -91,21 +94,26 @@ int			exec_clean(char *path, int exit_status, char *err_msg) //думаю, во�
 	return (exit_status);
 }
 
-int			redirection_exec(t_exec *exec)
+int			redirection_exec(t_exec *exec, int mode)
 {
 	t_list			*fd_runner;
 	t_fd			*fd_cont;
 
 	fd_runner = exec->fd;
+	if (mode)
+	{
+		save_streams(1);
+		return (0);
+	}
+	save_streams(0);
 	while (fd_runner)
 	{
 		fd_cont = (t_fd*)fd_runner->content;
 		if (fd_cont->flag != CLOSE_FD)
-			dup2(fd_cont->fd_old, fd_cont->fd_new);
+			dup2(fd_cont->fd_new, fd_cont->fd_old);
 		else
 		{
-			// dup2(fd_cont->fd_new, fd_cont->fd_new);
-			close(fd_cont->fd_new);
+			close(fd_cont->fd_old);
 		}
 		fd_runner = fd_runner->next;
 	}

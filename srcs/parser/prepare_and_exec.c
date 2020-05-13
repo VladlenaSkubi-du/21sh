@@ -23,7 +23,7 @@ int			prepare_and_exec(void)
 			pblk_cont->lcmd = ptr_lcmd;
 		}
 		pblk_hered->content = pblk_cont;
-		print_all_lists(); //DELETE
+		// print_all_lists(); //DELETE
 		form_and_exec(pblk_cont);
 		pblk_hered = pblk_hered->next;
 	}
@@ -64,7 +64,7 @@ int			prepare_fdredir_fd(t_list **fd_runner)
 	{
 		if (fd_cont->flag & CLOSE_FD)
 		{
-			close(fd_cont->fd_old);
+			// close(fd_cont->fd_old);
 			return (0);
 		}
 		if (fd_cont->flag & OPEN_FD)
@@ -78,7 +78,7 @@ int			prepare_fdredir_fd(t_list **fd_runner)
 				S_IRUSR | S_IWUSR);
 		if (fd_cont->fd_new < 0)
 			return (-1);
-		lseek(fd_cont->fd_new, 0, SEEK_SET);
+		// lseek(fd_cont->fd_new, 0, SEEK_SET);
 	}
 	return (0);
 }
