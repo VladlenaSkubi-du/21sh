@@ -226,7 +226,6 @@ int						key_right_proc(void);
 int						key_up_proc(void);
 int						key_left_proc(void);
 int						key_down_proc(void);
-int						save_current_grline(int flag); //correct
 
 /*
 ** File esc_jump_proc.c
@@ -418,7 +417,7 @@ int						fill_array_from_tree(t_pathtree **root, char **list,
 */
 
 int								start_history(void);
-void            				init_history_buffer(void);
+void							init_history_buffer(int size);
 char							*define_history_file(void);
 int								add_to_history(char *cmd);
 int								add_other_prompts_history(char *cmd,
@@ -429,7 +428,6 @@ int								add_other_prompts_history(char *cmd,
 */
 
 int								scroll_hist_buffer(int num);
-int								save_hist_buffer(int fd);
 int								check_if_histsize_changed(void);
 char							**make_hist_buffer_smaller(int size);
 int								delete_last_history_element(void);

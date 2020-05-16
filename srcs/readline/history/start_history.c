@@ -6,13 +6,24 @@ int				start_history(void)
 	int			fd;
 	int			sy;
 	int			li;
+	int			i;
 
-	init_history_buffer();
+	li = find_in_variables(g_shvar, &sy, "HISTSIZE=");
+	init_history_buffer(ft_atoi(&g_shvar[li][sy]) + 1);
 	li = find_in_variables(g_shvar, &sy, "HISTFILE=");
 	fd = open(g_shvar[li] + sy, O_RDONLY);
 	if (fd < 0)
 		return (0);
-	save_hist_buffer(fd);
+	i = read_hist_from_file(fd);
+	g_hist.last = i - 1;
+	g_hist.counter = i;
+	g_hist.start = i;
+	g_hist.last_fc = (g_hist.last > 0) ? g_hist.last + 1 : 1;
+	if (g_hist.len > MAX_HISTBUF)
+		g_hist.hist = make_hist_buffer_smaller((MAX_HISTBUF > HISTORY_LIMIT) ?
+		HISTORY_LIMIT : MAX_HISTBUF);
+	if (g_hist.last_fc > HISTORY_LIMIT)
+		g_hist.last_fc = HISTORY_LIMIT;
 	close(fd);
 	return (0);
 }
@@ -22,16 +33,9 @@ int				start_history(void)
 ** to save and + 1 for the end of the array
 */
 
-void			init_history_buffer(void)
+void			init_history_buffer(int size)
 {
-	size_t		i;
-	int			tmp;
-
-	i = 0;
-	while (ft_strncmp(g_shvar[i], "HISTSIZE=",
-		(tmp = ft_strchri(g_shvar[i], '=') + 1)) != 0)
-		i++;
-	g_hist.len = ft_atoi(&g_shvar[i][tmp]) + 1;
+	g_hist.len = size;
 	g_hist.hist = (char**)ft_xmalloc(sizeof(char*) * (g_hist.len + 1));
 	g_hist.last = -1;
 	g_hist.start = 0;
@@ -46,7 +50,7 @@ void			init_history_buffer(void)
 ** command in the session
 */
 
-char			*define_history_file(void)
+char			*define_history_file(void) //TODO delete
 {
 	int			li;
 	int			sy;
