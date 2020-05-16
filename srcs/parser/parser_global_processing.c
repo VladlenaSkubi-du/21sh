@@ -6,7 +6,6 @@ void			print_all_lists(void)
 	t_list		*runner;
 	t_pblks		*ptr_block_cont;
 	t_cmd		*ptr_lcmd;
-	int			end;
 
 	if (g_grblks == NULL)
 		ft_printf("empty grammar blocks\n");
@@ -14,10 +13,8 @@ void			print_all_lists(void)
 	while (runner)
 	{
 		ptr_block_cont = (t_pblks*)runner->content;
-		end = ptr_block_cont->end -
-			((g_pline->tech[ptr_block_cont->end] == END_T) ? 1 : 0);
 		ft_printf("NEW LIST\n******************************\n");
-		ft_printf("beg = %d, end = %d\n", ptr_block_cont->beg, end);
+		ft_printf("beg = %d, end = %d\n", ptr_block_cont->beg, ptr_block_cont->end);
 		ptr_lcmd = ptr_block_cont->lcmd;
 		ft_printf("Lcmd: %s\nTechlen: %d\n", ptr_lcmd->cmd, ptr_lcmd->len_tech);
 		(ptr_block_cont->fd) ? print_fd_blocks(ptr_block_cont) : 0;
@@ -78,10 +75,9 @@ void			free_fdredir_content(t_list **runner_fd,
 	(*runner_fd)->content = NULL;
 }
 
-void			free_pblock_content(t_list **runner_blk,
-					t_pblks	**ptr_cont)
+void			free_pblock_content(t_pblks **ptr_cont)
 {
 	free_parser_line(&(*ptr_cont)->lcmd);
-	free((*runner_blk)->content);
-	(*runner_blk)->content = NULL;
+	free(*ptr_cont);
+	*ptr_cont = NULL;
 }

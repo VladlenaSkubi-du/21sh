@@ -66,7 +66,7 @@ int			dollar_expansion(t_cmd **cmd_part, char **str)
 		str_cmd = init_parser_line(*str);
 		dollar_expansion_loop(&str_cmd);
 		*str = ft_strdup(str_cmd->cmd);
-		free_parser_line(&str_cmd); //can be leaks
+		free_parser_line(&str_cmd);
 	}
 	else
 		dollar_expansion_loop(cmd_part);

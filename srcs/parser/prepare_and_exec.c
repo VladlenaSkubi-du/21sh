@@ -23,7 +23,7 @@ int			prepare_and_exec(void)
 			pblk_cont->lcmd = ptr_lcmd;
 		}
 		pblk_hered->content = pblk_cont;
-		print_all_lists(); //DELETE
+		// print_all_lists(); //DELETE
 		form_and_exec(pblk_cont);
 		pblk_hered = pblk_hered->next;
 	}
@@ -62,11 +62,11 @@ int			prepare_fdredir_fd(t_list **fd_runner)
 	fd_cont = (t_fd*)(*fd_runner)->content;
 	if (!(fd_cont->flag & REDIRECTION_FD))
 	{
-		if (fd_cont->flag & CLOSE_FD)
-		{
-			close(fd_cont->fd_old);
-			return (0);
-		}
+		// if (fd_cont->flag & CLOSE_FD)
+		// {
+		// 	close(fd_cont->fd_old);
+		// 	return (0);
+		// }
 		if (fd_cont->flag & OPEN_FD)
 		{
 			fd_cont->fd_new = open(fd_cont->file, O_RDONLY |

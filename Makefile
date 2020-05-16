@@ -1,6 +1,6 @@
 NAME = 21sh
 
-FLAGS = -Wall -Wextra #-Werror
+FLAGS = -Wall -Wextra -Werror
 FLAGS += -g
 
 #______________________________________________________________________________

@@ -2,7 +2,7 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# define HEREDOC_BUF	200
+# define HEREDOC_BUF	3 //проверить
 
 /*
 ** Defines for @flags in blocks
@@ -133,7 +133,7 @@ t_list				*create_new_list(void);
 void				bzero_grammar_block(t_pblks *block);
 int					free_pblocks_except_heredoc(t_list **head);
 int					free_pblock_not_heredoc(t_list **runner_blk,
-						t_list **last_here_blk, t_pblks	**ptr_cont, int step);
+						t_list **last_here_blk, int step);
 int					free_parser_blocks_all(t_list **head);
 
 /*
@@ -145,8 +145,7 @@ void				print_fd_blocks(t_pblks	*ptr_block_cont);
 void				print_techline(char *cmd, char *techline, int len_tech);
 void				free_fdredir_content(t_list **runner_fd,
 						t_fd *ptr_fd);
-void				free_pblock_content(t_list **runner_blk,
-						t_pblks	**ptr_cont);
+void				free_pblock_content(t_pblks **ptr_cont);
 
 /*
 ** File prepare_and_exec.c

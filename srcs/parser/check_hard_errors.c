@@ -47,8 +47,7 @@ int			check_empty_pblock(t_pblks **pblk_cont)
 		return (OUT);
 	}
 	free_parser_line(&(*pblk_cont)->lcmd);
-	ptr_lcmd = init_parser_line(final);
-	(*pblk_cont)->lcmd = ptr_lcmd;
+	(*pblk_cont)->lcmd = init_parser_line(final);
 	return (0);
 }
 

@@ -27,9 +27,11 @@ int			start_exec(t_exec *exec) //28 строк
 
 	path = NULL;
 	child_pid = 0;
+	save_streams(0);
 	if (builtins_exec(exec, 0) == -1 && !(path = path_start_exec(exec)))
 	{
 		close(pipe_next[1]);
+		save_streams(1);
 		return (exec_clean(path, -1, 0));
 	}
 	(exec->flag & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
@@ -101,12 +103,9 @@ int			redirection_exec(t_exec *exec)
 	{
 		fd_cont = (t_fd*)fd_runner->content;
 		if (fd_cont->flag != CLOSE_FD)
-			dup2(fd_cont->fd_old, fd_cont->fd_new);
+			dup2(fd_cont->fd_new, fd_cont->fd_old);
 		else
-		{
-			// dup2(fd_cont->fd_new, fd_cont->fd_new);
-			close(fd_cont->fd_new);
-		}
+			close(fd_cont->fd_old);
 		fd_runner = fd_runner->next;
 	}
 	if (exec->flag == REDIR_SOFT)

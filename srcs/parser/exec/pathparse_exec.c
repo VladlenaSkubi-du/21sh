@@ -50,7 +50,7 @@ char	*search_cmd_exec(char *name)
 
 	li = find_in_variables(g_env, &co, "PATH");
 	if (li < 0 || ((path_array = ft_strsplit(&g_env[li][co], ':')) == NULL) ||
-			path_array[0] == '\0')
+			path_array[0] == NULL)
 		return (0);
 	to_clean = path_array;
 	while (*path_array)
