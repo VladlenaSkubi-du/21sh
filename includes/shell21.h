@@ -6,7 +6,7 @@
 /*   By: tmp <tmp@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/05/18 14:41:56 by tmp              ###   ########.fr       */
+/*   Updated: 2020/05/18 16:17:39 by tmp              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define 			MAX_HISTBUF 500
 # define			MAXDIR 256
 # define			MAX_EXIT_STATUS 10
-# define 			ENV_BUFFER 100
+# define 			ENV_BUFFER 5
 # define			OUT 42
 
 typedef struct		s_prompt

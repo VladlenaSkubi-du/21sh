@@ -62,12 +62,12 @@ int			builtins_exec(t_exec *exec, int flag)
 	{
 		if (!ft_strcmp(exec->argv[0], g_builtins[i]))
 		{
-			if (flag && i < 2)
+			if (flag && i < 1)
 			{
 				tmp = builtins_call_void(i);
 				exit_status_variable(tmp);
 			}
-			else if (flag && i >= 3)
+			else if (flag && i >= 1)
 			{
 				tmp = builtins_call(i, exec);
 				exit_status_variable(tmp);

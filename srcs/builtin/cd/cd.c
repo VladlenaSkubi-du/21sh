@@ -55,10 +55,11 @@ int		ft_error(char *name, int en)
 
 int         btin_cd(t_exec *exec)
 {
-	int     i;
-	t_cd    *flags;
+	int		i;
+	t_cd	*flags;
 
-	flags = ft_xmalloc(sizeof(t_cd *));
+	flags = (t_cd*)ft_xmalloc(sizeof(t_cd));//ИСПРАВИТЬ
+	flags->curpath = NULL;
 	i = ft_cd_flags(exec->argv, flags);
 	if (ft_valid_cd(exec->argv, i))
 	{

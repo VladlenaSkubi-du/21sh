@@ -102,8 +102,15 @@ int				add_other_prompts_history(char *cmd, int flag)
 		g_hist.hist[g_hist.last] =
 			ft_strrejoin(g_hist.hist[g_hist.last], cmd);
 	g_pline = (t_cmd*)ft_xmalloc(sizeof(t_cmd));
-	g_pline->cmd = ft_strdup(g_hist.hist[g_hist.last]);
-	g_pline->cmd = (flag == EOF) ? ft_straddsy(g_pline->cmd, EOF) : g_pline->cmd;
+	if (flag == EOF)
+	{
+		g_pline->cmd = (char*)ft_xmalloc
+			(ft_strlen(g_hist.hist[g_hist.last]) + 2);
+		ft_strcpy(g_pline->cmd, g_hist.hist[g_hist.last]);
+		g_pline->cmd = ft_straddsy(g_pline->cmd, EOF);
+	}
+	else
+		g_pline->cmd = ft_strdup(g_hist.hist[g_hist.last]);
 	len = ft_strlen(g_pline->cmd);
 	g_pline->tech = ft_make_techline(g_pline->cmd, len);
 	g_pline->len_tech = len + 1;
