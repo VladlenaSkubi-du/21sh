@@ -18,7 +18,7 @@ int			form_and_exec(t_pblks *pblk_cont)
 	return (0);
 }
 
-int			start_exec(t_exec *exec) //28 строк
+int			start_exec(t_exec *exec) //30 строк
 {
 	pid_t			child_pid;
 	char			*path;
@@ -62,7 +62,7 @@ int			builtins_exec(t_exec *exec, int flag)
 	{
 		if (!ft_strcmp(exec->argv[0], g_builtins[i]))
 		{
-			if (flag && i < 3)
+			if (flag && i < 2)
 			{
 				tmp = builtins_call_void(i);
 				exit_status_variable(tmp);

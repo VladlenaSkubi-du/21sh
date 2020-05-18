@@ -1,6 +1,6 @@
 
-#ifndef BUILTIN42_H
-# define BUILTIN42_H
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
 # include "cd.h"
 
@@ -37,17 +37,16 @@ int				builtins_call(int call_num, t_exec *exec);
 int				usage_btin(char *str);
 
 /*
-** File set.c
+** File setenv.c
 */
 
-int				btin_set(void);
-int				btin_return_exit_status(void);
+int				btin_setenv(t_exec *exec);
 
 /*
-** File unset.c
+** File unsetenv.c
 */
 
-int				btin_unset(t_exec *exec);
+int				btin_unsetenv(t_exec *exec);
 
 /*
 ** File history.c

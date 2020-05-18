@@ -18,7 +18,7 @@ int		ft_cd_env(char *path, char **env, t_cd *flags)
 	if (path)
 		ft_putendl(env[i] + j);
 	name = ft_strdup(env[i] + j);
-	return ((ft_change_path(name, env, flags)));
+	return ((ft_change_path(name, flags)));
 }
 
 int		ft_cd_pars(char *path, char **env, t_cd *flags)
@@ -37,6 +37,6 @@ int		ft_cd_pars(char *path, char **env, t_cd *flags)
 	else if (!S_ISDIR(buff.st_mode))
 		return (ft_error(path, 4));
 	else
-		return (ft_change_path(ft_new_path(path, env), env, flags));
+		return (ft_change_path(ft_new_path(path, env), flags));
 	return (0);
 }

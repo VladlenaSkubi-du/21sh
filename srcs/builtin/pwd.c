@@ -41,17 +41,20 @@ int		valid(char **argv)
 	return (0);
 }
 
-int     btin_pwd(t_exec *exec)
+int     	btin_pwd(t_exec *exec)
 {
 	t_cd	*flags;
 	char	dir[MAXDIR];
+	int		li;
+	int		co;
 
 	if (valid(exec->argv))
 		return (1);
 	flags = ft_xmalloc(sizeof(t_cd *));
 	ft_cd_flags(exec->argv, flags); //there was return i comp - where is used?
+	li = find_in_variables(g_shvar, &co, "PWD");
 	if (flags->l)
-		ft_putstr(g_rdovar[5] + 4);
+		ft_putstr(g_shvar[li] + co);
 	else
 	{
 		getcwd(dir, MAXDIR);

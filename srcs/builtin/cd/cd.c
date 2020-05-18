@@ -16,12 +16,12 @@ char	*ft_cut_name(char *name)
 	int		i;
 
 	i = ft_strlen(name) - 1;
-	printf("name = %s\n", name);
+	// printf("name = %s\n", name);
 	while (name[i] && name[i] != '/')
 		i--;
 	i++;
 	tmp = ft_strdup(name + i);
-	printf("tmp = %s\n", tmp);
+	// printf("tmp = %s\n", tmp);
 	return (tmp);
 }
 
@@ -66,7 +66,7 @@ int         btin_cd(t_exec *exec)
 		free(flags);
 		return (1);
 	}
-	if (ft_cd_pars(exec->argv[i], g_env, flags))
+	if (ft_cd_pars(exec->argv[i], g_env, flags)) //можно убрать g_env в принципе
 	{
 		free(flags->curpath);
 		free(flags);

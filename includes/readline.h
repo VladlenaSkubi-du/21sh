@@ -87,7 +87,7 @@ typedef struct			s_completion
 }						t_completion;
 
 /*
-** 
+** Is the AVL-tree for the auto-comletion to use
 */
 
 typedef struct  		s_pathtree
@@ -102,16 +102,6 @@ t_rline					g_rline;
 struct winsize			g_screen;
 t_cap					g_cap;
 struct termios			g_backup_tty;
-
-/*
-** File main.c
-*/
-
-int						readline_start(void);
-int						check_terminal(void);
-int						set_noncanonical_input(void);
-int						reset_canonical_input(void);
-
 
 /*
 ** File readline.c - the beginning of the work with readline

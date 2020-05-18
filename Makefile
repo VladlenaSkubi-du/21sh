@@ -13,8 +13,8 @@ BUILTIN = \
 			$(BUILTIN_DIR)/exit.c \
 			$(BUILTIN_DIR)/history.c \
 			$(BUILTIN_DIR)/pwd.c \
-			$(BUILTIN_DIR)/set.c \
-			$(BUILTIN_DIR)/unset.c \
+			$(BUILTIN_DIR)/setenv.c \
+			$(BUILTIN_DIR)/unsetenv.c \
             $(CD)
 
 CD_DIR = cd
@@ -38,8 +38,7 @@ GLOBAL = 	$(GLOBAL_DIR)/clean_all.c \
 SHELL_VARS_DIR = shell_variables
 SHELL_VARIABLES = \
 			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/environment21.c \
-			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_processing.c \
-			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_array_processing.c
+			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_processing.c
 
 UNIX_FUNCS_DIR = unix_functions
 UNIX_FUNCTIONS = \

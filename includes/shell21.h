@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell21.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: tmp <tmp@student.42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/05/04 21:34:45 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/05/18 14:41:56 by tmp              ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,10 +121,7 @@ enum				e_techline
 */
 
 char				**g_env;
-char				**g_rdovar;
 char				**g_shvar;
-char				**g_lovar;
-int					g_var_size;
 t_prompt			g_prompt;
 t_history			g_hist;
 
@@ -132,6 +129,10 @@ t_history			g_hist;
 ** File main.c
 */
 
+int					readline_start(void);
+int					check_terminal(void);
+int					set_noncanonical_input(void);
+int					reset_canonical_input(void);
 
 /*
 ** File options_proc.c
@@ -152,30 +153,19 @@ int					suboptions_proc(char *arri, int num, char *flags_arr[num], int *final);
 */
 
 int					save_environment_variables(void);
-int					save_readonly_variables(void);
 int					save_shell_variables(void);
-int					save_local_variables(void);
 int                 exit_status_variable(int status);
+int					save_env_size(int size, int mode);
 
 /*
 ** File variables_processing.c
 */
 
-int					realloc_all_gvariables_array(void);
 int					find_in_variables(char **arr, int *j, char *name);
-char				**init_exec_environ(void);
 int					insert_assign_to_arrays(char *find, char *insert,
 						char **array);
-char				*find_var_in_arrays(char **find);
-
-/*
-** File variables_array_processing.c
-*/
-
+char				*find_var_in_arrays(char *find);
 int					add_to_environment_variables(char *add);
-int					add_to_local_variables(char *add);
-int					add_new_to_exec_env(char ***array, char **add);
-int					unset_from_array(char ***arr, int i);
 
 /*
 ** Folder UNIX_FUNCTIONS

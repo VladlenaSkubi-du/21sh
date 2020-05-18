@@ -2,11 +2,8 @@
 
 int					main(void)
 {
-	g_var_size = ENV_BUFFER;
 	save_environment_variables();
-	save_readonly_variables();
 	save_shell_variables();
-	save_local_variables(); //TODO remove local
 	start_history();
 	init_builtins();
 	g_prompt.prompt_func = main_prompt;

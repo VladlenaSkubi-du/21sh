@@ -8,9 +8,9 @@ int				start_history(void)
 	int			li;
 	int			i;
 
-	li = find_in_variables(g_shvar, &sy, "HISTSIZE=");
+	li = find_in_variables(g_shvar, &sy, "HISTSIZE");
 	init_history_buffer(ft_atoi(&g_shvar[li][sy]) + 1);
-	li = find_in_variables(g_shvar, &sy, "HISTFILE=");
+	li = find_in_variables(g_shvar, &sy, "HISTFILE");
 	fd = open(g_shvar[li] + sy, O_RDONLY);
 	if (fd < 0)
 		return (0);
@@ -55,7 +55,7 @@ char			*define_history_file(void) //TODO delete
 	int			li;
 	int			sy;
 
-	li = find_in_variables(g_rdovar, &sy, "21SH=");
+	li = find_in_variables(g_shvar, &sy, "21SH");
 	return (ft_strjoin(&g_env[li][sy], "/.42sh_history"));
 }
 

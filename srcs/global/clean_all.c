@@ -19,8 +19,6 @@ int				clean_everything(void)
 	ft_arrdel(g_builtins);
 	ft_arrdel(g_shvar);
 	ft_arrdel(g_env);
-	ft_arrdel(g_rdovar);
-	ft_arrdel(g_lovar);
 	return (0);
 }
 
