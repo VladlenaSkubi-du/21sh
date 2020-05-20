@@ -58,9 +58,9 @@ int		key_up_proc(void)
 	if (g_hist.counter > g_hist.last)
 	{
 		g_hist.counter = g_hist.last + 1;
-		g_hist.hist[g_hist.counter] = ft_strdup(g_rline.cmd);
+		(g_rline.cmd[0]) ?
+			g_hist.hist[g_hist.counter] = ft_strdup(g_rline.cmd) : 0;
 	}
-		// save_current_grline(1);
 	if (g_rline.cmd[0] && g_hist.counter <= g_hist.last)
 	{
 		free(g_hist.hist[g_hist.counter]);
@@ -77,32 +77,6 @@ int		key_up_proc(void)
 	return (0);
 }
 
-int		save_current_grline(int flag)
-{
-	static char		*current;
-	static int		len;
-	int				i;
-
-	if (flag == 1)
-	{
-		current = ft_strdup(g_rline.cmd);
-		len = g_rline.cmd_len;
-	}
-	else if (flag == 0)
-	{
-		i = -1;
-		while (++i < len)
-			char_add(current[i], NULL);
-	}
-	else if (flag == 2)
-	{
-		free(current);
-		current = NULL;
-		len = 0;
-	}
-	return (0);
-}
-
 int		key_down_proc(void)
 {
 	int				i;
@@ -116,12 +90,7 @@ int		key_down_proc(void)
 	}
 	(g_rline.cmd[0]) ? esc_r() : 0;
 	if (g_hist.counter >= g_hist.last)
-	{
-		save_current_grline(0);
-		save_current_grline(2);
-		g_hist.counter = g_hist.last + 1;
-		return (0);
-	}
+		g_hist.counter = g_hist.last;
 	g_hist.counter++;
 	i = -1;
 	len = ft_strlen(g_hist.hist[g_hist.counter]);
@@ -129,5 +98,10 @@ int		key_down_proc(void)
 		len--;
 	while (++i < len)
 		char_add(g_hist.hist[g_hist.counter][i], NULL);
+	if (g_hist.counter == g_hist.last + 1)
+	{
+		free(g_hist.hist[g_hist.counter]);
+		g_hist.hist[g_hist.counter] = NULL;
+	}
 	return (0);
 }

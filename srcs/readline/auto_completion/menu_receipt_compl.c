@@ -34,12 +34,6 @@ t_pathtree			*fill_tree_with_variables(char *complete, int *total)
 		insert_variables_to_tree(g_shvar[i], complete, &root, total);
 		i++;
 	}
-	i = 0;
-	while (g_lovar[i]) //TODO correct
-	{
-		insert_variables_to_tree(g_lovar[i], complete, &root, total);
-		i++;
-	}
 	return (root);
 }
 

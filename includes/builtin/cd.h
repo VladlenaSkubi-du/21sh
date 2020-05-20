@@ -9,11 +9,12 @@ typedef struct		s_cd
 }					t_cd;
 
 /*
-** File cd.c
+** File cd.c //нужно положить все хедеры из файлов после правок
 */
 
 int         ft_error(char *name, int en);
 void        ft_change_curpath(char *path, t_cd *flags);
+
 
 /*
 ** File cd_flags.c
@@ -37,7 +38,7 @@ int         ft_cd_pars(char *path, char **env, t_cd *flags);
 ** File cd_change_path.c
 */
 
-int         ft_change_path(char *path, char **env, t_cd *flags);
+int         ft_change_path(char *path, t_cd *flags);
 
 /*
 ** File cd_new_path.c

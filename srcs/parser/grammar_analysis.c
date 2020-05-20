@@ -15,6 +15,7 @@ int			gramlex_analysis(void)
 		current_cont = (t_pblks*)runner->content;
 		tmp = ft_strndup(g_pline->cmd + current_cont->beg,
 			current_cont->end - current_cont->beg);
+		free_parser_line(&current_cont->lcmd);
 		current_cont->lcmd = init_parser_line(tmp);
 		ptr_lcmd = current_cont->lcmd;
 		delete_quotes_from_line(&current_cont, &ptr_lcmd);

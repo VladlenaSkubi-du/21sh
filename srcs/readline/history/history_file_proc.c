@@ -39,10 +39,10 @@ int					fill_hist_in_file(void)
 	int				user_len;
 
 	sy = 0;
-	li = find_in_variables(g_shvar, &sy, "HISTFILE=");
+	li = find_in_variables(g_shvar, &sy, "HISTFILE");
 	path = ft_strdup(g_shvar[li] + sy);
-	li = find_in_variables(g_shvar, &sy, "HISTFILESIZE=");
-	if (!ft_isdigit(g_shvar[li][sy]))
+	li = find_in_variables(g_shvar, &sy, "HISTFILESIZE");
+	if (g_shvar[li][sy] && !ft_isdigit(g_shvar[li][sy])) //прогрузить в 42sh
 		user_len = MAX_HISTFILE;
 	else
 	{

@@ -18,7 +18,7 @@ int			form_and_exec(t_pblks *pblk_cont)
 	return (0);
 }
 
-int			start_exec(t_exec *exec) //28 строк
+int			start_exec(t_exec *exec) //30 строк
 {
 	pid_t			child_pid;
 	char			*path;
@@ -63,12 +63,12 @@ int			builtins_exec(t_exec *exec, int flag)
 	{
 		if (!ft_strcmp(exec->argv[0], g_builtins[i]))
 		{
-			if (flag && i < 3)
+			if (flag && i < 1)
 			{
 				tmp = builtins_call_void(i);
 				exit_status_variable(tmp);
 			}
-			else if (flag && i >= 3)
+			else if (flag && i >= 1)
 			{
 				tmp = builtins_call(i, exec);
 				exit_status_variable(tmp);
@@ -112,9 +112,7 @@ int			redirection_exec(t_exec *exec, int mode)
 		if (fd_cont->flag != CLOSE_FD)
 			dup2(fd_cont->fd_new, fd_cont->fd_old);
 		else
-		{
 			close(fd_cont->fd_old);
-		}
 		fd_runner = fd_runner->next;
 	}
 	if (exec->flag == REDIR_SOFT)

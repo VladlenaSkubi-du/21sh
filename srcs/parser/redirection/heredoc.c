@@ -100,15 +100,19 @@ int			load_heredocbuf_into_file(int fd, char *heredoc_buf)
 {
 	int				i;
 	int				start;
+	int				len;
 	
 	i = 0;
-	start = 0;
-	while (heredoc_buf[i])
+	len = ft_strlen(heredoc_buf);
+	while (i < len)
 	{
-		if (heredoc_buf[i] == '\n')
+		start = i;
+		while (heredoc_buf[i] != '\n' && heredoc_buf[i])
+			i++;
+		if (heredoc_buf[i])
 		{
-			write(fd, heredoc_buf + start, i + 1);
-			start = i + 1;
+			write(fd, heredoc_buf + start, i - start);
+			write(fd, "\n", 1);
 		}
 		i++;
 	}
@@ -120,28 +124,26 @@ int			save_heredoc_buffer(char **here_buf, int *buf_size,
 				char *cmd, int mode)
 {
 	int				buf_len;
+	int				len_cmd;
 
 	if (mode == INIT_BUF)
 	{
-		*here_buf = (char*)ft_xmalloc(HEREDOC_BUF);
+		*here_buf = (char*)ft_xmalloc(HEREDOC_BUF + 1);
 		*buf_size = HEREDOC_BUF;
 	}
 	else if (mode == ADD_BUF)
 	{
 		buf_len = ft_strlen(*here_buf);
-		if (buf_len + (int)ft_strlen(cmd) + 1 >= (*buf_size))
+		len_cmd = ft_strlen(cmd);
+		if (buf_len + len_cmd >= (*buf_size) - 1)
 		{
 			*here_buf = ft_realloc(*here_buf, (size_t)buf_len,
-				(size_t)*buf_size, (size_t)*buf_size * 2);
-			*buf_size *= 2;
+				(size_t)*buf_size, buf_len + len_cmd + 1);
+			*buf_size = buf_len + len_cmd + 1;
 		}
 		ft_strcat(*here_buf, cmd);
 	}
 	else if (mode == CLEAR_BUF)
-	{
 		free(*here_buf);
-		*here_buf = NULL;
-		*buf_size = 0;
-	}
 	return (0);
 }

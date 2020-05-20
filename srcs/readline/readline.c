@@ -57,7 +57,6 @@ char	*readline(void)
 	}
 	else
 		ft_putendl_fd(0, STDOUT_FILENO);
-	save_current_grline(2);
 	return (g_rline.cmd);
 }
 

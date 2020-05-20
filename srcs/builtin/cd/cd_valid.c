@@ -1,14 +1,14 @@
 #include "shell21.h"
 #include "builtin.h"
 
-int		ft_check_cdpath(char *path, char **env)  ///ПЕРЕПИСАТЬ
+int		ft_check_cdpath(char *path, char **env)  ///ПЕРЕПИСАТЬ, удалить env и в коде env->g_env
 {
 	int	i;
 	int	j;
 	char	**cdpath;
 	char	*tmp;
 
-	if ((i = find_in_variables(env, &j, "CDPATH")) == -1)
+	if ((i = find_in_variables(env, &j, "CDPATH")) == -1) //исправить на g_env
 		return (1);
 	cdpath = ft_strsplit(env[i] + j, ';');
 	i = 0;

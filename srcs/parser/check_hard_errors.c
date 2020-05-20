@@ -35,20 +35,20 @@ int			check_empty_pblock(t_pblks **pblk_cont)
 	t_cmd		*ptr_lcmd;
 
 	ptr_lcmd = (*pblk_cont)->lcmd;
-	final = ft_strtrim(ptr_lcmd->cmd);
-	if ((final == NULL || final[0] == 0) &&
-			(*pblk_cont)->fd == NULL)
+	if (ptr_lcmd->cmd[0] == '\0')
+		final = NULL;
+	else
+		final = ft_strdup(ptr_lcmd->cmd);
+	if (final == NULL && (*pblk_cont)->fd == NULL)
 	{
 		if ((*pblk_cont)->flag)
 			error_handler(SYNTAX_ERROR | ERR_PIPE << 9, NULL);
 		else
 			error_handler(SYNTAX_ERROR | ERR_SCOLON << 9, NULL);
-		free(final);
 		return (OUT);
 	}
 	free_parser_line(&(*pblk_cont)->lcmd);
-	ptr_lcmd = init_parser_line(final);
-	(*pblk_cont)->lcmd = ptr_lcmd;
+	(*pblk_cont)->lcmd = init_parser_line(final);
 	return (0);
 }
 

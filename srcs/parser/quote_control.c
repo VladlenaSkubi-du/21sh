@@ -7,8 +7,6 @@ int			start_quotes(char *techline)
 	int			i;
 
 	stack = ft_init_stack();
-	// if (g_prompt.prompt_func == heredoc_prompt)
-	// 	ft_push_stack(&stack, DQUOTE);
 	i = -1;
 	while (techline[++i] != END_T)
 	{

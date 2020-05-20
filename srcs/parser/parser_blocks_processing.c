@@ -50,17 +50,20 @@ int				free_pblocks_except_heredoc(t_list **head)
 			step++;
 		}
 		else
-			free_pblock_not_heredoc(&runner_blk, &last_here_blk,
-				&ptr_cont, step);
+			free_pblock_not_heredoc(&runner_blk, &last_here_blk, step);
 	}
 	(step == 0) ? *head = NULL : 0;
 	return (0);
 }
 
 int				free_pblock_not_heredoc(t_list **runner_blk,
-					t_list **last_here_blk, t_pblks	**ptr_cont, int step)
+					t_list **last_here_blk, int step)
 {
-	free_pblock_content(runner_blk, ptr_cont);
+	t_pblks		*ptr_cont;
+	
+	ptr_cont = (t_pblks*)(*runner_blk)->content;
+	free_pblock_content(&ptr_cont);
+	// free_pblock_content(runner_blk);
 	ft_lstfree_current(runner_blk);
 	if (step == 0)
 		*last_here_blk = *runner_blk;
@@ -85,7 +88,8 @@ int				free_parser_blocks_all(t_list **head)
 		delete_fd = ptr_cont->fd;
 		free_fdredir_from(&delete_fd);
 		ptr_cont->fd = NULL;
-		free_pblock_content(&delete_blk, &ptr_cont);
+		free_pblock_content(&ptr_cont);
+		delete_blk->content = NULL;
 		free(delete_blk);
 		delete_blk = NULL;
 	}

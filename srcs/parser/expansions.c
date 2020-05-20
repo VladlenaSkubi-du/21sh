@@ -36,7 +36,7 @@ char		*home_from_etcpasswd(void)
 	char	*line;
 	char	**info;
 
-	if ((li = find_in_variables(g_rdovar, &sy, "UID")) < 0)
+	if ((li = find_in_variables(g_shvar, &sy, "UID")) < 0)
 		return (NULL);
 	fd = open("/etc/passwd", O_RDONLY);
 	if (fd < 0)
@@ -45,7 +45,7 @@ char		*home_from_etcpasswd(void)
 	{
 		info = ft_strsplit(line, ':');
 		free(line);
-		if (ft_strcmp(info[2], &g_rdovar[li][sy]) == 0)
+		if (ft_strcmp(info[2], &g_shvar[li][sy]) == 0)
 		{
 			line = ft_strdup(info[5]);
 			ft_arrdel(info);
@@ -66,7 +66,7 @@ int			dollar_expansion(t_cmd **cmd_part, char **str)
 		str_cmd = init_parser_line(*str);
 		dollar_expansion_loop(&str_cmd);
 		*str = ft_strdup(str_cmd->cmd);
-		free_parser_line(&str_cmd); //can be leaks
+		free_parser_line(&str_cmd);
 	}
 	else
 		dollar_expansion_loop(cmd_part);
@@ -105,9 +105,15 @@ int			dollar_expansion_loop(t_cmd **lcmd)
 int			dollar_expansion_processing(t_cmd **lcmd, int *i,
 				int start, char *find)
 {
-	find = find_var_in_arrays(&find);
-	if (find == NULL)
+	char	*value;
+	
+	value = find_var_in_arrays(find);
+	free(find);
+	if (value == NULL)
+	{
+		*i = start - 1;
 		return (0);
-	expansion_pline_processing(lcmd, i, start, find);
+	}
+	expansion_pline_processing(lcmd, i, start, value);
 	return (0);
 }

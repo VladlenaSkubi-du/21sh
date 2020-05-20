@@ -23,7 +23,6 @@ int			prepare_and_exec(void)
 			pblk_cont->lcmd = ptr_lcmd;
 		}
 		pblk_hered->content = pblk_cont;
-		// print_all_lists(); //DELETE
 		form_and_exec(pblk_cont);
 		pblk_hered = pblk_hered->next;
 	}
@@ -62,15 +61,16 @@ int			prepare_fdredir_fd(t_list **fd_runner)
 	fd_cont = (t_fd*)(*fd_runner)->content;
 	if (!(fd_cont->flag & REDIRECTION_FD))
 	{
-		if (fd_cont->flag & CLOSE_FD)
-		{
-			// close(fd_cont->fd_old);
-			return (0);
-		}
+		// if (fd_cont->flag & CLOSE_FD)
+		// {
+		// 	close(fd_cont->fd_old);
+		// 	return (0);
+		// }
 		if (fd_cont->flag & OPEN_FD)
 		{
-			fd_cont->fd_new = open(fd_cont->file, O_RDONLY |
-				O_CLOEXEC | O_SYNC | O_NOCTTY);
+			fd_cont->fd_new = open(fd_cont->file, O_CREAT |
+				O_WRONLY | O_TRUNC | O_CLOEXEC | O_SYNC | O_NOCTTY,
+				S_IRUSR | S_IWUSR);
 		}
 		if (fd_cont->flag & CREATE_FD)
 			fd_cont->fd_new = open(fd_cont->file, O_CREAT |
@@ -78,7 +78,6 @@ int			prepare_fdredir_fd(t_list **fd_runner)
 				S_IRUSR | S_IWUSR);
 		if (fd_cont->fd_new < 0)
 			return (-1);
-		// lseek(fd_cont->fd_new, 0, SEEK_SET);
 	}
 	return (0);
 }
@@ -91,8 +90,6 @@ char		**form_argv(t_cmd *lcmd, int *eargc)
 	int			i;
 	int			j;
 
-	// print_techline(lcmd->cmd, lcmd->tech, lcmd->len_tech);
-
 	i = 0;
 	j = 0;
 	len = lcmd->len_tech / 2 * 2;
@@ -101,6 +98,11 @@ char		**form_argv(t_cmd *lcmd, int *eargc)
 	while (i < lcmd->len_tech - 1)
 	{
 		arg = new_arg_from_lcmd(lcmd, &i);
+		if (arg == NULL || arg[0] == '\0')
+		{
+			free(arg);
+			break ;
+		}
 		args[j] = arg;
 		arg = NULL;
 		j++;
@@ -111,13 +113,6 @@ char		**form_argv(t_cmd *lcmd, int *eargc)
 		}
 	}
 	*eargc = j;
-
-	// i = 0;
-	// while (args[i])
-	// {
-	// 	printf("%s - ", args[i]);	
-	// 	i++;
-	// }
 	return (args);
 }
 

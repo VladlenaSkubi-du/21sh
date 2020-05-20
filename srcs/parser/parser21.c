@@ -38,6 +38,7 @@ int			parser(char *line)
 				clean_parser();
 				return (OUT);
 			}
+						// print_all_lists(); //DELETE
 			prepare_and_exec();
 			free_parser_blocks_all(&g_grblks);
 		}
@@ -58,6 +59,9 @@ int			prepare_parser(char *line)
 			g_prompt.prompt_func == heredoc_prompt)
 		g_pline = init_parser_line(line);
 	add_to_history(line);
+	if (!(g_prompt.prompt_func == main_prompt ||
+			g_prompt.prompt_func == heredoc_prompt))
+		free(line);
 	return (0);
 }
 

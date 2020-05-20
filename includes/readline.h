@@ -87,7 +87,7 @@ typedef struct			s_completion
 }						t_completion;
 
 /*
-** 
+** Is the AVL-tree for the auto-comletion to use
 */
 
 typedef struct  		s_pathtree
@@ -102,16 +102,6 @@ t_rline					g_rline;
 struct winsize			g_screen;
 t_cap					g_cap;
 struct termios			g_backup_tty;
-
-/*
-** File main.c
-*/
-
-int						readline_start(void);
-int						check_terminal(void);
-int						set_noncanonical_input(void);
-int						reset_canonical_input(void);
-
 
 /*
 ** File readline.c - the beginning of the work with readline
@@ -226,7 +216,6 @@ int						key_right_proc(void);
 int						key_up_proc(void);
 int						key_left_proc(void);
 int						key_down_proc(void);
-int						save_current_grline(int flag); //correct
 
 /*
 ** File esc_jump_proc.c
@@ -418,7 +407,7 @@ int						fill_array_from_tree(t_pathtree **root, char **list,
 */
 
 int								start_history(void);
-void            				init_history_buffer(void);
+void							init_history_buffer(int size);
 char							*define_history_file(void);
 int								add_to_history(char *cmd);
 int								add_other_prompts_history(char *cmd,
@@ -429,7 +418,6 @@ int								add_other_prompts_history(char *cmd,
 */
 
 int								scroll_hist_buffer(int num);
-int								save_hist_buffer(int fd);
 int								check_if_histsize_changed(void);
 char							**make_hist_buffer_smaller(int size);
 int								delete_last_history_element(void);

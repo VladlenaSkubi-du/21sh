@@ -34,23 +34,6 @@ int					scroll_hist_buffer(int num)
 ** a new buffer (a smaller one)
 */
 
-int				save_hist_buffer(int fd)
-{
-	int			i;
-
-	i = read_hist_from_file(fd);
-	g_hist.last = i - 1;
-	g_hist.counter = i;
-	g_hist.start = i;
-	g_hist.last_fc = (g_hist.last > 0) ? g_hist.last + 1 : 1;
-	if (g_hist.len > MAX_HISTBUF)
-		g_hist.hist = make_hist_buffer_smaller((MAX_HISTBUF > HISTORY_LIMIT) ?
-		HISTORY_LIMIT : MAX_HISTBUF);
-	if (g_hist.last_fc > HISTORY_LIMIT)
-		g_hist.last_fc = HISTORY_LIMIT;
-	return (0);
-}
-
 char			**make_hist_buffer_smaller(int size)
 {
 	char		**history;
@@ -61,14 +44,14 @@ char			**make_hist_buffer_smaller(int size)
 		size = 500;
 	i = (g_hist.counter >= size) ? g_hist.counter - size : 0;
 	j = 0;
-	history = (char**)ft_xmalloc(sizeof(char*) * (size + 1));
+	history = (char**)ft_xmalloc(sizeof(char*) * (size + 2));
 	while (g_hist.hist[i] && j < size + 1)
 	{
 		history[j] = ft_strdup(g_hist.hist[i]);
 		i++;
 		j++;
 	}
-	g_hist.len = size;
+	g_hist.len = size + 1;
 	g_hist.start = 0;
 	g_hist.last = (i > g_hist.len) ? g_hist.len - 1 : i - 1;
 	g_hist.counter = g_hist.last + 1;
@@ -91,11 +74,17 @@ int				check_if_histsize_changed(void)
 	else if (user_len > 0 && user_len > g_hist.len)
 	{
 		g_hist.hist = ft_realloc_array(&g_hist.hist,
-			g_hist.len, user_len);
-		g_hist.len = user_len;
+			g_hist.len, user_len + 2);
+		g_hist.len = user_len + 1;
 	}
-	else if (user_len >= 0 && user_len < g_hist.len)
+	else if (user_len > 0 && user_len < g_hist.len)
 		g_hist.hist = make_hist_buffer_smaller(user_len); //TODO проверить
+	else if (user_len == 0)
+	{
+		free(g_hist.hist[g_hist.len + 1]);
+		ft_arrdel(g_hist.hist);
+		init_history_buffer(0 + 1);
+	}
 	return (0);
 }
 
