@@ -33,12 +33,16 @@ int			check_empty_pblock(t_pblks **pblk_cont)
 {
 	char		*final;
 	t_cmd		*ptr_lcmd;
+	int			i;
+	int			check;
 
 	ptr_lcmd = (*pblk_cont)->lcmd;
-	if (ptr_lcmd->cmd[0] == '\0')
-		final = NULL;
-	else
-		final = ft_strdup(ptr_lcmd->cmd);
+	i = -1;
+	check = 0;
+	while (++i < ptr_lcmd->len_tech - 1)
+		if (ptr_lcmd->tech[i] != SPACE)
+			check = 1;
+	final = (check == 0) ? NULL : ft_strdup(ptr_lcmd->cmd);
 	if (final == NULL && (*pblk_cont)->fd == NULL)
 	{
 		if ((*pblk_cont)->flag)

@@ -22,6 +22,7 @@ int			prepare_and_exec(void)
 			dollar_expansion(&ptr_lcmd, NULL);
 			pblk_cont->lcmd = ptr_lcmd;
 		}
+		// print_all_lists();
 		pblk_hered->content = pblk_cont;
 		form_and_exec(pblk_cont);
 		pblk_hered = pblk_hered->next;
@@ -61,22 +62,22 @@ int			prepare_fdredir_fd(t_list **fd_runner)
 	fd_cont = (t_fd*)(*fd_runner)->content;
 	if (!(fd_cont->flag & REDIRECTION_FD))
 	{
-		// if (fd_cont->flag & CLOSE_FD)
-		// {
-		// 	close(fd_cont->fd_old);
-		// 	return (0);
-		// }
-		if (fd_cont->flag & OPEN_FD)
+		if (fd_cont->flag & OPENIN_FD)
+		{
+			fd_cont->fd_new = open(fd_cont->file, O_RDONLY |
+				O_CLOEXEC | O_SYNC | O_NOCTTY);
+		}
+		else if (fd_cont->flag & OPEN_FD)
 		{
 			fd_cont->fd_new = open(fd_cont->file, O_CREAT |
 				O_WRONLY | O_TRUNC | O_CLOEXEC | O_SYNC | O_NOCTTY,
 				S_IRUSR | S_IWUSR);
 		}
-		if (fd_cont->flag & CREATE_FD)
+		else if (fd_cont->flag & CREATE_FD)
 			fd_cont->fd_new = open(fd_cont->file, O_CREAT |
 				O_WRONLY | O_APPEND | O_CLOEXEC | O_SYNC | O_NOCTTY,
 				S_IRUSR | S_IWUSR);
-		if (fd_cont->fd_new < 0)
+		if (fd_cont->fd_new < 0 && !(fd_cont->flag & CLOSE_FD))
 			return (-1);
 	}
 	return (0);

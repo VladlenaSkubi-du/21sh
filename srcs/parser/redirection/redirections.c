@@ -44,7 +44,7 @@ int			redir_in(t_pblks **current_cont,
 		delete_or_insert_to_pline(ptr_lcmd, *i + 1, -1);
 		if (find_fdafter_redir(ptr_lcmd, &fd_inout, i) == OUT)
 			return (activate_redir_error(current_cont, fd_inout));
-		fd_inout.flag |= OPEN_FD;
+		fd_inout.flag |= OPENIN_FD;
 		new_fd = add_redir_to_block(fd_inout);
 		ft_lstadd_to_end(&(*current_cont)->fd, new_fd);
 		if (*i == 0)

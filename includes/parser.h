@@ -28,6 +28,7 @@
 # define CREATE_FD		0x20
 # define OPEN_FD		0x40
 # define REDIRECTION_FD	0x80
+# define OPENIN_FD		0x100
 
 /*
 ** ____________________________________________________________________________

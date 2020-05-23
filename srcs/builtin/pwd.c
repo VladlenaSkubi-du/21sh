@@ -50,7 +50,7 @@ int     	btin_pwd(t_exec *exec)
 
 	if (valid(exec->argv))
 		return (1);
-	flags = ft_xmalloc(sizeof(t_cd *));
+	flags = (t_cd *)ft_xmalloc(sizeof(t_cd));
 	ft_cd_flags(exec->argv, flags); //there was return i comp - where is used?
 	li = find_in_variables(g_shvar, &co, "PWD");
 	if (flags->l)
