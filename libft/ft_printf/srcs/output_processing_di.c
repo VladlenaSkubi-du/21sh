@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output_processing.c                                :+:      :+:    :+:   */
+/*   output_processing_di.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 16:05:26 by sschmele          #+#    #+#             */
-/*   Updated: 2019/03/27 11:45:11 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/06/04 18:54:05 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,20 @@ char		*flags_ps_or_signs(t_all *all, char *str, int *len)
 {
 	char	*new;
 
+	if (all->flag_sign_minus == 1 || all->flag_plus == 1 ||
+			all->flag_space == 1)
+	{
+		new = ft_strnew((size_t)*len + 1);
+		++(*len);
+	}
 	if (all->flag_sign_minus == 1)
-	{
-		new = ft_strnew((size_t)*len + 1);
 		new[0] = '-';
-	}
 	else if (all->flag_plus == 1)
-	{
-		new = ft_strnew((size_t)*len + 1);
 		new[0] = '+';
-	}
 	else if (all->flag_space == 1)
-	{
-		new = ft_strnew((size_t)*len + 1);
 		new[0] = ' ';
-	}
 	else
 		return (str);
-	++(*len);
 	ft_strcpy(&new[1], str);
 	ft_strdel(&str);
 	return (new);

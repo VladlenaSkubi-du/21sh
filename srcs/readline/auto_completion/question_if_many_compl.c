@@ -3,7 +3,6 @@
 
 /*
 ** @pos_x_com is pos_x for comment
-** Here we print the question about the columns to print
 */
 
 int					ask_output(int total, int buf_lines,
@@ -12,28 +11,46 @@ int					ask_output(int total, int buf_lines,
 	char			c;
 	int				len;
 	int				total_len;
-	char			*question;
 	int				pos_x_com;
 
 	pos_x_com = 0;
+	len = ft_strlen("21sh") +
+		ft_strlen(": display all ") +
+		ft_strlen(" possibilities (") + 
+		ft_strlen(" lines)? [y or n] ");
+	// len = ft_strlen(find_env_value("0")) +
+		// ft_strlen(": display all ") +
+		// ft_strlen(" possibilities (") + 
+		// ft_strlen(" lines)? [y or n] ");
 	count_comment_len(&total_len, total);
-	len = 20 + 16 + 18 + total_len;
+	len += total_len;
 	count_comment_len(&total_len, buf_lines);
 	len += total_len;
-	front_insert_by_letters("21sh: display all ", &pos_x_com);
-	question = ft_itoa(total);
-	front_insert_by_letters(question, &pos_x_com);
-	free(question);
-	front_insert_by_letters(" possibilities (", &pos_x_com);
-	question = ft_itoa(buf_lines);
-	front_insert_by_letters(question, &pos_x_com);
-	free(question);
-	front_insert_by_letters(" lines)? [y or n] ", &pos_x_com);
+	print_question_compl(&pos_x_com, total, buf_lines);
 	read(STDOUT_FILENO, &c, 1);
 	if (c == 'y' || c == 'Y')
 		return (clean_output_question(1, pos_back, len, len_x));
-	clean_output_question(0, pos_back, len, len_x);
-	return (1);
+	return (clean_output_question(0, pos_back, len, len_x));
+}
+
+int					print_question_compl(int *pos_x_com, int total,
+						int buf_lines)
+{
+	char			*question;
+	
+	g_rline.flag |= AFTER_LINE;
+	front_insert_by_letters("21sh", pos_x_com);
+	// front_insert_by_letters(find_env_value("0"), pos_x_com);
+	front_insert_by_letters(": display all ", pos_x_com);
+	question = ft_itoa(total);
+	front_insert_by_letters(question, pos_x_com);
+	free(question);
+	front_insert_by_letters(" possibilities (", pos_x_com);
+	question = ft_itoa(buf_lines);
+	front_insert_by_letters(question, pos_x_com);
+	free(question);
+	front_insert_by_letters(" lines)? [y or n] ", pos_x_com);
+	return (0);
 }
 
 /*
@@ -52,9 +69,7 @@ int					after_big_menu(int pos_back, int len_x, int len_y)
 	g_rline.pos_y = len_y;
 	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
 	g_rline.pos = 0;
-	g_rline.pos_x = g_rline.prompt_len;
-	if (g_rline.prompt_len >= g_screen.ws_col)
-		g_rline.pos_x = g_rline.prompt_len % g_screen.ws_col;
+	g_rline.pos_x = prompt_len();
 	g_rline.pos_y = 0;
 	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	g_rline.flag &= ~TAB;
@@ -96,35 +111,18 @@ int					clean_output_question(int from, int pos_back,
 {
 	int				lines_nb;
 
-	lines_nb = len / g_screen.ws_col + ((from == 0) ? 1 : 0);
-	if ((len + 1) % g_screen.ws_col == 0)
-		lines_nb += 1;
+	lines_nb = len / g_screen.ws_col + 1; //+ ((from == 0) ? 1 : 0);
 	if (lines_nb > 1)
 		position_cursor("UP", 0, lines_nb - 1);
 	position_cursor("ch", 0, 0);
 	tputs(g_cap.cd, 1, printc);
+	g_rline.flag &= ~AFTER_LINE;
 	if (from == 0)
 	{
 		position_cursor("ch", 0, len_x);
 		tputs(g_cap.up, 1, printc);
 		move_cursor_from_old_position(pos_back, 'l');
-		return (0);
+		return (1);
 	}
-	return (0);
-}
-
-/*
-** If there are no options for completion, we clear the 
-** allocated @g_complete and @g_techline strings and ring
-** the bell
-*/
-
-int					clean_strings_compl(char *compl,
-						char *tech_line, int flag)
-{
-	free(compl);
-	free(tech_line);
-	if (flag == 1)
-		return (incorrect_sequence());
 	return (0);
 }

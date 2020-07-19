@@ -27,12 +27,7 @@ int					str_shift(char *str, int shift)
 int					char_add(char c, char *color)
 {
 	if (g_rline.cmd_len >= g_rline.cmd_buff_len - 1)
-	{
-		g_rline.cmd = (char *)ft_realloc(g_rline.cmd, g_rline.cmd_len,
-			g_rline.cmd_buff_len,
-			g_rline.cmd_buff_len + CMD_SIZE);
-		g_rline.cmd_buff_len += CMD_SIZE;
-	}
+		realloc_readline_cmd();
 	g_rline.cmd_len++;
 	if (g_rline.cmd_len + 1 < 0 || g_rline.cmd_buff_len + 1 < 0)
 		return (OUT);
@@ -51,7 +46,7 @@ int					insert_char(char c, char *color)
 {
 	if (g_rline.cmd[g_rline.pos] != '\0')
 	{
-		str_shift(g_rline.cmd + g_rline.pos, 1);
+		ft_strshift(g_rline.cmd + g_rline.pos, 1);
 		g_rline.cmd[g_rline.pos] = c;
 		tputs(g_cap.cd, 1, printc);
 		front_insert_one_char(g_rline.cmd[g_rline.pos], g_rline.pos_x, 'm', color);
@@ -76,7 +71,7 @@ int					insert_char(char c, char *color)
 ** All the comments will be colored
 */
 
-int					front_insert_by_letters(char *str, int *pos_x)
+int					front_insert_by_letters(char *str, int *pos_x) //либа, поменяй
 {
 	int				i;
 

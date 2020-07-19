@@ -16,7 +16,7 @@ char				**get_variables(char *complete, int *total, int *max_len)
 ** We go through all the arrays with variables and add to the tree
 */
 
-t_pathtree			*fill_tree_with_variables(char *complete, int *total)
+t_pathtree			*fill_tree_with_variables(char *complete, int *total) //VARIABLES
 {
 	int				i;
 	t_pathtree		*root;
@@ -37,7 +37,32 @@ t_pathtree			*fill_tree_with_variables(char *complete, int *total)
 	return (root);
 }
 
-int					insert_variables_to_tree(char *array, char *complete,
+// t_pathtree			*fill_tree_with_variables(char *complete, int *total)
+// {
+// 	int				i;
+// 	t_pathtree		*root;
+// 	char			*name;
+// 	int 			len;
+
+// 	i = 0;
+// 	root = NULL;
+// 	while (g_envi[i])
+// 	{
+// 		if (g_envi[i][0] && (g_envi[i][0] & SET_VIS))
+// 		{
+// 			len = ft_strlen(complete);
+// 			name = ft_strndup(g_envi[i] + 1,
+// 					ft_strchri(g_envi[i] + 1, '='));
+// 			if (ft_strnequ(name, complete, len))
+// 				insert_to_path_tree(name, &root, total);
+// 			free(name);
+// 		}
+// 		i++;
+// 	}
+// 	return (root);
+// }
+
+int					insert_variables_to_tree(char *array, char *complete, // DELETE after changing VARIABLES
 						t_pathtree **root, int *total)
 {
 	char			*tmp;
@@ -62,8 +87,8 @@ char				**get_arguments(char **complete,
 
 	tmp = ft_strchri(*complete, '/');
 	path = find_path_compl(*complete, tmp);
-	compl = (tmp >= 0 && tmp < (int)ft_strlen(*complete)) ?
-		ft_strdup(*complete + tmp + 1) : NULL;
+	compl = (tmp >= 0 && tmp < (int)ft_strlen(*complete))
+		? ft_strdup(*complete + tmp + 1) : ft_strdup(*complete);
 	if (compl != NULL)
 	{
 		free(*complete);
@@ -81,6 +106,32 @@ char				**get_arguments(char **complete,
 	return (menu);
 }
 
+char				*find_path_compl(char *compl, int tmp)
+{
+	char			*path;
+	char			*temp;
+
+	if (g_rline.pos <= 0)
+		return (NULL);
+	if (compl && compl[0] && tmp >= 0)
+	{
+		temp = (tmp == 0) ? ft_strdup("/") : ft_strndup(compl, tmp + 1);
+		if (ft_isalnum(compl[0]))
+		{
+			path = ft_strjoin("./", temp);
+			free(temp);
+		}
+		else
+		{
+			make_one_slash(&temp, tmp, compl);
+			path = temp;
+		}
+	}
+	else
+		path = ft_strdup("./");
+	return (path);
+}
+
 /*
 ** We open the directory in @path value, read it and add
 ** all the filenames to the tree
@@ -95,7 +146,7 @@ t_pathtree			*fill_tree_with_arguments(char *path,
 	struct dirent	*entry;
 
 	root = NULL;
-	if (path == NULL)
+	if (path == NULL || path[0] == '\0')
 		return (NULL);
 	len = ft_strlen(complete);
 	if (!(dir_name = opendir(path)))

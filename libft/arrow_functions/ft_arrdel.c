@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arrdel.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/01 20:18:33 by sschmele          #+#    #+#             */
-/*   Updated: 2020/05/13 13:21:08 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/06/13 21:32:53 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+         #
+#    By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/10/23 17:15:13 by sschmele          #+#    #+#              #
-#    Updated: 2020/03/03 13:00:16 by sschmele         ###   ########.fr        #
+#    Updated: 2020/06/04 18:25:17 by vladlenasku      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-FLAGS = -c -Wall -Werror -Wextra
+FLAGS = -g -Wall -Werror -Wextra
 
 SOURCES = ft_printf.c \
 	   processing_functions.c \

@@ -44,7 +44,7 @@ int			make_ctrl_w(void)
 	int				len_swap;
 	char			*save_yank;
 
-	check_menu();
+	check_after_line();
 	pos_old = g_rline.pos;
 	if (word_left_proc())
 		return (0);
@@ -72,7 +72,7 @@ int			esc_r(void)
 {
 	char			*save_yank;
 	
-	check_menu();
+	check_after_line();
 	save_yank = ft_strdup(g_rline.cmd);
 	make_ctrl_p(0, save_yank);
 	while (g_rline.pos)

@@ -49,7 +49,7 @@ int		key_up_proc(void)
 	int				i;
 	int				len;
 
-	check_menu();
+	check_after_line();
 	if (g_hist.counter <= 0)
 	{
 		g_hist.counter = 0;
@@ -82,7 +82,7 @@ int		key_down_proc(void)
 	int				i;
 	int				len;
 
-	check_menu();
+	check_after_line();
 	if (g_rline.cmd[0] && g_hist.counter <= g_hist.last)
 	{
 		free(g_hist.hist[g_hist.counter]);

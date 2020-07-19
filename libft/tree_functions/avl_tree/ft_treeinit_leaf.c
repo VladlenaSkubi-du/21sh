@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnstr.c                                       :+:      :+:    :+:   */
+/*   ft_treeinit_leaf.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/12 12:55:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/05/23 19:34:01 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/05/25 16:27:38 by vladlenasku       #+#    #+#             */
+/*   Updated: 2020/05/25 16:32:34 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_putnstr(char const *s, int len)
+t_avltree			*ft_treeinit_leaf(char *key)
 {
-	int i;
+	t_avltree			*new_leaf;
 
-	i = 0;
-	if (s)
-	{
-		while (i < len)
-		{
-			ft_putchar(s[i]);
-			i++;
-		}
-	}
+	new_leaf = (t_avltree*)ft_xmalloc(sizeof(t_avltree));
+	new_leaf->key = ft_strdup(key);
+	new_leaf->value = NULL;
+	new_leaf->right = NULL;
+	new_leaf->left = NULL;
+	return (new_leaf);
 }

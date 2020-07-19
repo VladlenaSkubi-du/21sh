@@ -19,6 +19,8 @@ int			ft_strchri(char *s, int c)
 	size_t			mask;
 	int				i;
 
+	if (!s || s[0] == '\0')
+		return (-1);
 	mask = 0;
 	i = -1;
 	while (++i < (int)sizeof(size_t))

@@ -12,7 +12,7 @@ int					backspace_process(void)
 	char			*swap;
 	int				len_swap;
 
-	check_menu();
+	check_after_line();
 	if (g_rline.pos > 0)
 	{
 		swap = g_rline.cmd + g_rline.pos;
@@ -66,7 +66,7 @@ int					delete_process(void)
 {
 	t_exec			*exec;
 	
-	check_menu();
+	check_after_line();
 	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
 	{
 		if (g_prompt.prompt_func == main_prompt)

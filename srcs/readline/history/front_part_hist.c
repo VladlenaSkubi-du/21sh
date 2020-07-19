@@ -11,7 +11,7 @@ int					make_ctrl_r_history(void)
 
 	pos_back = g_rline.pos;
 	len_x = g_rline.pos_x;
-	position_cursor_for_menu(g_rline.cmd_len);
+	position_cursor_after_line(g_rline.cmd_len);
 	len = 22;
 	front_insert_by_letters("We search in history: ", &coincidence);
 	find = get_the_answer_hist(&len);

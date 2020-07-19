@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shell21.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tmp <tmp@student.42.fr>                    +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/05/18 16:17:39 by tmp              ###   ########.fr       */
+/*   Updated: 2020/07/17 18:42:25 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,25 @@
 # define 			ENV_BUFFER 5
 # define			OUT 42
 
+/*
+** Structures
+** ____________________________________________________________________________
+*/
+
+/*
+** @prompt_func is prompt that is valid according to some
+** readline and parser analysis
+** Can be: main, dquote, heredoc and so on
+*/
+
 typedef struct		s_prompt
 {
 	int				(*prompt_func)(void);
+	int				prompt_len_real;
+	int				prompt_len;
 }					t_prompt;
+
+
 
 /*
 ** @hist is an array with commands (not separated by \n but
@@ -110,6 +125,8 @@ enum				e_techline
 	EQUAL,
 	ENTER,
 	COMENT,
+	BANG,
+	COLON,
 	GLUE,
 	TEXT,
 	END_T,

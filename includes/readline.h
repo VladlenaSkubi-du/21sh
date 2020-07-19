@@ -3,21 +3,26 @@
 # define READLINE_H
 
 # include "readline_simple.h"
-# define SESC_NUM		5
+# define SESC_NUM				5
 
-# define TERMCAP_SIZE 	20
-# define CMD_SIZE		100
-# define TAB			0x1
-# define NEW_LINE_SY	0x2
-# define NEW_LINE_TE	0x4
+# define TERMCAP_SIZE 			20
+# define CMD_SIZE				100
+# define DEFAULT_SCREEN_SIZE	80
 
-# define RED			"\033[31m"
-# define ORANGE			"\033[38;5;208m"
-# define YELLOW			"\033[33m"
-# define GREEN			"\033[32m"
-# define BLUE			"\033[36m"
-# define PURPLE			"\033[35m"
-# define DEFAULT		"\033[0m"
+# define TAB					0x1
+# define NEW_LINE_SY			0x2
+# define NEW_LINE_TE			0x4
+# define AFTER_LINE				0x8
+# define AFTER_LINE_HIST		0x10
+# define PROMPTLEN_ZERO			0x20
+
+# define RED					"\033[31m"
+# define ORANGE					"\033[38;5;208m"
+# define YELLOW					"\033[33m"
+# define GREEN					"\033[32m"
+# define BLUE					"\033[36m"
+# define PURPLE					"\033[35m"
+# define DEFAULT				"\033[0m"
 
 /*
 ** @t_rline is for the whole readline part:
@@ -76,7 +81,7 @@ typedef struct			s_cap
 ** @i - counter
 */
 
-typedef struct			s_completion
+typedef struct			s_compl_output
 {
 	char				**buffer;
 	int					buf_lines;
@@ -84,10 +89,29 @@ typedef struct			s_completion
 	int					word_len;
 	int					word_nb;
 	int					i;
-}						t_completion;
+}						t_compl_output;
 
 /*
-** Is the AVL-tree for the auto-comletion to use
+** @g_tablevel is a counter according to that we complete this or that line
+** from the g_menu
+** @g_complete - is a string, according to which we search
+** options for completion. Can be empty if TAB is pushed before any other key
+** @g_menu - the full menu for completion, all the possible options
+*/
+
+typedef struct			s_compl
+{
+	char				*to_compl;
+	int					len_tocompl;
+	char				**menu;
+	int					total;
+	int					tablevel;
+	int					to_del;
+	t_compl_output		menu_buffer;
+}						t_compl;
+
+/*
+** Is the binary-tree for the auto-comletion to use
 */
 
 typedef struct  		s_pathtree
@@ -98,10 +122,21 @@ typedef struct  		s_pathtree
 	char				flag;
 }               		t_pathtree;
 
+/*
+** Globals
+** ____________________________________________________________________________
+*/
+
 t_rline					g_rline;
 struct winsize			g_screen;
 t_cap					g_cap;
 struct termios			g_backup_tty;
+t_compl					g_compl;
+
+/*
+** Functions
+** ____________________________________________________________________________
+*/
 
 /*
 ** File readline.c - the beginning of the work with readline
@@ -110,8 +145,18 @@ struct termios			g_backup_tty;
 int						start_readline21(int tmp);
 char					*finalize_cmd(char *cmd);
 char					*readline(void);
-void					init_readline(void);
 int						readline_choice(char sy);
+int						check_after_line(void);
+
+/*
+** File readline_processing.c
+*/
+
+void					init_readline(void);
+void					bzero_readline(void);
+void					realloc_readline_cmd(void);
+int						init_terminal_screen(void);
+char					*colors_process(int sequence_num);
 
 /*
 ** File prompts.c
@@ -163,6 +208,13 @@ int						ctrl_call(size_t call_num);
 int						make_ctrl_p_wrap(void);
 
 /*
+** File front_processing.c
+*/
+
+int						clean_after_line(void);
+int						position_cursor_after_line(int len);
+
+/*
 ** File cursor_position.c - operations to get the termcap cursor postion
 ** and move it after actions
 */
@@ -187,12 +239,6 @@ int						front_insert_if_terminal(int *pos_x, int *pos_y,
 							int *flag);
 int						front_insert_if_line(int *pos_x, int *str_num, int *flag);
 int						front_write_one_char(char c, char *color);
-
-/*
-** File colors.c
-*/
-
-char					*colors_process(int sequence_num);
 
 /*
 ** Folder KEY_ACTIONS
@@ -285,27 +331,25 @@ int						paste_insert(char *yank_str);
 
 int						auto_completion(void);
 char					**route_menu_receipt(char *tech_line,
-							int tech_len, int *total,
-							int *max_len);
+							int tech_len, int *max_len);
 char					**route_by_prompts(int *total, int *max_len);
-int						check_menu(void);
 int						insert_word_compl(void);
+int						insert_word_by_cases_compl(int *delete, int flag,
+							char *menu_word, int compl_len);
 
 /*
 ** File analyse_line_compl.c
 */
 
-char					*get_techline_compl(char *complete,
-							int len);
 int						analyse_techline_compl(char *compl,
-							char *tech_line,
-							int len, int *pool);
-int						pass_symbols(char *compl, char *tech,
+							char *tech_line, int len, int *pool);
+int						check_quoting_of_syntax(char *tech, int now);
+int						pass_symbols_compl(char *compl, char *tech,
 							int i, int *pool);
+int						check_path_pool_three_compl(char *compl, char *tech,
+							int *pool, int i);
 int						route_to_pools(char *tech, int i,
 							int *pool);
-int						route_to_arguments(char *compl,
-							int i, int *pool);
 
 /*
 ** File menu_receipt_compl.c
@@ -317,9 +361,10 @@ t_pathtree				*fill_tree_with_variables(char *complete,
 							int *total);
 int						insert_variables_to_tree(char *array,
 							char *complete, t_pathtree **root,
-							int *total);
+							int *total); //DELETE after VARIABLES
 char					**get_arguments(char **complete,
 							int *total, int *max_len);
+char					*find_path_compl(char *compl, int tmp);
 t_pathtree				*fill_tree_with_arguments(char *path,
 							char *complete, int *total);
 
@@ -327,13 +372,14 @@ t_pathtree				*fill_tree_with_arguments(char *path,
 ** File front_part_compl.c
 */
 
-int						insert_word_by_cases_compl(int *delete, int flag,
-							char *menu_word, int compl_len);
-int						print_menu(int pos_back, char **menu,
-							int total, int max_len);
+int						print_menu(int max_len);
+int						print_menu_within_terminal(int pos_back,
+							int len_x, int len_y);
+int						print_menu_more_than_terminal(int pos_back,
+							int len_x, int len_y);
 int						print_menu_buf_after_insert(int pos_back);
-int						clean_menu(void);
-int						clean_menu_buf(void);
+int						position_cursor_after_menu_back(int len_x, int len_y,
+							int buf_lines, int pos_back);
 
 /*
 ** File question_if_many_compl.c and also a small function (because of norm)
@@ -341,33 +387,32 @@ int						clean_menu_buf(void);
 
 int						ask_output(int total, int buf_lines,
 							int pos_back, int len_x);
+int						print_question_compl(int *pos_x_com, int total,
+							int buf_lines);
 int						after_big_menu(int pos_back,
 							int len_x, int len_y);
 int						count_comment_len(int *find, int num);
 int						clean_output_question(int from, int pos_back,
 							int len, int len_x);
-int						clean_strings_compl(char *compl,
-							char *tech_line, int flag);
 
 /*
 ** File path_and_cursor_processing_compl.c
 */
 
-char					*find_path_compl(char *compl, int tmp);
-char					*path_parse_compl(void);
-int						position_cursor_for_menu(int len);
-int						position_cursor_after_menu_back
-							(int len_x, int len_y, int buf_lines, int pos_back);
+int						init_completion(void);
+int						clear_completion(int flag);
+int						make_one_slash(char **final, int last_slash, char *compl);
+char					*path_parse_compl(void); //DELETE after VARIABLES
 
 /*
 ** File output_buffer_compl.c
 */
 
-t_completion			menu_buf_init(int total, int max_len);
+t_compl_output			menu_buf_init(int total, int max_len);
 int						buffer_col_print(char *add,
-							t_completion *menu_buf);
-void					buffer_col_calc(t_completion *menu_buf);
-void					buffer_col_finish(t_completion *menu_buf);
+							t_compl_output *menu_buf);
+void					buffer_col_calc(t_compl_output *menu_buf);
+void					buffer_col_finish(t_compl_output *menu_buf);
 void					buf_add(char *str, int size);
 
 /*

@@ -14,11 +14,13 @@ int				clean_everything(void)
 {
 	make_ctrl_p(2, NULL);
 	clean_termcap();
+	clean_readline();
 	free(g_hist.hist[g_hist.len]);
 	ft_arrdel(g_hist.hist);
 	ft_arrdel(g_builtins);
 	ft_arrdel(g_shvar);
 	ft_arrdel(g_env);
+	ft_gnl(GNL_CLEAN, NULL);
 	return (0);
 }
 

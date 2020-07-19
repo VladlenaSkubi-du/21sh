@@ -10,7 +10,7 @@ int			make_ctrl_p(int mode, char *yank)
 {
 	static char		*yank_str;
 
-	check_menu();
+	check_after_line();
 	if (mode == 0)
 	{
 		(yank_str) ? free(yank_str) : 0;

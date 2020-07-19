@@ -79,14 +79,15 @@ REDIRECTION = \
 
 READLINE_DIR = readline
 READLINE = 	$(READLINE_DIR)/readline.c \
+			$(READLINE_DIR)/readline_processing.c \
 			$(READLINE_DIR)/prompts.c \
 			$(READLINE_DIR)/termcap_usage.c \
+			$(READLINE_DIR)/front_processing.c \
 			$(READLINE_DIR)/cursor_position.c \
 			$(READLINE_DIR)/front_insertions.c \
 			$(READLINE_DIR)/str_edit.c \
 			$(READLINE_DIR)/escape.c \
 			$(READLINE_DIR)/ctrl_key.c \
-			$(READLINE_DIR)/colors.c \
 			$(READLINE_SIMPLE) \
 			$(KEY_ACTIONS) \
 			$(AUTO_COMPLETION) \

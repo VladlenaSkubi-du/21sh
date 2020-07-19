@@ -6,6 +6,7 @@ int					main(void)
 	save_shell_variables();
 	start_history();
 	init_builtins();
+	init_readline();
 	g_prompt.prompt_func = main_prompt;
 	readline_start();
 	return (0);
@@ -19,7 +20,6 @@ int					readline_start(void)
 
 	while (1)
 	{
-		init_readline();
 		signals_reroute(1);
 		check_terminal();
 		g_prompt.prompt_func();
@@ -64,8 +64,8 @@ int					set_noncanonical_input(void)
 	if (tcsetattr(STDIN_FILENO, TCSAFLUSH, &tty) < 0)
 		return (-1);
 	if (tcgetattr(STDIN_FILENO, &tty) < 0 ||
-		((tty.c_lflag & (ICANON | ECHO) ||
-		tty.c_cc[VMIN] != 1 || tty.c_cc[VTIME] != 1)))
+			((tty.c_lflag & (ICANON | ECHO) ||
+			tty.c_cc[VMIN] != 1 || tty.c_cc[VTIME] != 1)))
 		reset_canonical_input();
 	return (0);
 }

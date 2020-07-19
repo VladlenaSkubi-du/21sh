@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnstr.c                                       :+:      :+:    :+:   */
+/*   ft_treefree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/12 12:55:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/05/23 19:34:01 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/05/25 16:36:54 by vladlenasku       #+#    #+#             */
+/*   Updated: 2020/05/25 16:39:18 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_putnstr(char const *s, int len)
+void			ft_treefree(t_avltree **root)
 {
-	int i;
-
-	i = 0;
-	if (s)
+	if (root != NULL && *root != NULL)
 	{
-		while (i < len)
-		{
-			ft_putchar(s[i]);
-			i++;
-		}
+		ft_treefree(&((*root)->right));
+		free((*root)->key);
+		(*root)->key = NULL;
+		free((*root)->value);
+		(*root)->value = NULL;
+		ft_treefree(&((*root)->left));
+		free(*root);
 	}
 }

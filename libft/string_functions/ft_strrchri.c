@@ -19,7 +19,7 @@ int			ft_strrchri(char *s, int c)
 		}
 		i--;
 	}
-	if (i == 0 && p == 0)
+	if (i <= 0 && p == 0)
 		return (-1);
 	return (p - s);
 }

@@ -6,7 +6,7 @@
 /*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/09 18:09:40 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 13:13:58 by vladlenasku      ###   ########.fr       */
+/*   Updated: 2020/06/05 00:07:09 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char		*ft_ltoa_base_exceptions(long nb)
 
 	s = NULL;
 	if (nb == 0)
-		return ("0");
+		return (ft_strdup("0"));
 	return (s);
 }
 

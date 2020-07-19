@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnstr.c                                       :+:      :+:    :+:   */
+/*   ft_ishexdigit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/12 12:55:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/05/23 19:34:01 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/06/12 15:15:48 by rbednar           #+#    #+#             */
+/*   Updated: 2020/06/12 15:17:06 by rbednar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void		ft_putnstr(char const *s, int len)
+int		ft_ishexdigit(char c)
 {
-	int i;
-
-	i = 0;
-	if (s)
-	{
-		while (i < len)
-		{
-			ft_putchar(s[i]);
-			i++;
-		}
-	}
+	if ((c >= '0' && c <= '9') ||
+			(c >= 'A' && c <= 'F'))
+		return (1);
+	return (0);
 }

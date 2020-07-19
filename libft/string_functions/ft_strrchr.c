@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sschmele <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/23 20:48:03 by sschmele          #+#    #+#             */
-/*   Updated: 2018/12/06 11:31:36 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/07/06 21:34:10 by vladlenasku      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ char		*ft_strrchr(const char *s, int c)
 		}
 		i--;
 	}
-	if (i == 0 && p == 0)
-		return (0);
+	if (i <= 0 && p == 0)
+		return ((char*)NULL);
 	else
 		return (p);
 }

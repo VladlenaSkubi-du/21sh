@@ -3,7 +3,7 @@
 #define TAIL ft_add_tail
 #define GET ft_get_buf_line
 #define C_SIZE content_size
-# define G_SIZE 4096
+#define G_SIZE 4096
 
 typedef struct			s_list_fd
 {
@@ -14,10 +14,31 @@ typedef struct			s_list_fd
 	struct s_list_fd	*next;
 }						t_fd_list;
 
+static void			ft_gnl_clean(t_fd_list **p)
+{
+	t_fd_list	*new;
+	t_fd_list	*tmp;
+
+	new = *p;
+	while (new)
+	{
+		tmp = new->next;
+		ft_lstclear(&(new->buf));
+		free(new);
+		new = tmp;
+	}
+}
+
 static t_fd_list	*ft_fd_check(int fd, t_fd_list **p)
 {
 	t_fd_list	*new;
 
+	if (fd < 0)
+	{
+		if (fd == GNL_CLEAN)
+			ft_gnl_clean(p);
+		return (NULL);
+	}
 	new = *p;
 	while (new)
 	{
@@ -25,7 +46,7 @@ static t_fd_list	*ft_fd_check(int fd, t_fd_list **p)
 			return (new);
 		new = new->next;
 	}
-	if (!(new = (t_fd_list *)ft_memalloc(sizeof(t_fd_list))))
+	if (!(new = (t_fd_list*)ft_memalloc(sizeof(t_fd_list))))
 		return (NULL);
 	new->fd = fd;
 	new->next = *p;
@@ -95,8 +116,8 @@ int					ft_gnl(const int fd, char **line)
 	t_fd_list			*fd_buf;
 	int					i;
 
-	if (fd < 0 || read(fd, NULL, 0) || line == NULL ||
-		!(fd_buf = ft_fd_check(fd, &fd_list)))
+	if (!(fd_buf = ft_fd_check(fd, &fd_list)) || read(fd, NULL, 0) ||
+		line == NULL)
 		return (-1);
 	if (fd_buf->buf)
 		if (ft_memchr(fd_buf->buf->content, 10, fd_buf->index))

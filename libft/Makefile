@@ -6,7 +6,7 @@
 #    By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:34:17 by sschmele          #+#    #+#              #
-#    Updated: 2020/05/02 16:43:25 by vladlenasku      ###   ########.fr        #
+#    Updated: 2020/07/19 16:12:19 by vladlenasku      ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ FLAGS += -g
 
 SRCS =	$(ARROW_FUNCTIONS) \
 	$(LIST_STRUCTURE) \
+	$(TREE_FUNCTIONS) \
 	$(MALLOC_FUNCTIONS) \
 	$(MEMORY_FUNCTIONS) \
 	$(OUTPUT_FUNCTIONS) \
@@ -27,7 +28,9 @@ SRCS =	$(ARROW_FUNCTIONS) \
 	
 ARROW_FUNCTIONS = ./arrow_functions/ft_arrdel.c \
 	./arrow_functions/ft_realloc_array.c \
-	./arrow_functions/ft_delelem_array.c
+	./arrow_functions/ft_delelem_array.c \
+	./arrow_functions/ft_arrshift.c \
+	./arrow_functions/ft_memrealloc_array.c
 	
 LIST_STRUCTURE = ./list_structure/ft_lstadd.c \
 	./list_structure/ft_lstclear.c \
@@ -45,8 +48,15 @@ LIST_STRUCTURE = ./list_structure/ft_lstadd.c \
 	./list_structure/ft_lstfree_current.c \
 	./list_structure/ft_lstfree.c
 
+TREE_FUNCTIONS = $(AVL_TREE)
+
+AVL_TREE = ./tree_functions/avl_tree/ft_treeinit_leaf.c \
+	./tree_functions/avl_tree/ft_treeadd_leaf.c \
+	./tree_functions/avl_tree/ft_treefill_array.c \
+	./tree_functions/avl_tree/ft_treefree.c
+
 MALLOC_FUNCTIONS = ./malloc_functions/ft_itoa.c \
-	./malloc_functions/ft_itoa_base.c \
+	./malloc_functions/ft_ltoa_base.c \
 	./malloc_functions/ft_makerevstr.c \
 	./malloc_functions/ft_memalloc.c \
 	./malloc_functions/ft_realloc.c \
@@ -65,6 +75,7 @@ MALLOC_FUNCTIONS = ./malloc_functions/ft_itoa.c \
 	./malloc_functions/ft_strtrim.c \
 	./malloc_functions/ft_utoa_base.c \
 	./malloc_functions/ft_strnew.c \
+	./malloc_functions/ft_strshift.c \
 	./malloc_functions/ft_xmalloc.c
 
 MEMORY_FUNCTIONS = ./memory_functions/ft_bzero.c \
@@ -77,11 +88,14 @@ MEMORY_FUNCTIONS = ./memory_functions/ft_bzero.c \
 	./memory_functions/ft_memset.c
 
 OTHER_FUNCTIONS = ./other_functions/ft_atoi.c \
+	./other_functions/ft_atoi_base.c \
 	./other_functions/ft_gnl.c \
 	./other_functions/ft_isalnum.c \
 	./other_functions/ft_isalpha.c \
 	./other_functions/ft_isascii.c \
 	./other_functions/ft_isdigit.c \
+	./other_functions/ft_ishexdigit.c \
+	./other_functions/ft_isoctdigit.c \
 	./other_functions/ft_isprint.c \
 	./other_functions/ft_issign.c \
 	./other_functions/ft_nb_root.c \
@@ -135,12 +149,15 @@ STRING_FUNCTIONS = ./string_functions/ft_straddsy.c \
 	./string_functions/ft_strrchr.c \
 	./string_functions/ft_strrchri.c \
 	./string_functions/ft_strstr.c \
-	./string_functions/ft_strchrdiff.c
+	./string_functions/ft_strchrdiff.c \
+	./string_functions/ft_strchrcmp.c
 
 DIR_O = objs
 OBJS = $(addprefix $(DIR_O)/,$(SRCS:.c=.o))
 
 INCLUDE = includes/libft.h
+
+#_____________________________________________________
 
 all:	$(NAME)
 
@@ -153,9 +170,14 @@ $(NAME):	$(OBJS)
 	@echo "\033[32;01mLibft.a is ready.\033[0m"
 
 $(OBJS):	$(DIR_O)/%.o: %.c $(INCLUDE)
+#_____________________________________________________
 	@mkdir -p $(DIR_O)
 	@mkdir -p $(DIR_O)/arrow_functions
 	@mkdir -p $(DIR_O)/list_structure
+#_____________________________________________________
+	@mkdir -p $(DIR_O)/tree_functions
+	@mkdir -p $(DIR_O)/tree_functions/avl_tree
+#_____________________________________________________
 	@mkdir -p $(DIR_O)/malloc_functions
 	@mkdir -p $(DIR_O)/memory_functions
 	@mkdir -p $(DIR_O)/other_functions
@@ -163,6 +185,7 @@ $(OBJS):	$(DIR_O)/%.o: %.c $(INCLUDE)
 	@mkdir -p $(DIR_O)/sort_functions
 	@mkdir -p $(DIR_O)/stack_structure
 	@mkdir -p $(DIR_O)/string_functions
+#_____________________________________________________
 	@gcc $(FLAGS) -c -I includes -o $@ $<
 
 clean:
