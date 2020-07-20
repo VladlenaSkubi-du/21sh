@@ -5,7 +5,7 @@ int				make_sctrl_e(void)
 {
 	while (g_rline.pos < g_rline.cmd_len - 1 &&
 		g_rline.pos + g_rline.prompt_len < g_screen.ws_col - 2)
-		sesc_right();
+			sesc_right();
 	return (0);
 }
 
@@ -26,23 +26,28 @@ int				sbackspace_proc(void)
 	return (0);
 }
 
-int				make_sctrl_u(void)
+int				make_sexit(void)
 {
-	while (g_rline.pos)
-		sbackspace_proc();
-	return (0);
-}
+	t_exec		*exec;
 
-int				make_sctrl_k(void)
-{
-	int			pos_back;
-
-	pos_back = g_rline.pos;
-	while (g_rline.pos < g_rline.cmd_len - 1 &&
-		g_rline.pos + g_rline.prompt_len < g_screen.ws_col - 2)
-		sesc_right();
-	while (g_rline.pos >= pos_back)
-		sbackspace_proc();
-	sesc_right();
+	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
+	{
+		if (g_prompt.prompt_func != main_prompt)
+		{
+			if (g_rline.cmd_len >= g_rline.cmd_buff_len - 1)
+				realloc_readline_cmd();
+			g_rline.cmd = ft_straddsy(g_rline.cmd, EOF);
+			return (OUT);
+		}
+		exec = (t_exec*)ft_xmalloc(sizeof(t_exec));
+		exec->argv = (char**)ft_xmalloc(3 * sizeof(char*));
+		exec->argv[0] = ft_strdup("exit");
+		exec->argv[1] = ft_strdup("0");
+		reset_canonical_input();
+		clean_readline();
+		btin_exit(exec);
+	}
+	else
+		return (incorrect_sequence());
 	return (0);
 }

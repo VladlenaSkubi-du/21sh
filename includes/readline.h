@@ -144,7 +144,7 @@ t_compl					g_compl;
 
 int						start_readline21(int tmp);
 char					*finalize_cmd(char *cmd);
-char					*readline(void);
+int						readline(void);
 int						readline_choice(char sy);
 int						check_after_line(void);
 

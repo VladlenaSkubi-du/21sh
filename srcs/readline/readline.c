@@ -15,7 +15,7 @@ int		start_readline21(int tmp)
 	return (0);
 }
 
-char	*readline(void)
+int		readline(void)
 {
 	char			temp;
 
@@ -34,7 +34,7 @@ char	*readline(void)
 	else
 		ft_putendl_fd(0, STDOUT_FILENO);
 	clean_termcap();
-	return (g_rline.cmd);
+	return (0);
 }
 
 int		readline_choice(char sy)
