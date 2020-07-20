@@ -16,7 +16,9 @@ int			esc_d(void)
 	pos_old = g_rline.pos;
 	if (word_right_proc())
 		return (0);
-	save_yank = ft_strndup(g_rline.cmd + pos_old, g_rline.pos);
+	save_yank = (g_rline.pos == g_rline.cmd_len) ?
+		ft_strdup(g_rline.cmd + pos_old) :
+		ft_strndup(g_rline.cmd + pos_old, g_rline.pos - pos_old);
 	make_ctrl_p(0, save_yank);
 	swap = g_rline.cmd + g_rline.pos;
 	len_swap = ft_strlen(swap);
@@ -48,7 +50,9 @@ int			make_ctrl_w(void)
 	pos_old = g_rline.pos;
 	if (word_left_proc())
 		return (0);
-	save_yank = ft_strndup(g_rline.cmd + g_rline.pos, pos_old);
+	save_yank = (pos_old >= g_rline.cmd_len) ?
+		ft_strdup(g_rline.cmd + g_rline.pos) :
+		ft_strndup(g_rline.cmd + g_rline.pos, pos_old - g_rline.pos);
 	make_ctrl_p(0, save_yank);
 	swap = g_rline.cmd + pos_old;
 	len_swap = ft_strlen(swap);

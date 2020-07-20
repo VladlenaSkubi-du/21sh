@@ -246,7 +246,7 @@ int						front_write_one_char(char c, char *color);
 */
 
 /*
-** File cut_keys.c
+** File delete_keys.c
 */
 
 int						backspace_process(void);
@@ -261,6 +261,7 @@ int						delete_till_compl(int delete);
 int						key_right_proc(void);
 int						key_up_proc(void);
 int						key_left_proc(void);
+int						key_up_proc_processing(void);
 int						key_down_proc(void);
 
 /*

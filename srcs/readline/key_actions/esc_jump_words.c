@@ -14,7 +14,7 @@ int			word_left_proc(void)
 
 	if (g_rline.pos == 1 || g_rline.pos == 2)
 		return (word_left_onetwo_chars());
-	else if (g_rline.pos < 1)
+	else if (g_rline.pos <= 0)
 		return (incorrect_sequence());
 	i = g_rline.pos - 1;
 	while (i > 0 && g_rline.cmd[i - 1] && g_rline.cmd[i])

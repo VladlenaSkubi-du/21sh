@@ -1,17 +1,11 @@
 #include "shell21.h"
 #include "readline.h"
 
-/*
-** Comes to the function after pushing ctrl + up
-** we jump to the same pos_x in the line above of to the end of line if
-** such pos_x does not exist
-*/
-
 int			jump_up(void)
 {
 	int			pos_x_goal;
 	
-	if (g_rline.str_num < 2 || g_rline.pos_y < 1)
+	if (g_rline.str_num < 2 || g_rline.pos_y == 0)
 		return (incorrect_sequence());
 	pos_x_goal = g_rline.pos_x;
 	while (g_rline.pos_x != 0 && g_rline.pos)
@@ -20,9 +14,9 @@ int			jump_up(void)
 	{
 		key_left_proc();
 		if (g_rline.pos_y == 0 && g_rline.pos_x >
-			pos_x_goal + g_rline.prompt_len)
+			pos_x_goal + g_prompt.prompt_len)
 		{
-			while (g_rline.pos_x != pos_x_goal + g_rline.prompt_len
+			while (g_rline.pos_x != pos_x_goal + g_prompt.prompt_len
 				&& g_rline.pos)
 				key_left_proc();
 		}
@@ -35,21 +29,14 @@ int			jump_up(void)
 	return (0);
 }
 
-/*
-** Comes to the function after pushing ctrl + down
-** We jump to the same pos_x in the line below of to the end of line if
-** such pos_x does not exist
-*/
-
 int			jump_down(void)
 {
 	int			pos_x_goal;
 	int			flag;
 
-	if (g_rline.str_num < 2 || g_rline.pos_y == g_rline.str_num - 1 ||
-		g_rline.pos_y < 0)
+	if (g_rline.str_num < 2 || g_rline.pos_y == g_rline.str_num - 1)
 		return (incorrect_sequence());
-	pos_x_goal = (g_rline.pos_y == 0) ? g_rline.pos_x - g_rline.prompt_len :
+	pos_x_goal = (g_rline.pos_y == 0) ? g_rline.pos_x - g_prompt.prompt_len :
 		g_rline.pos_x;
 	flag = (pos_x_goal == 0) ? 1 : 0;
 	if (pos_x_goal == 0)
@@ -69,14 +56,9 @@ int			jump_down(void)
 	return (0);
 }
 
-/*
-** Comes to the function after pushing ctrl + a
-** Jumps to the beginning of the cmd
-*/
-
 int			make_ctrl_a(void)
 {
-	int			pos_old;
+	int				pos_old;
 
 	check_after_line();
 	pos_old = 0;
@@ -84,14 +66,9 @@ int			make_ctrl_a(void)
 	return (0);
 }
 
-/*
-** Comes to the function after pushing ctrl + e
-** Jumps to the beginning of the cmd
-*/
-
 int			make_ctrl_e(void)
 {
-	int			pos_old;
+	int				pos_old;
 
 	check_after_line();
 	pos_old = g_rline.cmd_len - 1;

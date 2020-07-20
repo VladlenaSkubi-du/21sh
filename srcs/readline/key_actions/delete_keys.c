@@ -11,26 +11,25 @@ int					backspace_process(void)
 {
 	char			*swap;
 	int				len_swap;
+	char			*save_yank;
 
 	check_after_line();
-	if (g_rline.pos > 0)
-	{
-		swap = g_rline.cmd + g_rline.pos;
-		len_swap = ft_strlen(swap);
-		if (g_rline.cmd[g_rline.pos - 1] == '\n')
-			return (backspace_newline(swap, len_swap));
-		ft_strcpy(g_rline.cmd + g_rline.pos - 1, swap);
-		ft_bzero(g_rline.cmd + g_rline.pos - 1 + len_swap,
-			g_rline.cmd_buff_len - g_rline.cmd_len);
-		g_rline.cmd_len--;
-		key_left_proc();
-		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
-			&g_rline.pos_y, 1);
-		tputs(g_cap.cd, 1, printc);
-		front_insert_cmd_till_the_end(g_rline.pos_y + 1);
-	}
-	else
+	if (g_rline.pos <= 0)
 		return (incorrect_sequence());
+	save_yank = ft_strndup(g_rline.cmd + g_rline.pos - 1, 1);
+	make_ctrl_p(0, save_yank);
+	swap = g_rline.cmd + g_rline.pos;
+	len_swap = ft_strlen(swap);
+	if (g_rline.cmd[g_rline.pos - 1] == '\n')
+		return (backspace_newline(swap, len_swap));
+	ft_strcpy(g_rline.cmd + g_rline.pos - 1, swap);
+	ft_bzero(g_rline.cmd + g_rline.pos - 1 + len_swap,
+		g_rline.cmd_buff_len - g_rline.cmd_len);
+	g_rline.cmd_len--;
+	key_left_proc();
+	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
+	tputs(g_cap.cd, 1, printc);
+	front_insert_cmd_till_the_end(g_rline.pos_y + 1);
 	return (0);
 }
 
@@ -42,7 +41,7 @@ int					backspace_process(void)
 
 int					backspace_newline(char *swap, int len_swap)
 {
-	int				pos_back;
+int					pos_back;
 
 	pos_back = g_rline.pos;
 	key_left_proc();
@@ -72,7 +71,6 @@ int					delete_process(void)
 		if (g_prompt.prompt_func == main_prompt)
 		{
 			exec = (t_exec*)ft_xmalloc(sizeof(t_exec));
-			// ltree_init(pos);
 			exec->argv = (char**)ft_xmalloc(3 * sizeof(char*));
 			exec->argv[0] = ft_strdup("exit");
 			exec->argv[1] = ft_strdup("0");

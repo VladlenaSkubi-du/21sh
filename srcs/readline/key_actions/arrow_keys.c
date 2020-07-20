@@ -20,7 +20,7 @@
 
 int		key_right_proc(void)
 {
-	if (g_rline.pos >= g_rline.cmd_len)
+	if (g_rline.pos < 0 || g_rline.pos >= g_rline.cmd_len)
 		return (incorrect_sequence());
 	if (front_move_one_char_right(g_rline.pos_x))
 		return (incorrect_sequence());
@@ -36,7 +36,7 @@ int		key_right_proc(void)
 
 int		key_left_proc(void)
 {
-	if (g_rline.pos == 0)
+	if (g_rline.pos <= 0)
 		return (incorrect_sequence());
 	if (front_move_one_char_left(g_rline.pos_x))
 		return (incorrect_sequence());
@@ -55,6 +55,20 @@ int		key_up_proc(void)
 		g_hist.counter = 0;
 		return (0);
 	}
+	key_up_proc_processing();
+	(g_rline.cmd[0]) ? clear_whole_line() : 0;
+	g_hist.counter--;
+	i = -1;
+	len = ft_strlen(g_hist.hist[g_hist.counter]);
+	if (len > 0 && g_hist.hist[g_hist.counter][len - 1] == '\n')
+		len--;
+	while (++i < len)
+		char_add(g_hist.hist[g_hist.counter][i], NULL);
+	return (0);
+}
+
+int		key_up_proc_processing(void)
+{
 	if (g_hist.counter > g_hist.last)
 	{
 		g_hist.counter = g_hist.last + 1;
@@ -66,14 +80,6 @@ int		key_up_proc(void)
 		free(g_hist.hist[g_hist.counter]);
 		g_hist.hist[g_hist.counter] = ft_strdup(g_rline.cmd);
 	}
-	(g_rline.cmd[0]) ? esc_r() : 0;
-	g_hist.counter--;
-	i = -1;
-	len = ft_strlen(g_hist.hist[g_hist.counter]);
-	if (len > 0 && g_hist.hist[g_hist.counter][len - 1] == '\n')
-		len--;
-	while (++i < len)
-		char_add(g_hist.hist[g_hist.counter][i], NULL);
 	return (0);
 }
 
@@ -88,7 +94,7 @@ int		key_down_proc(void)
 		free(g_hist.hist[g_hist.counter]);
 		g_hist.hist[g_hist.counter] = ft_strdup(g_rline.cmd);
 	}
-	(g_rline.cmd[0]) ? esc_r() : 0;
+	(g_rline.cmd[0]) ? clear_whole_line() : 0;
 	if (g_hist.counter >= g_hist.last)
 		g_hist.counter = g_hist.last;
 	g_hist.counter++;
@@ -98,10 +104,10 @@ int		key_down_proc(void)
 		len--;
 	while (++i < len)
 		char_add(g_hist.hist[g_hist.counter][i], NULL);
-	if (g_hist.counter == g_hist.last + 1)
+	if (g_hist.hist[g_hist.counter] && g_hist.counter == g_hist.last + 1)
 	{
 		free(g_hist.hist[g_hist.counter]);
-		g_hist.hist[g_hist.counter] = NULL;
+		g_hist.hist[g_hist.counter] = (char*)NULL;
 	}
 	return (0);
 }

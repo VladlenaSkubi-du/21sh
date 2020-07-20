@@ -12,13 +12,14 @@ int			make_ctrl_k(void)
 	char			*save_yank;
 
 	check_after_line();
-	if (g_rline.pos == g_rline.cmd_len)
+	if (g_rline.pos < 0 || g_rline.pos == g_rline.cmd_len)
 		return (incorrect_sequence());
 	save_yank = ft_strdup(g_rline.cmd + g_rline.pos);
 	g_rline.cmd_len -= ft_strlen(g_rline.cmd + g_rline.pos);
 	make_ctrl_p(0, save_yank);
 	tputs(g_cap.cd, 1, printc);
-	ft_bzero(g_rline.cmd + g_rline.pos, ft_strlen(g_rline.cmd + g_rline.pos));
+	ft_bzero(g_rline.cmd + g_rline.pos,
+		ft_strlen(g_rline.cmd + g_rline.pos));
 	return (0);
 }
 
@@ -36,14 +37,15 @@ int			make_ctrl_u(void)
 	char			*save_yank;
 
 	check_after_line();
-	if (g_rline.pos == 0)
+	if (g_rline.pos <= 0)
 		return (incorrect_sequence());
 	pos_old = g_rline.pos;
 	while (g_rline.pos)
 		key_left_proc();
-	front_set_cursor_jmp(&g_rline.pos,
-		&g_rline.pos_x, &g_rline.pos_y, 1);
-	save_yank = ft_strndup(g_rline.cmd, pos_old);
+	front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x, &g_rline.pos_y, 1);
+	save_yank = (pos_old == g_rline.cmd_len) ?
+		ft_strdup(g_rline.cmd + g_rline.pos) :
+		ft_strndup(g_rline.cmd + g_rline.pos, pos_old - g_rline.pos);
 	make_ctrl_p(0, save_yank);
 	swap = g_rline.cmd + pos_old;
 	len_swap = ft_strlen(swap);
