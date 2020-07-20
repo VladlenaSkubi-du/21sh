@@ -38,7 +38,7 @@ int				init_termcap(void)
 	return (0);
 }
 
-int				putcap(char *cap) //TODO наиболее используемые капы сохранить
+int				putcap(char *cap)
 {
 	char		buff[TERMCAP_SIZE];
 	char		*ptr;

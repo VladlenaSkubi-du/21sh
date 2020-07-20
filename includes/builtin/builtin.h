@@ -20,6 +20,7 @@ char			**g_builtins;
 */
 
 int				btin_exit(t_exec *exec);
+int				btin_exit_arguments(char **ar_v);
 
 /*
 ** Folder cd, file cd.c

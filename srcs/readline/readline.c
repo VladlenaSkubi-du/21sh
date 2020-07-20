@@ -8,9 +8,9 @@ int		start_readline21(int tmp)
 	bzero_readline();
 	(tmp != 1) ? readline_simple() : readline();
 	reset_canonical_input();
-	final = finalize_cmd(g_rline.cmd);
-	// clean_readline();
 	signals_reroute(2);
+	final = finalize_cmd(g_rline.cmd);
+	free(g_hist.hist[g_hist.last + 1]);
 	parser(final);
 	return (0);
 }

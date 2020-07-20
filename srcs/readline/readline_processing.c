@@ -9,7 +9,7 @@
 ** only after the session is over
 */
 
-void			init_readline(void)
+void				init_readline(void)
 {
 	g_rline.cmd = (char *)ft_xmalloc(CMD_SIZE + 1);
 	g_rline.cmd_len = 0;
@@ -21,7 +21,7 @@ void			init_readline(void)
 	g_rline.flag = 0;
 }
 
-void			bzero_readline(void)
+void				bzero_readline(void)
 {
 	init_terminal_screen();
 	if (g_rline.cmd[0])
@@ -35,7 +35,7 @@ void			bzero_readline(void)
 		g_rline.flag = 0;
 }
 
-void			realloc_readline_cmd(void)
+void				realloc_readline_cmd(void)
 {
 	g_rline.cmd = (char *)ft_realloc(g_rline.cmd,
 		g_rline.cmd_len, g_rline.cmd_buff_len,
@@ -57,9 +57,9 @@ int					init_terminal_screen(void)
 	return (0);
 }
 
-char			*colors_process(int sequence_num)
+char				*colors_process(int sequence_num)
 {
-	char	    *seq_action[COLOR_NUM];
+	char			*seq_action[COLOR_NUM];
 
 	seq_action[0] = RED;
 	seq_action[1] = ORANGE;

@@ -183,10 +183,11 @@ int						init_termcap(void);
 */
 
 int						char_add(char c, char *color);
-int						str_shift(char *str, int shift);
 int						insert_char(char c, char *color);
 int						front_insert_by_letters(char *str, int *pos_x);
 int						front_insert_cmd_till_the_end(int str_num_print);
+int						front_set_cursor_jmp(int *pos, int *pos_x,
+							int *pos_y, int flag);
 
 /*
 ** File escape.c - router to the functions performing actions with
@@ -213,6 +214,9 @@ int						make_ctrl_p_wrap(void);
 
 int						clean_after_line(void);
 int						position_cursor_after_line(int len);
+int						clear_whole_line(void);
+int						front_move_one_char_right(int pos_x);
+int						front_move_one_char_left(int pos_x);
 
 /*
 ** File cursor_position.c - operations to get the termcap cursor postion
@@ -222,10 +226,6 @@ int						position_cursor_after_line(int len);
 int						count_x_position_new_line(int nl_pos);
 int						move_cursor_from_old_position(int pos_old,
 							char direction);
-int						front_move_one_char_right(int pos_x);
-int						front_move_one_char_left(int pos_x);
-int						front_set_cursor_jmp(int *pos, int *pos_x,
-							int *pos_y, int flag);
 
 /*
 ** File front_insertions.c

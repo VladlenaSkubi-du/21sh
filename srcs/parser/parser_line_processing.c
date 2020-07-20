@@ -27,8 +27,8 @@ void			free_parser_line(t_cmd **pline)
 int				delete_or_insert_to_pline(t_cmd **pline,
 					int i, int num)
 {
-	str_shift((*pline)->cmd + i, num);
-	str_shift((*pline)->tech + i, num);
+	ft_strshift((*pline)->cmd + i, num);
+	ft_strshift((*pline)->tech + i, num);
 	(*pline)->len_tech += num;
 	return (0);
 }
