@@ -11,8 +11,8 @@
 
 int					clean_after_line(void)
 {
-	int 			pos_back;
-	int 			len_back;
+	int				pos_back;
+	int				len_back;
 	int				len_x_back;
 	int				len_y_back;
 

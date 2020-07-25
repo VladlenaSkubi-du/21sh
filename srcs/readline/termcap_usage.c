@@ -20,7 +20,7 @@ int				printc(int c)
 int				init_termcap(void)
 {
 	char		*ptr;
-	
+
 	ptr = g_cap.sf;
 	tgetstr("sf", &ptr);
 	ptr = g_cap.le;

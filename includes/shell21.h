@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   shell21.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/15 15:38:49 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/17 18:42:25 by vladlenasku      ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #ifndef SHELL21_H
 # define SHELL21_H
@@ -45,13 +34,13 @@
 ** MAXDIR according to POSIX:  _POSIX_PATH_MAX
 */
 
-# define			HISTORY_LIMIT 32767
-# define 			MAX_HISTFILE 500
-# define 			MAX_HISTBUF 500
-# define			MAXDIR 256
-# define			MAX_EXIT_STATUS 10
-# define 			ENV_BUFFER 5
-# define			OUT 42
+# define HISTORY_LIMIT		32767
+# define MAX_HISTFILE		500
+# define MAX_HISTBUF		500
+# define MAXDIR				256
+# define MAX_EXIT_STATUS	10
+# define ENV_BUFFER			5
+# define OUT				42
 
 /*
 ** Structures
@@ -70,8 +59,6 @@ typedef struct		s_prompt
 	int				prompt_len_real;
 	int				prompt_len;
 }					t_prompt;
-
-
 
 /*
 ** @hist is an array with commands (not separated by \n but
@@ -104,7 +91,7 @@ typedef struct		s_history
 enum				e_techline
 {
 	WORD_P = 1,
-	SPACE ,
+	SPACE,
 	BSLASH,
 	SCOLON,
 	AND,
@@ -143,6 +130,11 @@ t_prompt			g_prompt;
 t_history			g_hist;
 
 /*
+** Functions
+** ____________________________________________________________________________
+*/
+
+/*
 ** File main.c
 */
 
@@ -156,9 +148,11 @@ int					reset_canonical_input(void);
 */
 
 int					find_options(int num, char *flags_arr[num], char **arr);
-int					options_in_arg(char *arri, int num, char *flags_arr[num], int *final);
+int					options_in_arg(char *arri, int num,
+						char *flags_arr[num], int *final);
 int					options_proc(char arrij, char *flags_arr, int *final);
-int					suboptions_proc(char *arri, int num, char *flags_arr[num], int *final);
+int					suboptions_proc(char *arri, int num,
+						char *flags_arr[num], int *final);
 
 /*
 ** Folder SHELL_VARIABLES
@@ -171,7 +165,7 @@ int					suboptions_proc(char *arri, int num, char *flags_arr[num], int *final);
 
 int					save_environment_variables(void);
 int					save_shell_variables(void);
-int                 exit_status_variable(int status);
+int					exit_status_variable(int status);
 int					save_env_size(int size, int mode);
 
 /*

@@ -16,7 +16,7 @@ int				main_prompt(void)
 int				dquote_prompt(void)
 {
 	const char	*prompt;
-	
+
 	prompt = "dquote> ";
 	ft_putstr_fd(prompt, STDOUT_FILENO);
 	g_prompt.prompt_len_real = ft_strlen(prompt);
@@ -26,7 +26,7 @@ int				dquote_prompt(void)
 int				heredoc_prompt(void)
 {
 	const char	*prompt;
-	
+
 	prompt = "heredoc> ";
 	ft_putstr_fd(prompt, STDOUT_FILENO);
 	g_prompt.prompt_len_real = ft_strlen(prompt);
@@ -36,7 +36,7 @@ int				heredoc_prompt(void)
 int				other_prompt(void)
 {
 	const char	*prompt;
-	
+
 	prompt = "> ";
 	ft_putstr_fd(prompt, STDOUT_FILENO);
 	g_prompt.prompt_len_real = ft_strlen(prompt);

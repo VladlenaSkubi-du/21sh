@@ -13,46 +13,46 @@
 #ifndef EXIT_STATUS_H
 # define EXIT_STATUS_H
 
-# define	ERR_EXSIGN 0x1
+# define ERR_EXSIGN			0x1
 
 /*
 ** Variable errors are errors that exit with 1
 */
 
-# define	ERR_HISTORY_NUM 0x1
-# define	ERR_HISTORY_EXEC 0x2
-# define	ERR_RDONLY 0x4
-# define	ERR_UNSET 0x8
-# define	ERR_SET 0x10
-# define	ERR_CD 0x20
+# define ERR_HISTORY_NUM	0x1
+# define ERR_HISTORY_EXEC	0x2
+# define ERR_RDONLY			0x4
+# define ERR_UNSET			0x8
+# define ERR_SET			0x10
+# define ERR_CD				0x20
 
 /*
 ** Option errors are errors that exit with 2
 */
 
-# define	ERR_BTIN_INVALID 0x1
-# define	ERR_BTIN_ARG 0x2
+# define ERR_BTIN_INVALID	0x1
+# define ERR_BTIN_ARG		0x2
 
 /*
 ** Command errors for exit with 127
 */
 
-# define	ERR_COMMAND 0x1
+# define ERR_COMMAND		0x1
 
 /*
 ** Syntax errors are errors that exit with 258
 */
 
-# define	ERR_QUOTE 0x1
-# define	ERR_BAD_FD 0x2
-# define	ERR_NO_ACC 0x4
-# define	ERR_NO_FILE 0x8
-# define	ERR_NUMERIC 0x10
+# define ERR_QUOTE			0x1
+# define ERR_BAD_FD			0x2
+# define ERR_NO_ACC			0x4
+# define ERR_NO_FILE		0x8
+# define ERR_NUMERIC		0x10
 
-# define	ERR_REDIR 0x20
-# define	ERR_REDIR_SOFT 0x40
-# define	ERR_PIPE 0x80
-# define	ERR_SCOLON 0x100
+# define ERR_REDIR			0x20
+# define ERR_REDIR_SOFT		0x40
+# define ERR_PIPE			0x80
+# define ERR_SCOLON			0x100
 
 /*
 ** In reality bash returns code "2" for all the internal errors + adds mask for
@@ -63,7 +63,7 @@
 ** But we do the main_error_status + local_mask << 8
 */
 
-enum				e_status
+enum						e_status
 {
 	SUCCESS,
 	VARIABLE_ERROR,

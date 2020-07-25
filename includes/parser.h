@@ -2,70 +2,70 @@
 #ifndef PARSER_H
 # define PARSER_H
 
-# define HEREDOC_BUF	3 //проверить
+# define HEREDOC_BUF		3
 
 /*
 ** Defines for @flags in blocks
 */
 
-# define PIPED_OUT		0x1 
-# define PIPED_IN		0x2
+# define PIPED_OUT			0x1
+# define PIPED_IN			0x2
 
 /*
 ** Define for @err in blocks and
 ** @flags (temporarily) in fd_blocks
 */
 
-# define REDIR_HARD		0x4
-# define REDIR_SOFT		0x8
+# define REDIR_HARD			0x4
+# define REDIR_SOFT			0x8
 
 /*
 ** Define for @flags (permanantly) in
 ** fd_blocks
 */
 
-# define CLOSE_FD		0x10
-# define CREATE_FD		0x20
-# define OPEN_FD		0x40
-# define REDIRECTION_FD	0x80
-# define OPENIN_FD		0x100
+# define CLOSE_FD			0x10
+# define CREATE_FD			0x20
+# define OPEN_FD			0x40
+# define REDIRECTION_FD		0x80
+# define OPENIN_FD			0x100
 
 /*
 ** ____________________________________________________________________________
 */
 
-typedef	struct			s_cmd
+typedef	struct		s_cmd
 {
-	char				*cmd;
-	char				*tech;
-	int					len_tech;
-}						t_cmd;
+	char			*cmd;
+	char			*tech;
+	int				len_tech;
+}					t_cmd;
 
-typedef struct			s_pblks
+typedef struct		s_pblks
 {
-	t_cmd				*lcmd;
-	int					beg;
-	int					end;
-	t_list				*fd;
-	int					err;
-	int					flag;
-}						t_pblks;
+	t_cmd			*lcmd;
+	int				beg;
+	int				end;
+	t_list			*fd;
+	int				err;
+	int				flag;
+}					t_pblks;
 
-typedef struct  		s_fd
+typedef struct		s_fd
 {
-	int					fd_old;
-	int					fd_new;
-	char				*file;
-	int					flag;
-}						t_fd;
+	int				fd_old;
+	int				fd_new;
+	char			*file;
+	int				flag;
+}					t_fd;
 
-typedef	struct			s_exec
+typedef	struct		s_exec
 {
-	char				**argv;
-	int					argc;
-	int					flag;
-	t_list				*fd;
-}						t_exec;
+	char			**argv;
+	int				argc;
+	int				flag;
+	t_list			*fd;
+}					t_exec;
 
 /*
 ** Globals:
@@ -73,9 +73,9 @@ typedef	struct			s_exec
 ** @g_grblks = global grammar blocks
 */
 
-t_cmd					*g_pline; //question
-t_list					*g_grblks;
-int						g_herenum;
+t_cmd				*g_pline;
+t_list				*g_grblks;
+int					g_herenum;
 
 /*
 ** ____________________________________________________________________________
@@ -91,7 +91,6 @@ int					slice_by_scolons(void);
 int					slice_by_pipes_cycle(void);
 int					slice_by_pipes(t_list **current, int beg, int end,
 						t_pblks *ptr_block_cont);
-
 
 /*
 ** File quote_control.c
@@ -238,16 +237,17 @@ int					save_heredoc_buffer(char **here_buf, int *buf_size,
 ** ____________________________________________________________________________
 */
 
-int			form_and_exec(t_pblks *pblk_cont);
-int			start_exec(t_exec *exec);
-int			builtins_exec(t_exec *exec, int flag);
-int			exec_clean(char *path, int exit_status, char *err_msg);
-int			redirection_exec(t_exec *exec, int mode);
-char		*path_start_exec(t_exec *exec);
-char		*search_cmd_exec(char *name);
-char		*cmd_binary_path(char *env_path, char *name);
-char		*form_path(char *ret, char *env_path, char *name);
-int			save_streams(int mode);
-int			cmd_fork_and_exec(t_exec *exec, char *path, pid_t *child_pid);
+int					form_and_exec(t_pblks *pblk_cont);
+int					start_exec(t_exec *exec);
+int					builtins_exec(t_exec *exec, int flag);
+int					exec_clean(char *path, int exit_status, char *err_msg);
+int					redirection_exec(t_exec *exec, int mode);
+char				*path_start_exec(t_exec *exec);
+char				*search_cmd_exec(char *name);
+char				*cmd_binary_path(char *env_path, char *name);
+char				*form_path(char *ret, char *env_path, char *name);
+int					save_streams(int mode);
+int					cmd_fork_and_exec(t_exec *exec,
+						char *path, pid_t *child_pid);
 
 #endif

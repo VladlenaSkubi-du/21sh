@@ -28,7 +28,7 @@
 int					count_x_position_new_line(int nl_pos)
 {
 	int				len;
-	
+
 	len = 0;
 	if (nl_pos < 0)
 		return (g_prompt.prompt_len);

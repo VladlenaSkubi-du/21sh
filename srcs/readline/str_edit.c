@@ -33,7 +33,8 @@ int					insert_char(char c, char *color)
 		ft_strshift(g_rline.cmd + g_rline.pos, 1);
 		g_rline.cmd[g_rline.pos] = c;
 		tputs(g_cap.cd, 1, printc);
-		front_insert_one_char(g_rline.cmd[g_rline.pos], g_rline.pos_x, 'm', color);
+		front_insert_one_char(g_rline.cmd[g_rline.pos],
+			g_rline.pos_x, 'm', color);
 		g_rline.pos++;
 		front_set_cursor_jmp(&g_rline.pos, &g_rline.pos_x,
 			&g_rline.pos_y, 1);
@@ -84,7 +85,8 @@ int					front_insert_cmd_till_the_end(int str_num_print)
 		g_rline.str_num = str_num_print;
 	while (g_rline.pos < g_rline.cmd_len)
 	{
-		front_insert_one_char(g_rline.cmd[g_rline.pos], g_rline.pos_x, 'm', NULL);
+		front_insert_one_char(g_rline.cmd[g_rline.pos],
+			g_rline.pos_x, 'm', NULL);
 		g_rline.pos++;
 	}
 	front_set_cursor_jmp(&pos_back, &pos_x_back, &pos_y_back, 0);
@@ -103,7 +105,7 @@ int					front_set_cursor_jmp(int *pos, int *pos_x,
 	static int		pos_save;
 	static int		pos_x_save;
 	static int		pos_y_save;
-	
+
 	if (flag == 1)
 	{
 		pos_save = *pos;
