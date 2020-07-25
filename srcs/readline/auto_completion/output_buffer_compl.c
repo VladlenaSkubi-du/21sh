@@ -46,8 +46,7 @@ void					buffer_col_calc(t_compl_output *menu_buf)
 	}
 }
 
-int						buffer_col_print(char *add,
-							t_compl_output *menu_buf)
+int						buffer_col_print(char *add, t_compl_output *menu_buf)
 {
 	int					len;
 
@@ -64,7 +63,6 @@ int						buffer_col_print(char *add,
 		buffer_col_finish(menu_buf);
 	return (0);
 }
-
 
 void					buffer_col_finish(t_compl_output *menu_buf)
 {

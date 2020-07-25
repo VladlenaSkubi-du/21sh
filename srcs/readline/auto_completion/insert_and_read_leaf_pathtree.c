@@ -51,12 +51,9 @@ int				insert_new_leaf_to_tree(t_pathtree **root,
 			free_path_tree(new_leaf);
 			return (0);
 		}
-		else if (ft_strcmp((*new_leaf)->name, parent->name) < 0)
-		{
-			if (!(insert_leaf_left(&current,
-					&parent, new_leaf, len)))
-				return (0);
-		}
+		else if (ft_strcmp((*new_leaf)->name, parent->name) < 0 &&
+				!(insert_leaf_left(&current, &parent, new_leaf, len)))
+			return (0);
 		else
 		{
 			if (!(insert_leaf_right(&current,

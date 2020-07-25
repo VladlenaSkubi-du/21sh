@@ -4,7 +4,7 @@
 char				**get_variables(char *complete, int *total, int *max_len)
 {
 	char			**menu;
-	t_pathtree			*root;
+	t_pathtree		*root;
 
 	root = fill_tree_with_variables(complete, total);
 	menu = form_result_array(&root, *total, max_len);
@@ -16,7 +16,7 @@ char				**get_variables(char *complete, int *total, int *max_len)
 ** We go through all the arrays with variables and add to the tree
 */
 
-t_pathtree			*fill_tree_with_variables(char *complete, int *total) //VARIABLES
+t_pathtree			*fill_tree_with_variables(char *complete, int *total)
 {
 	int				i;
 	t_pathtree		*root;
@@ -37,32 +37,33 @@ t_pathtree			*fill_tree_with_variables(char *complete, int *total) //VARIABLES
 	return (root);
 }
 
-// t_pathtree			*fill_tree_with_variables(char *complete, int *total)
-// {
-// 	int				i;
-// 	t_pathtree		*root;
-// 	char			*name;
-// 	int 			len;
+/* t_pathtree			*fill_tree_with_variables(char *complete, int *total)
+{
+	int				i;
+	t_pathtree		*root;
+	char			*name;
+	int 			len;
 
-// 	i = 0;
-// 	root = NULL;
-// 	while (g_envi[i])
-// 	{
-// 		if (g_envi[i][0] && (g_envi[i][0] & SET_VIS))
-// 		{
-// 			len = ft_strlen(complete);
-// 			name = ft_strndup(g_envi[i] + 1,
-// 					ft_strchri(g_envi[i] + 1, '='));
-// 			if (ft_strnequ(name, complete, len))
-// 				insert_to_path_tree(name, &root, total);
-// 			free(name);
-// 		}
-// 		i++;
-// 	}
-// 	return (root);
-// }
+	i = 0;
+	root = NULL;
+	while (g_envi[i])
+	{
+		if (g_envi[i][0] && (g_envi[i][0] & SET_VIS))
+		{
+			len = ft_strlen(complete);
+			name = ft_strndup(g_envi[i] + 1,
+					ft_strchri(g_envi[i] + 1, '='));
+			if (ft_strnequ(name, complete, len))
+				insert_to_path_tree(name, &root, total);
+			free(name);
+		}
+		i++;
+	}
+	return (root);
+}*/
 
-int					insert_variables_to_tree(char *array, char *complete, // DELETE after changing VARIABLES
+int					insert_variables_to_tree(char *array,
+						char *complete, // DELETE after changing VARIABLES
 						t_pathtree **root, int *total)
 {
 	char			*tmp;

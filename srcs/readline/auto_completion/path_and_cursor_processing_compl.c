@@ -16,7 +16,7 @@ int					init_completion(void)
 }
 
 /*
-** If there are no options for completion, we clear the 
+** If there are no options for completion, we clear the
 ** allocated @g_complete and @g_techline strings and ring
 ** the bell
 */
@@ -42,11 +42,12 @@ int					clear_completion(int flag)
 	return ((flag == 1) ? incorrect_sequence() : 0);
 }
 
-int					make_one_slash(char **final, int last_slash, char *compl)
+int					make_one_slash(char **final,
+						int last_slash, char *compl)
 {
 	int				check;
 	int				i;
-	
+
 	check = last_slash;
 	i = check;
 	while (i >= 0)
@@ -69,7 +70,7 @@ int					make_one_slash(char **final, int last_slash, char *compl)
 ** Sending the PATH value to be parsed for the tree
 */
 
-char				*path_parse_compl(void) //VARIABLES
+char				*path_parse_compl(void) //VARIABLES DELETE
 {
 	int				i;
 
