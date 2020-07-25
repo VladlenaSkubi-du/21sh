@@ -16,8 +16,7 @@ int                 read_hist_from_file(int fd)
 				g_hist.len, g_hist.len + MAX_HISTBUF);
 			g_hist.len += MAX_HISTBUF;
 		}
-		g_hist.hist[i] = ft_strdup(tmp);
-		free(tmp);
+		g_hist.hist[i] = tmp;
 		i++;
 	}
 	free(tmp);
@@ -57,6 +56,30 @@ int					fill_hist_in_file(void)
 	insert_hist_in_file(fd, user_len);
 	close(fd);
 	return (0);
+
+	// char			*size;
+	// int				fd;
+	// char			*path;
+	// int				user_len;
+
+	// path = ft_strdup(find_env_value("HISTFILE"));
+	// if (path[0] == '\0')
+	// {
+	// 	free(path);
+	// 	path = define_history_file();
+	// }
+	// size = find_env_value("HISTFILESIZE");
+	// user_len = (!ft_isdigit(size[0])) ? MAX_HISTFILE :
+	// 	ft_atoi(size);
+	// if (user_len < 0 || user_len > HISTORY_LIMIT)
+	// 	user_len = MAX_HISTFILE;
+	// fd = open_hist_file(user_len, path);
+	// free(path);
+	// if (fd < 0)
+	// 	return (0);
+	// (user_len > 0) ? insert_hist_in_file(fd, user_len) : 0;
+	// close(fd);
+	// return (0);
 }
 
 int					insert_hist_in_file(int fd, int user_len)

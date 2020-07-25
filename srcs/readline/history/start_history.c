@@ -25,6 +25,28 @@ int				start_history(void)
 	if (g_hist.last_fc > HISTORY_LIMIT)
 		g_hist.last_fc = HISTORY_LIMIT;
 	close(fd);
+
+	// int			fd;
+	// char		*file;
+	// char		*tmp;
+	// int			co;
+	// int			li;
+
+	// li = find_in_variable(&co, "HISTSIZE");
+	// init_history_buffer(ft_atoi(g_envi[li] + co) + 1);
+	// li = find_in_variable(&co, "HISTFILE");
+	// file = define_history_file();
+	// tmp = ft_strjoin("HISTFILE=", file);
+	// change_env_value(tmp, li);
+	// free(tmp);
+	// free(file);
+	// fd = open(g_envi[li] + co, O_RDONLY);
+	// if (fd < 0)
+	// 	return (0);
+	// save_hist_buffer(fd);
+	// close(fd);
+	// return (0);
+
 	return (0);
 }
 
@@ -54,9 +76,16 @@ char			*define_history_file(void) //TODO delete
 {
 	int			li;
 	int			sy;
+	// char		*file;
+
+	// li = find_in_variable(&co, "HOME");
+	// if (li < 0)
+	// 	li = find_in_variable(&co, "21SH");
+	// file = ft_strjoin(g_envi[li] + co, "/.21sh_history");
+	// return (file);
 
 	li = find_in_variables(g_shvar, &sy, "21SH");
-	return (ft_strjoin(&g_env[li][sy], "/.42sh_history"));
+	return (ft_strjoin(&g_env[li][sy], "/.21sh_history"));
 }
 
 /*
@@ -74,7 +103,7 @@ int				add_to_history(char *cmd)
 
 	flag = 0;
 	if (g_hist.last + 1 >= g_hist.len - 1 &&
-		g_prompt.prompt_func == main_prompt && g_hist.len > 0)
+			g_prompt.prompt_func == main_prompt && g_hist.len > 1)
 		scroll_hist_buffer(1);
 	if (g_prompt.prompt_func == main_prompt && g_hist.len > 0)
 	{
