@@ -1,13 +1,13 @@
 #include "shell21.h"
 #include "readline.h"
 
-int                 read_hist_from_file(int fd)
+int					read_hist_from_file(int fd)
 {
-    int			    i;
-    char		    *tmp;
-    
-    i = 0;
-    tmp = NULL;
+	int				i;
+	char			*tmp;
+
+	i = 0;
+	tmp = NULL;
 	while (ft_gnl(fd, &tmp) > 0)
 	{
 		if (i >= g_hist.len)
@@ -20,7 +20,7 @@ int                 read_hist_from_file(int fd)
 		i++;
 	}
 	free(tmp);
-    return (i);
+	return (i);
 }
 
 /*
@@ -41,7 +41,7 @@ int					fill_hist_in_file(void)
 	li = find_in_variables(g_shvar, &sy, "HISTFILE");
 	path = ft_strdup(g_shvar[li] + sy);
 	li = find_in_variables(g_shvar, &sy, "HISTFILESIZE");
-	if (g_shvar[li][sy] && !ft_isdigit(g_shvar[li][sy])) //прогрузить в 42sh
+	if (g_shvar[li][sy] && !ft_isdigit(g_shvar[li][sy]))
 		user_len = MAX_HISTFILE;
 	else
 	{
@@ -56,31 +56,34 @@ int					fill_hist_in_file(void)
 	insert_hist_in_file(fd, user_len);
 	close(fd);
 	return (0);
-
-	// char			*size;
-	// int				fd;
-	// char			*path;
-	// int				user_len;
-
-	// path = ft_strdup(find_env_value("HISTFILE"));
-	// if (path[0] == '\0')
-	// {
-	// 	free(path);
-	// 	path = define_history_file();
-	// }
-	// size = find_env_value("HISTFILESIZE");
-	// user_len = (!ft_isdigit(size[0])) ? MAX_HISTFILE :
-	// 	ft_atoi(size);
-	// if (user_len < 0 || user_len > HISTORY_LIMIT)
-	// 	user_len = MAX_HISTFILE;
-	// fd = open_hist_file(user_len, path);
-	// free(path);
-	// if (fd < 0)
-	// 	return (0);
-	// (user_len > 0) ? insert_hist_in_file(fd, user_len) : 0;
-	// close(fd);
-	// return (0);
 }
+
+/*int					fill_hist_in_file(void)
+{
+	char			*size;
+	int				fd;
+	char			*path;
+	int				user_len;
+
+	path = ft_strdup(find_env_value("HISTFILE"));
+	if (path[0] == '\0')
+	{
+		free(path);
+		path = define_history_file();
+	}
+	size = find_env_value("HISTFILESIZE");
+	user_len = (!ft_isdigit(size[0])) ? MAX_HISTFILE :
+		ft_atoi(size);
+	if (user_len < 0 || user_len > HISTORY_LIMIT)
+		user_len = MAX_HISTFILE;
+	fd = open_hist_file(user_len, path);
+	free(path);
+	if (fd < 0)
+		return (0);
+	(user_len > 0) ? insert_hist_in_file(fd, user_len) : 0;
+	close(fd);
+	return (0);
+}*/
 
 int					insert_hist_in_file(int fd, int user_len)
 {

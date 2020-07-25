@@ -114,13 +114,13 @@ typedef struct			s_compl
 ** Is the binary-tree for the auto-comletion to use
 */
 
-typedef struct  		s_pathtree
+typedef struct			s_pathtree
 {
 	char				*name;
 	struct s_pathtree	*right;
 	struct s_pathtree	*left;
 	char				flag;
-}               		t_pathtree;
+}						t_pathtree;
 
 /*
 ** Globals
@@ -237,7 +237,8 @@ int						front_insert_if_newline(int *pos_x, int *pos_y,
 							int *str_num, int *flag);
 int						front_insert_if_terminal(int *pos_x, int *pos_y,
 							int *flag);
-int						front_insert_if_line(int *pos_x, int *str_num, int *flag);
+int						front_insert_if_line(int *pos_x,
+							int *str_num, int *flag);
 int						front_write_one_char(char c, char *color);
 
 /*
@@ -304,13 +305,12 @@ int						make_ctrl_w(void);
 int						esc_r(void);
 int						esc_d(void);
 
-
 /*
 ** File jump_around.c
 */
 
-int             		jump_up(void);
-int             		jump_down(void);
+int						jump_up(void);
+int						jump_down(void);
 int						make_ctrl_a(void);
 int						make_ctrl_e(void);
 
@@ -402,7 +402,8 @@ int						clean_output_question(int from, int pos_back,
 
 int						init_completion(void);
 int						clear_completion(int flag);
-int						make_one_slash(char **final, int last_slash, char *compl);
+int						make_one_slash(char **final,
+							int last_slash, char *compl);
 char					*path_parse_compl(void); //DELETE after VARIABLES
 
 /*
@@ -420,12 +421,14 @@ void					buf_add(char *str, int size);
 ** File start_pathtree.c
 */
 
-char					**start_search_in_path(char *find, char *path,
-							int *total, int *max);
-int						save_path_entry(char *name_d, t_pathtree **root, int *len,
-							char *find);
-int						save_builtins(t_pathtree **root, int *len, char *find);
-char					**form_result_array(t_pathtree **root, int len, int *max);
+char					**start_search_in_path(char *find,
+							char *path, int *total, int *max);
+int						save_path_entry(char *name_d,
+							t_pathtree **root, int *len, char *find);
+int						save_builtins(t_pathtree **root,
+							int *len, char *find);
+char					**form_result_array(t_pathtree **root,
+							int len, int *max);
 int						free_path_tree(t_pathtree **root);
 
 /*
@@ -452,50 +455,51 @@ int						fill_array_from_tree(t_pathtree **root, char **list,
 ** File start_history.c
 */
 
-int								start_history(void);
-void							init_history_buffer(int size);
-char							*define_history_file(void);
-int								add_to_history(char *cmd);
-int								add_other_prompts_history(char *cmd,
-									int flag);
+int						start_history(void);
+void					init_history_buffer(int size);
+char					*define_history_file(void);
+int						add_to_history(char *cmd);
+int						add_other_prompts_history(char *cmd,
+							int flag);
 
 /*
 ** File history_buffer_proc.c
 */
 
-int								scroll_hist_buffer(int num);
-int								check_if_histsize_changed(void);
-char							**make_hist_buffer_smaller(int size);
-int								delete_last_history_element(void);
+int						scroll_hist_buffer(int num);
+int						save_hist_buffer(int fd);
+// int				check_if_histsize_changed(char *new_value);
+int						check_if_histsize_changed(void);
+char					**make_hist_buffer_smaller(int size);
+int						delete_last_history_element(void);
 
 /*
 ** File history_file_proc.c
 */
 
-int								fill_hist_in_file(void);
-int								insert_hist_in_file(int fd, int user_len);
-int								open_hist_file(int user_len, char *path);
-int                 			read_hist_from_file(int fd);
+int						fill_hist_in_file(void);
+int						insert_hist_in_file(int fd, int user_len);
+int						open_hist_file(int user_len, char *path);
+int						read_hist_from_file(int fd);
 
 /*
 ** File front_part_hist.c
 */
 
-int								make_ctrl_r_history(void);
-char							*get_the_answer_hist(int *len);
-int								insert_valid_sy_hist(char c,
-									int *len, char **find,
-									int *len_find);
-int								backspace_one_sy(char **find, int *len_find,
-									int *len);
-int								find_in_history(char *find);
+int						make_ctrl_r_history(void);
+char					*get_the_answer_hist(int *len);
+int						insert_valid_sy_hist(char c,
+							int *len, char **find,
+							int *len_find);
+int						backspace_one_sy(char **find, int *len_find,
+							int *len);
+int						find_in_history(char *find);
 
 /*
 ** File back_part_hist.c
 */
 
-int								print_new_cmd_from_history(int coincidence);
-char							*free_find_hist(char **find);
-int								delete_from_history();
+int						print_new_cmd_from_history(int coincidence);
+char					*free_find_hist(char **find);
 
 #endif

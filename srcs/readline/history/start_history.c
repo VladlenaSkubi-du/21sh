@@ -25,30 +25,32 @@ int				start_history(void)
 	if (g_hist.last_fc > HISTORY_LIMIT)
 		g_hist.last_fc = HISTORY_LIMIT;
 	close(fd);
-
-	// int			fd;
-	// char		*file;
-	// char		*tmp;
-	// int			co;
-	// int			li;
-
-	// li = find_in_variable(&co, "HISTSIZE");
-	// init_history_buffer(ft_atoi(g_envi[li] + co) + 1);
-	// li = find_in_variable(&co, "HISTFILE");
-	// file = define_history_file();
-	// tmp = ft_strjoin("HISTFILE=", file);
-	// change_env_value(tmp, li);
-	// free(tmp);
-	// free(file);
-	// fd = open(g_envi[li] + co, O_RDONLY);
-	// if (fd < 0)
-	// 	return (0);
-	// save_hist_buffer(fd);
-	// close(fd);
-	// return (0);
-
 	return (0);
 }
+
+/*int				start_history(void)
+{
+	int			fd;
+	char		*file;
+	char		*tmp;
+	int			co;
+	int			li;
+
+	li = find_in_variable(&co, "HISTSIZE");
+	init_history_buffer(ft_atoi(g_envi[li] + co) + 1);
+	li = find_in_variable(&co, "HISTFILE");
+	file = define_history_file();
+	tmp = ft_strjoin("HISTFILE=", file);
+	change_env_value(tmp, li);
+	free(tmp);
+	free(file);
+	fd = open(g_envi[li] + co, O_RDONLY);
+	if (fd < 0)
+		return (0);
+	save_hist_buffer(fd);
+	close(fd);
+	return (0);
+}*/
 
 /*
 ** The buffer size for history len is num + 1 for the current line
@@ -72,7 +74,7 @@ void			init_history_buffer(int size)
 ** command in the session
 */
 
-char			*define_history_file(void) //TODO delete
+char			*define_history_file(void)
 {
 	int			li;
 	int			sy;
@@ -133,8 +135,8 @@ int				add_other_prompts_history(char *cmd, int flag)
 	g_pline = (t_cmd*)ft_xmalloc(sizeof(t_cmd));
 	if (flag == EOF)
 	{
-		g_pline->cmd = (char*)ft_xmalloc
-			(ft_strlen(g_hist.hist[g_hist.last]) + 2);
+		g_pline->cmd = (char*)ft_xmalloc(
+				ft_strlen(g_hist.hist[g_hist.last]) + 2);
 		ft_strcpy(g_pline->cmd, g_hist.hist[g_hist.last]);
 		g_pline->cmd = ft_straddsy(g_pline->cmd, EOF);
 	}

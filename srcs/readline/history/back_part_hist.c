@@ -23,19 +23,11 @@ int				print_new_cmd_from_history(int coincidence)
 	int			i;
 
 	i = 0;
-	esc_r();
+	clear_whole_line();
 	while (g_hist.hist[coincidence][i])
 	{
 		char_add(g_hist.hist[coincidence][i], NULL);
 		i++;
 	}
-	return (0);
-}
-
-int					delete_from_history()
-{
-	free(g_hist.hist[g_hist.last]);
-	g_hist.hist[g_hist.last] = NULL;
-	g_hist.last--;
 	return (0);
 }
