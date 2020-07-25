@@ -41,7 +41,7 @@ int					backspace_process(void)
 
 int					backspace_newline(char *swap, int len_swap)
 {
-int					pos_back;
+	int				pos_back;
 
 	pos_back = g_rline.pos;
 	key_left_proc();
@@ -64,7 +64,7 @@ int					pos_back;
 int					delete_process(void)
 {
 	t_exec			*exec;
-	
+
 	check_after_line();
 	if (g_rline.pos == 0 && g_rline.cmd_len == 0)
 	{

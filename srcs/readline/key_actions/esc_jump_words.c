@@ -35,7 +35,7 @@ int			word_left_proc(void)
 int			word_left_onetwo_chars(void)
 {
 	int				pos_old;
-	
+
 	pos_old = g_rline.pos;
 	if (front_move_one_char_left(g_rline.pos_x))
 		return (incorrect_sequence());

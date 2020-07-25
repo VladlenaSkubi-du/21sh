@@ -4,7 +4,7 @@
 int			jump_up(void)
 {
 	int			pos_x_goal;
-	
+
 	if (g_rline.str_num < 2 || g_rline.pos_y == 0)
 		return (incorrect_sequence());
 	pos_x_goal = g_rline.pos_x;
