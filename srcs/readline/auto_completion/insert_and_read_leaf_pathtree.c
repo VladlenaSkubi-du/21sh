@@ -36,28 +36,29 @@ int				insert_to_path_tree(char *entry_name,
 ** one we are on
 */
 
-int				insert_new_leaf_to_tree(t_pathtree **root,
-					t_pathtree **new_leaf, int *len)
+static int		insert_new_leaf_to_tree(t_avltree **root,
+					t_avltree **new_leaf, int *len)
 {
-	t_pathtree			*current;
-	t_pathtree			*parent;
+	t_avltree			*current;
+	t_avltree			*parent;
 
 	current = *root;
 	while (1)
 	{
 		parent = current;
-		if (!(ft_strcmp((*new_leaf)->name, parent->name)))
+		if (!(ft_strcmp((*new_leaf)->key, parent->key)))
 		{
-			free_path_tree(new_leaf);
+			ft_treefree(new_leaf);
 			return (0);
 		}
-		else if (ft_strcmp((*new_leaf)->name, parent->name) < 0 &&
-				!(insert_leaf_left(&current, &parent, new_leaf, len)))
-			return (0);
+		else if (ft_strcmp((*new_leaf)->key, parent->key) < 0)
+		{
+			if (!(insert_leaf_left(&current, &parent, new_leaf, len)))
+				return (0);
+		}
 		else
 		{
-			if (!(insert_leaf_right(&current,
-					&parent, new_leaf, len)))
+			if (!(insert_leaf_right(&current, &parent, new_leaf, len)))
 				return (0);
 		}
 	}
