@@ -31,7 +31,7 @@ int					sreadline_choice(char sy)
 	return (0);
 }
 
-int 				readline_simple(void)
+int					readline_simple(void)
 {
 	char			c;
 

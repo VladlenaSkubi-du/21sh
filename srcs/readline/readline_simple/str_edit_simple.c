@@ -16,7 +16,7 @@ int				schar_add(char c)
 
 int				sstr_add_symbol(char add)
 {
-		char			*swap;
+	char			*swap;
 
 	swap = NULL;
 	if (g_rline.pos < g_rline.cmd_len - 1)
