@@ -17,33 +17,15 @@ int			parser(char *line)
 		return (0);
 	if (g_prompt.prompt_func == heredoc_prompt)
 	{
-		if (check_heredoc_closure(g_pline) == OUT)
-		{
-			clean_parser();
+		if (parser_if_heredoc() == OUT)
 			return (OUT);
-		}
-		prepare_and_exec();
-		free_parser_blocks_all(&g_grblks);
-	}	
+	}
 	else
 	{
-		g_herenum = 0;
-		if (start_quotes(g_pline->tech) != OUT)
-		{
-			slice_by_scolons();
-			slice_by_pipes_cycle();
-			gramlex_analysis();
-			if (g_herenum > 0 && check_heredoc_closure(g_pline) == OUT)
-			{
-				clean_parser();
-				return (OUT);
-			}
-						// print_all_lists(); //DELETE
-			prepare_and_exec();
-			free_parser_blocks_all(&g_grblks);
-		}
+		if (parser_if_mainprompt() == OUT)
+			return (OUT);
 	}
- 	clean_parser();
+	clean_parser();
 	return (0);
 }
 
@@ -65,83 +47,34 @@ int			prepare_parser(char *line)
 	return (0);
 }
 
-/*
-** First we create a list that consists of the t_pblks as
-** content, its size as content_size and a pointer to NULL
-** @tmp_pdata is needed for list initialization
-** @ptr_block_cont is needed for convenient structure and
-** its variable usage - it is just a pointer
-** @new_block is a list that is created and added after the
-** global @g_grblks - if only ';' is found
-** the number of lists in @g_grblks depends on the number of
-** ';' signes met
-*/
-
-int			slice_by_scolons(void)
+int			parser_if_heredoc(void)
 {
-	t_list		*new_block;
-	t_pblks		*ptr_block_cont;
-	int			i;
-
-	g_grblks = create_new_list();
-	new_block = g_grblks;
-	i = -1;
-	while (g_pline->tech[++i] != END_T)
-		if (g_pline->tech[i] == SCOLON)
-		{
-			ptr_block_cont = new_block->content;
-			ptr_block_cont->end = i;
-			new_block = create_new_list();
-			ft_lstadd_to_end(&g_grblks, new_block);
-			ptr_block_cont = new_block->content;
-			ptr_block_cont->beg = i + 1;
-		}
-	ptr_block_cont = new_block->content;
-	ptr_block_cont->end = i;
-	return (0);
-}
-
-int			slice_by_pipes_cycle(void)
-{
-	t_list		*runner;
-	t_pblks		*ptr_block_cont;
-
-	runner = g_grblks;
-	while (runner)
+	if (check_heredoc_closure(g_pline) == OUT)
 	{
-		ptr_block_cont = runner->content;
-		slice_by_pipes(&runner, ptr_block_cont->beg,
-			ptr_block_cont->end, ptr_block_cont);
-		runner = runner->next;
+		clean_parser();
+		return (OUT);
 	}
+	prepare_and_exec();
+	free_parser_blocks_all(&g_grblks);
 	return (0);
 }
 
-int			slice_by_pipes(t_list **current, int beg, int end,
-				t_pblks *ptr_block_cont)
+int			parser_if_mainprompt(void)
 {
-	t_list		*runner;
-	t_list		*new_block;
-	int			i;
-
-	runner = *current;
-	new_block = runner;
-	i = beg - 1;
-	while (++i < end)
-		if (g_pline->tech[i] == PIPE)
+	g_herenum = 0;
+	if (start_quotes(g_pline->tech) != OUT)
+	{
+		slice_by_scolons();
+		slice_by_pipes_cycle();
+		gramlex_analysis();
+		if (g_herenum > 0 && check_heredoc_closure(g_pline) == OUT)
 		{
-			ptr_block_cont = new_block->content;
-			ptr_block_cont->flag |= PIPED_OUT;
-			ptr_block_cont->end = i;
-			new_block = create_new_list();
-			ft_lstadd_after(&runner, new_block);
-			runner = runner->next;
-			ptr_block_cont = new_block->content;
-			ptr_block_cont->flag |= PIPED_IN;
-			ptr_block_cont->beg = i + 1;
+			clean_parser();
+			return (OUT);
 		}
-	ptr_block_cont = runner->content;
-	ptr_block_cont->end = i;
-	*current = runner;
+			// print_all_lists(); //DELETE
+		prepare_and_exec();
+		free_parser_blocks_all(&g_grblks);
+	}
 	return (0);
 }

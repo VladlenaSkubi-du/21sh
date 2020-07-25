@@ -52,6 +52,7 @@ UNIX_FUNCTIONS = \
 PARSER_DIR = parser
 PARSER = \
 			$(PARSER_DIR)/parser21.c \
+			$(PARSER_DIR)/slice_line_by_grammar.c \
 			$(PARSER_DIR)/quote_control.c \
 			$(PARSER_DIR)/grammar_analysis.c \
 			$(PARSER_DIR)/parser_line_processing.c \

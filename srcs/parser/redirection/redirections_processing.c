@@ -92,7 +92,7 @@ int				minus_close_redir(t_pblks **current_cont, t_cmd **ptr_lcmd,
 int				only_num_fdafter_redir(t_fd *fd_inout)
 {
 	int			j;
-	
+
 	j = 0;
 	while (fd_inout->file[j])
 	{

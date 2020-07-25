@@ -17,7 +17,7 @@ t_list			*create_new_list(void)
 void			bzero_grammar_block(t_pblks *block)
 {
 	t_cmd		*ptr_lcmd;
-	
+
 	ptr_lcmd = block->lcmd;
 	ptr_lcmd->cmd = NULL;
 	ptr_lcmd->tech = NULL;
@@ -60,10 +60,9 @@ int				free_pblock_not_heredoc(t_list **runner_blk,
 					t_list **last_here_blk, int step)
 {
 	t_pblks		*ptr_cont;
-	
+
 	ptr_cont = (t_pblks*)(*runner_blk)->content;
 	free_pblock_content(&ptr_cont);
-	// free_pblock_content(runner_blk);
 	ft_lstfree_current(runner_blk);
 	if (step == 0)
 		*last_here_blk = *runner_blk;

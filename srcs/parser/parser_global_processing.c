@@ -14,7 +14,8 @@ void			print_all_lists(void)
 	{
 		ptr_block_cont = (t_pblks*)runner->content;
 		ft_printf("NEW LIST\n******************************\n");
-		ft_printf("beg = %d, end = %d\n", ptr_block_cont->beg, ptr_block_cont->end);
+		ft_printf("beg = %d, end = %d\n", ptr_block_cont->beg,
+			ptr_block_cont->end);
 		ptr_lcmd = ptr_block_cont->lcmd;
 		ft_printf("Lcmd: %s\nTechlen: %d\n", ptr_lcmd->cmd, ptr_lcmd->len_tech);
 		(ptr_block_cont->fd) ? print_fd_blocks(ptr_block_cont) : 0;
@@ -28,7 +29,7 @@ void			print_all_lists(void)
 	}
 }
 
-void			print_fd_blocks(t_pblks	*ptr_block_cont)
+void			print_fd_blocks(t_pblks *ptr_block_cont)
 {
 	t_list		*fd_runner;
 	t_fd		*ptr_fd;
@@ -52,18 +53,6 @@ void			print_fd_blocks(t_pblks	*ptr_block_cont)
 		}
 		fd_runner = fd_runner->next;
 	}
-}
-
-void			print_techline(char *cmd, char *techline, int len_tech)
-{
-	int			i;
-
-	i = -1;
-	ft_printf("g_cmd = %s\n", cmd);
-	ft_printf("techline cur:");
-	while (++i <= len_tech - 1)
-		ft_printf("%3d", techline[i]);
-	ft_printf("\n");
 }
 
 void			free_fdredir_content(t_list **runner_fd,

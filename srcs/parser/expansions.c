@@ -7,7 +7,7 @@ int			tilda_expansion(t_cmd **cmd_part)
 	char	*find;
 	int		li;
 	int		sy;
-	
+
 	i = -1;
 	while (++i < (*cmd_part)->len_tech)
 	{
@@ -16,7 +16,7 @@ int			tilda_expansion(t_cmd **cmd_part)
 				(*cmd_part)->tech[i + 1] == END_T))
 		{
 			if ((li = find_in_variables(g_env, &sy, "HOME")) < 0)
-				find = home_from_etcpasswd(); //check
+				find = home_from_etcpasswd();
 			else
 				find = ft_strdup(&g_env[li][sy]);
 			if (find == NULL)
@@ -78,7 +78,7 @@ int			dollar_expansion_loop(t_cmd **lcmd)
 	int		i;
 	int		start;
 	char	*find;
-	
+
 	i = -1;
 	while (++i < (*lcmd)->len_tech)
 	{
@@ -106,7 +106,7 @@ int			dollar_expansion_processing(t_cmd **lcmd, int *i,
 				int start, char *find)
 {
 	char	*value;
-	
+
 	value = find_var_in_arrays(find);
 	free(find);
 	if (value == NULL)

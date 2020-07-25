@@ -19,13 +19,11 @@ int			gramlex_analysis(void)
 		current_cont->lcmd = init_parser_line(tmp);
 		ptr_lcmd = current_cont->lcmd;
 		delete_quotes_from_line(&current_cont, &ptr_lcmd);
-		if (check_redirections(&current_cont, &ptr_lcmd) == OUT)
+		if (check_redirections(&current_cont, &ptr_lcmd) == OUT &&
+				current_cont->err & REDIR_HARD)
 		{
-			if (current_cont->err & REDIR_HARD)
-			{
-				free_pblocks_except_heredoc(&g_grblks);
-				return (shift_harderror_to_last_heredoc());
-			}
+			free_pblocks_except_heredoc(&g_grblks);
+			return (shift_harderror_to_last_heredoc());
 		}
 		runner = runner->next;
 	}

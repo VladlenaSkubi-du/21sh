@@ -23,7 +23,7 @@ int			start_quotes(char *techline)
 	return (quotes_define_prompts(&stack));
 }
 
-int		quotes_define_prompts(t_stack **stack)
+int			quotes_define_prompts(t_stack **stack)
 {
 	if ((*stack)->data != 0)
 	{
@@ -32,7 +32,7 @@ int		quotes_define_prompts(t_stack **stack)
 		if ((*stack)->data == EOF && g_prompt.prompt_func != heredoc_prompt)
 		{
 			g_prompt.prompt_func = main_prompt;
-			error_handler (SYNTAX_ERROR | (ERR_QUOTE << 9), NULL);
+			error_handler(SYNTAX_ERROR | (ERR_QUOTE << 9), NULL);
 		}
 		ft_clear_stack(stack);
 		return (OUT);
@@ -42,10 +42,11 @@ int		quotes_define_prompts(t_stack **stack)
 	return (0);
 }
 
-int		quotes_make_text_inside(t_stack **stack, int i, char *techline)
+int			quotes_make_text_inside(t_stack **stack,
+				int i, char *techline)
 {
 	t_stack			*st_tmp;
-	
+
 	st_tmp = *stack;
 	if ((st_tmp->data == DQUOTE && techline[i] == DQUOTE) ||
 			(st_tmp->data == SQUOTE && techline[i] == SQUOTE))

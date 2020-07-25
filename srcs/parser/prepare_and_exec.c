@@ -6,7 +6,7 @@ int			prepare_and_exec(void)
 	t_list		*pblk_hered;
 	t_pblks		*pblk_cont;
 	t_cmd		*ptr_lcmd;
-	
+
 	if (check_hard_errors() == OUT)
 		return (0);
 	pblk_hered = g_grblks;

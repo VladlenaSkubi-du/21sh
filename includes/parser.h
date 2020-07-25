@@ -87,6 +87,13 @@ int					g_herenum;
 
 int					parser(char *line);
 int					prepare_parser(char *line);
+int					parser_if_mainprompt(void);
+int					parser_if_heredoc(void);
+
+/*
+** File slice_line_by_grammar.c
+*/
+
 int					slice_by_scolons(void);
 int					slice_by_pipes_cycle(void);
 int					slice_by_pipes(t_list **current, int beg, int end,
@@ -124,6 +131,7 @@ int					delete_or_insert_to_pline(t_cmd **pline,
 						int i, int num);
 int					expansion_pline_processing(t_cmd **lcmd, int *i,
 						int start, char *find);
+void				print_techline(char *cmd, char *techline, int len_tech);
 
 /*
 ** File parser_blocks_processing.c
@@ -142,7 +150,6 @@ int					free_parser_blocks_all(t_list **head);
 
 void				print_all_lists(void);
 void				print_fd_blocks(t_pblks	*ptr_block_cont);
-void				print_techline(char *cmd, char *techline, int len_tech);
 void				free_fdredir_content(t_list **runner_fd,
 						t_fd *ptr_fd);
 void				free_pblock_content(t_pblks **ptr_cont);

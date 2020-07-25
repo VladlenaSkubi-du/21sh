@@ -65,7 +65,7 @@ int				free_fdredir_except_heredoc(t_pblks **current_cont)
 			free_fd_not_heredoc(&runner_fd, &last_here_fd,
 				ptr_fd, step);
 	}
-	(step == 0) ? (*current_cont)->fd = NULL : 0; 
+	(step == 0) ? (*current_cont)->fd = NULL : 0;
 	return (0);
 }
 

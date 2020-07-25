@@ -72,7 +72,7 @@ int			close_heredoc(t_list **fd_hered,
 {
 	t_fd		*fd_cont;
 	char		*final;
-	
+
 	fd_cont = (t_fd*)(*fd_hered)->content;
 	if (ft_strchrdiff(pline->cmd, fd_cont->file, '\n') || pline->cmd[0] == EOF)
 	{
@@ -101,7 +101,7 @@ int			load_heredocbuf_into_file(int fd, char *heredoc_buf)
 	int				i;
 	int				start;
 	int				len;
-	
+
 	i = 0;
 	len = ft_strlen(heredoc_buf);
 	while (i < len)
