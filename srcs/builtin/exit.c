@@ -4,7 +4,7 @@
 int				btin_exit(t_exec *exec)
 {
 	int			status;
-	
+
 	status = 0;
 	ft_putendl_fd("exit", STDOUT_FILENO);
 	if (exec->argc > 1)

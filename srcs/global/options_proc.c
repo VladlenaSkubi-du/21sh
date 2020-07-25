@@ -16,7 +16,8 @@
 ** will be activated
 **
 ** Example:
-** We send to the function: find_options(3, (char*[]){"elsrn", "--help", --usage""},
+** We send to the function: find_options(3,
+**     (char*[]){"elsrn", "--help", --usage""},
 ** pos->ar_v) where 3 is the number of lines in the array, char*[] is the array
 ** itself, pos->ar_v is the argv array
 ** If @flags_arr[3]{"erlns", "--help", "--usage"} and
@@ -32,7 +33,7 @@
 
 int			find_options(int num, char *flags_arr[num], char **arr)
 {
-	int     i;
+	int		i;
 	int		final;
 	int		res;
 
@@ -59,12 +60,13 @@ int			find_options(int num, char *flags_arr[num], char **arr)
 ** Accepts argument after the valid flag as GNU lib does
 */
 
-int			options_in_arg(char *arri, int num, char *flags_arr[num], int *final)
+int			options_in_arg(char *arri, int num,
+				char *flags_arr[num], int *final)
 {
-	int     j;
+	int		j;
 	int		res;
 	int		tmp;
-	
+
 	j = 0;
 	tmp = -1;
 	while (arri[++j])
@@ -115,12 +117,13 @@ int			options_proc(char arrij, char *flags_arr, int *final)
 	return (ERR_OPTION);
 }
 
-int			suboptions_proc(char *arri, int num, char *flags_arr[num], int *final)
+int			suboptions_proc(char *arri, int num,
+				char *flags_arr[num], int *final)
 {
 	size_t	len;
 	int		mask;
 	int		i;
-	
+
 	if (arri[2] == '\0')
 		return (STOP);
 	len = SUBOPTION_STARTS;

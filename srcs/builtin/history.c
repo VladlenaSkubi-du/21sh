@@ -29,22 +29,3 @@ int					btin_history(void)
 	}
 	return (0);
 }
-
-/*
-** Builtin !: !! is the last history-cmd in the buffer
-** !word is the last history-cmd that starts with word
-** !number is the history-cmd according to the number
-** !-number is the history-cmd of the same number if count from
-** the last cmd
-*/
-
-int					btin_exsign(t_exec *exec)
-{
-	if (g_hist.len < 1 || g_hist.last < 0)
-	{
-		error_handler(SUCCESS | (ERR_EXSIGN << 9), exec->argv[0]);
-		return (0);
-	}
-
-	return (0);
-}
