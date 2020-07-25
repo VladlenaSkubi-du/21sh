@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output_processing_di.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/05 16:05:26 by sschmele          #+#    #+#             */
-/*   Updated: 2020/06/04 18:54:05 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:30:31 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:30:34 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

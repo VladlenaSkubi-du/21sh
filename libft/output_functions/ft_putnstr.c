@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/12 12:55:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/05/23 19:34:01 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:58:03 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:58:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

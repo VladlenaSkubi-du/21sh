@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strremerge.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/01 20:22:34 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 13:37:51 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:40:01 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:40:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

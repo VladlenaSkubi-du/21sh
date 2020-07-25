@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/23 20:48:03 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/06 21:34:10 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 16:03:25 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 16:03:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_after.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/17 21:50:11 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/04/23 21:52:39 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:33:42 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:33:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

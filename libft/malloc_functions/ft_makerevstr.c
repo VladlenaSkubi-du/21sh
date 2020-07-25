@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_makerevstr.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/03 11:27:59 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 13:15:03 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:36:11 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:36:13 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

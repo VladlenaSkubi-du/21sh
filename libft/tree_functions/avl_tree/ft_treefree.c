@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_treefree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/25 16:36:54 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/05/25 16:39:18 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 16:11:05 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 16:11:07 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

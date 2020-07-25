@@ -1,20 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_gnl.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 15:49:37 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:54:24 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 #define TAIL ft_add_tail
 #define GET ft_get_buf_line
-#define C_SIZE content_size
-#define G_SIZE 4096
+#define C_SIZE			content_size
+#define G_SIZE			4096
 
-typedef struct			s_list_fd
-{
-	int					fd;
-	t_list				*buf;
-	int					index;
-	int					end;
-	struct s_list_fd	*next;
-}						t_fd_list;
-
-static void			ft_gnl_clean(t_fd_list **p)
+static void				ft_gnl_clean(t_fd_list **p)
 {
 	t_fd_list	*new;
 	t_fd_list	*tmp;
@@ -29,7 +32,7 @@ static void			ft_gnl_clean(t_fd_list **p)
 	}
 }
 
-static t_fd_list	*ft_fd_check(int fd, t_fd_list **p)
+static t_fd_list		*ft_fd_check(int fd, t_fd_list **p)
 {
 	t_fd_list	*new;
 
@@ -53,7 +56,7 @@ static t_fd_list	*ft_fd_check(int fd, t_fd_list **p)
 	return (*p = new);
 }
 
-static	int			ft_add_tail(int fd, t_fd_list **fd_buf)
+static	int				ft_add_tail(int fd, t_fd_list **fd_buf)
 {
 	t_list	*start;
 	int		i;
@@ -82,7 +85,7 @@ static	int			ft_add_tail(int fd, t_fd_list **fd_buf)
 	return ((i <= 0) ? i : 1);
 }
 
-static	int			ft_get_buf_line(char **line, t_fd_list **fd_buf)
+static	int				ft_get_buf_line(char **line, t_fd_list **fd_buf)
 {
 	void	*p;
 	t_list	*start;
@@ -110,7 +113,7 @@ static	int			ft_get_buf_line(char **line, t_fd_list **fd_buf)
 	return (1);
 }
 
-int					ft_gnl(const int fd, char **line)
+int						ft_gnl(const int fd, char **line)
 {
 	static t_fd_list	*fd_list;
 	t_fd_list			*fd_buf;

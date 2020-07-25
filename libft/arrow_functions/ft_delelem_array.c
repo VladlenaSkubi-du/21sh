@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_delelem_array.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/02 16:26:08 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/05/02 19:03:13 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 16:15:09 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 16:15:11 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int		ft_count_len(char **arr)
 {
 	int			i;
 	int			len_arr;
-	
+
 	i = -1;
 	len_arr = 0;
 	while (arr[++i])
@@ -28,7 +28,7 @@ void			ft_delelem_array(char ***array, int len, int start, int num)
 {
 	int			i;
 	char		**arr;
-	
+
 	arr = *array;
 	if (arr == NULL)
 		return ;

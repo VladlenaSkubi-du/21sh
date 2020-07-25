@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memalloc.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/02 12:51:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 13:16:23 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:36:19 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:36:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+         #
+#    By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:34:17 by sschmele          #+#    #+#              #
-#    Updated: 2020/07/19 16:12:19 by vladlenasku      ###   ########.fr        #
+#    Updated: 2020/07/25 20:01:27 by sschmele         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

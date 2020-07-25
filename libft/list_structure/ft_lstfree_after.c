@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstfree_after.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/24 15:12:35 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/04/24 18:31:20 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:35:20 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:35:25 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

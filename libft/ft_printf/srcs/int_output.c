@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   int_output.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/04 16:43:46 by sbecker           #+#    #+#             */
-/*   Updated: 2020/06/05 00:04:23 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:30:44 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:30:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

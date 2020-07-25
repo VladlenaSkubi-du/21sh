@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_init_stack.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/29 10:31:19 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 14:54:02 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:58:50 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:58:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

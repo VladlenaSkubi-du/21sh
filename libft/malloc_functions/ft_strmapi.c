@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/02 16:51:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 13:34:22 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:37:30 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:37:32 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

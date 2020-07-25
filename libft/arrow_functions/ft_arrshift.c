@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_arrshift.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/23 19:35:01 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/05/23 20:20:37 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 16:12:59 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 16:13:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbednar <rbednar@student.21school.ru>      +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/22 11:48:24 by sschmele          #+#    #+#             */
-/*   Updated: 2020/06/12 15:17:59 by rbednar          ###   ########.fr       */
+/*   Updated: 2020/07/25 15:54:43 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 
 # include "ft_printf.h"
-# define GNL_CLEAN -42
+# define GNL_CLEAN		-42
 
 typedef struct			s_list
 {
@@ -32,13 +32,22 @@ typedef struct			s_stack
 	struct s_stack		*next;
 }						t_stack;
 
-typedef struct  		s_avltree
+typedef struct			s_avltree
 {
 	char				*key;
 	void				*value;
 	struct s_avltree	*right;
 	struct s_avltree	*left;
-}               		t_avltree;
+}						t_avltree;
+
+typedef struct			s_list_fd
+{
+	int					fd;
+	t_list				*buf;
+	int					index;
+	int					end;
+	struct s_list_fd	*next;
+}						t_fd_list;
 
 /*
 ** Folder ARROW_FUNCTIONS
@@ -102,13 +111,16 @@ char					*ft_strchrnew(char *s, int c);
 char					*ft_strdup(const char *s1);
 char					*ft_strjoin(char const *s1, char const *s2);
 char					*ft_strmap(char const *s, char (*f)(char));
-char					*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char					*ft_strmapi(char const *s,
+							char (*f)(unsigned int, char));
 char					*ft_strndup(const char *s1, size_t n);
 char					*ft_strnewsetchar(size_t size, char c);
 char					*ft_strrejoin(char *s1, char *s2);
-char					*ft_strremerge(char *s1, size_t len_s1, char *s2, size_t n);
+char					*ft_strremerge(char *s1,
+							size_t len_s1, char *s2, size_t n);
 char					**ft_strsplit(char const *s, char c);
-char					*ft_strsub(char const *s, unsigned int start, size_t len);
+char					*ft_strsub(char const *s,
+							unsigned int start, size_t len);
 char					*ft_strtrim(char const *s);
 char					*ft_utoa_base(unsigned long nb, int base);
 char					*ft_strnew(size_t size);
@@ -124,11 +136,11 @@ void					*ft_memset(void *b, int c, size_t len);
 void					ft_bzero(void *s, size_t n);
 void					*ft_memmove(void *dst, const void *src, size_t len);
 void					*ft_memcpy(void *dst, const void *src, size_t n);
-void					*ft_memccpy(void *dst, const void *src, int c, size_t n);
+void					*ft_memccpy(void *dst,
+							const void *src, int c, size_t n);
 void					*ft_memchr(const void *s, int c, size_t n);
 int						ft_memcmp(const void *s1, const void *s2, size_t n);
 void					ft_memdel(void **ap);
-
 
 /*
 ** Folder OUTPUT_FUNCTIONS

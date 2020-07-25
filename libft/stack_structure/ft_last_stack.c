@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_last_stack.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/31 17:00:43 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 14:54:11 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:58:56 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:58:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

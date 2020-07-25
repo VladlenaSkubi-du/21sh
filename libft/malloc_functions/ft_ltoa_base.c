@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ltoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/09 18:09:40 by sschmele          #+#    #+#             */
-/*   Updated: 2020/06/05 00:07:09 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:36:05 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:36:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

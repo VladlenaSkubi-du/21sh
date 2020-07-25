@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/29 17:29:22 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 13:39:35 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:40:12 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:40:14 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

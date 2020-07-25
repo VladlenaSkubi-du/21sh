@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsub.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/02 17:42:46 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 13:40:01 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:41:12 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:41:14 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

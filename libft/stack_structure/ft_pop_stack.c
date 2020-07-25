@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pop_stack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/29 10:19:52 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 14:54:18 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:59:01 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:59:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/24 17:02:47 by jcorwin           #+#    #+#             */
-/*   Updated: 2020/05/23 20:11:30 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:41:58 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:42:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

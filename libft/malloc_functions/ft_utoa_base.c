@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_utoa_base.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/03/09 18:09:40 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 13:41:20 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:41:24 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:41:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

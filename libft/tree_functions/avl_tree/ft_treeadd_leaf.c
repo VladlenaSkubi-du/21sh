@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_treeadd_leaf.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/25 16:21:31 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/05/25 16:41:43 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 16:07:06 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 16:09:06 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,12 @@ static int		insert_new_leaf_to_tree(t_avltree **root,
 		}
 		else if (ft_strcmp((*new_leaf)->key, parent->key) < 0)
 		{
-			if (!(insert_leaf_left(&current,
-					&parent, new_leaf, len)))
+			if (!(insert_leaf_left(&current, &parent, new_leaf, len)))
 				return (0);
 		}
 		else
 		{
-			if (!(insert_leaf_right(&current,
-					&parent, new_leaf, len)))
+			if (!(insert_leaf_right(&current, &parent, new_leaf, len)))
 				return (0);
 		}
 	}
@@ -99,7 +97,7 @@ static int		insert_new_leaf_to_tree(t_avltree **root,
 */
 
 int				ft_treeadd_leaf(t_avltree **root,
-					t_avltree	*new_leaf, int *len)
+					t_avltree *new_leaf, int *len)
 {
 	if (*root == NULL)
 	{

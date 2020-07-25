@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_treeinit_leaf.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/25 16:27:38 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/05/25 16:32:34 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 16:11:13 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 16:11:15 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstfree_head.c                                  :+:      :+:    :+:   */
+/*   ft_lstfree_current.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/24 18:20:50 by vladlenasku       #+#    #+#             */
-/*   Updated: 2020/04/24 18:28:41 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:34:46 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:34:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			ft_lstfree_current(t_list **head)
 {
 	t_list	*delete;
 	t_list	*save_next;
-	
+
 	if ((*head)->next)
 	{
 		delete = *head;

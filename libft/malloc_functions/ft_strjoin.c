@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/25 15:21:07 by jcorwin           #+#    #+#             */
-/*   Updated: 2020/04/07 13:33:29 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:36:58 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:37:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

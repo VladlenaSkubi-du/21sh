@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/12/02 18:32:09 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 13:34:48 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:39:27 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:39:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

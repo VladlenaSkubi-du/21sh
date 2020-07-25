@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_push_stack.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vladlenaskubis <vladlenaskubis@student.    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/29 10:32:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/04/07 14:54:25 by vladlenasku      ###   ########.fr       */
+/*   Created: 2020/07/25 15:59:06 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/25 15:59:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
