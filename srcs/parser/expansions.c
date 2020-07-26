@@ -63,9 +63,9 @@ int			dollar_expansion(t_cmd **cmd_part, char **str)
 
 	if (cmd_part == NULL && str)
 	{
-		// str_cmd = init_parser_line(*str);
-		str_cmd = make_new_parser_line(*str, (*cmd_part)->tech,
-			0, (*cmd_part)->len_tech - 1);
+		str_cmd = init_parser_line(*str);
+		// str_cmd = make_new_parser_line(*str, (*cmd_part)->tech,
+		// 	0, (*cmd_part)->len_tech - 1);
 		dollar_expansion_loop(&str_cmd);
 		*str = ft_strdup(str_cmd->cmd);
 		free_parser_line(&str_cmd);

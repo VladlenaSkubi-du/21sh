@@ -91,8 +91,8 @@ char		**form_argv(t_cmd *lcmd, int *eargc, int len)
 	int			i;
 	int			j;
 
-	args = (char**)ft_xmalloc(sizeof(char*) * len);
-		print_techline(lcmd->cmd, lcmd->tech, lcmd->len_tech);
+	args = (char**)ft_xmalloc(sizeof(char*) * (len + 1));
+		// print_techline(lcmd->cmd, lcmd->tech, lcmd->len_tech);
 	i = 0;
 	j = 0;
 	while (i < lcmd->len_tech - 1)
@@ -106,7 +106,11 @@ char		**form_argv(t_cmd *lcmd, int *eargc, int len)
 		args[j] = arg;
 		j++;
 		if (j >= len)
-			args = extended_local_agrv(args, &len);
+		{
+			args = ft_realloc_array(&args, len, len * 2);
+			len *= 2;
+		}
+			// args = extended_local_agrv(args, &len);
 	}
 	*eargc = j;
 	return (args);
@@ -140,6 +144,6 @@ char		*new_arg_from_lcmd(t_cmd *lcmd, int *i)
 			lcmd->tech[start + 1] == END_T)
 		return (NULL);
 	cmd = ft_strndup(lcmd->cmd + start, *i - start);
-	printf("cmd = %s\n", cmd);
+	// printf("cmd = %s\n", cmd);
 	return (cmd);
 }
