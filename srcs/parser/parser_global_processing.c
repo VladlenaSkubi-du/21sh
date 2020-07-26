@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_global_processing.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 19:50:44 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/26 19:52:13 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell21.h"
 #include "parser.h"
 
@@ -71,12 +83,26 @@ void			free_pblock_content(t_pblks **ptr_cont)
 	*ptr_cont = NULL;
 }
 
-int				check_if_fd_open(int fd)
+t_cmd			*make_new_parser_line(char *line, char *techline,
+					int start, int end)
 {
-	struct stat	*buf;
+	t_cmd		*parser;
+	int			len_cmd;
+	int			i;
 
-	buf = NULL;
-	if (fstat(fd, buf) == 0)
-		return (1);
-	return (0);
+	parser = (t_cmd*)ft_xmalloc(sizeof(t_cmd));
+	parser->cmd = line;
+	len_cmd = ft_strlen(parser->cmd);
+	parser->tech = (char*)ft_xmalloc(len_cmd + 2);
+	i = -1;
+	while (++i < end - start)
+	{
+		if (techline[start + i] == TEXT)
+			parser->tech[i] = TEXT;
+		else
+			parser->tech[i] = get_tech_num(parser->cmd[i]);
+	}
+	parser->tech[i] = END_T;
+	parser->len_tech = len_cmd + 1;
+	return (parser);
 }

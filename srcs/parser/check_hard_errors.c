@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_hard_errors.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 19:43:50 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/26 19:48:13 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell21.h"
 #include "parser.h"
 
@@ -46,16 +58,13 @@ int			check_empty_pblock(t_pblks **pblk_cont)
 	final = (check == 0) ? NULL : ft_strdup(ptr_lcmd->cmd);
 	if (final == NULL && (*pblk_cont)->fd == NULL)
 	{
-		if ((*pblk_cont)->flag)
-			error_handler(SYNTAX_ERROR | ERR_PIPE << 9, NULL);
-		else
-			error_handler(SYNTAX_ERROR | ERR_SCOLON << 9, NULL);
+		error_handler(SYNTAX_ERROR | (((*pblk_cont)->flag) ?
+			ERR_PIPE << 9 : ERR_SCOLON << 9), NULL);
 		return (OUT);
 	}
 	new_ptr = make_new_parser_line(final, ptr_lcmd->tech,
 		0, ptr_lcmd->len_tech);
 	free_parser_line(&(*pblk_cont)->lcmd);
-	// (*pblk_cont)->lcmd = init_parser_line(final);
 	(*pblk_cont)->lcmd = new_ptr;
 	return (0);
 }

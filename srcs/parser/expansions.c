@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expansions.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 19:48:27 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/26 19:48:43 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell21.h"
 #include "parser.h"
 
@@ -64,8 +76,6 @@ int			dollar_expansion(t_cmd **cmd_part, char **str)
 	if (cmd_part == NULL && str)
 	{
 		str_cmd = init_parser_line(*str);
-		// str_cmd = make_new_parser_line(*str, (*cmd_part)->tech,
-		// 	0, (*cmd_part)->len_tech - 1);
 		dollar_expansion_loop(&str_cmd);
 		*str = ft_strdup(str_cmd->cmd);
 		free_parser_line(&str_cmd);
@@ -109,7 +119,6 @@ int			dollar_expansion_processing(t_cmd **lcmd, int *i,
 {
 	char	*value;
 
-	// value = find_var_in_arrays(find);
 	value = ft_strdup(find_env_value(find));
 	free(find);
 	if (value == NULL)

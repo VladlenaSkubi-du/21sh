@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   grammar_analysis.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 19:49:00 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/26 19:50:03 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "shell21.h"
 #include "parser.h"
@@ -16,9 +27,8 @@ int			gramlex_analysis(void)
 		tmp = ft_strndup(g_pline->cmd + current_cont->beg,
 			current_cont->end - current_cont->beg);
 		free_parser_line(&current_cont->lcmd);
-		// current_cont->lcmd = init_parser_line(tmp);
 		current_cont->lcmd = make_new_parser_line(tmp, g_pline->tech,
-			current_cont->beg, current_cont->end),
+			current_cont->beg, current_cont->end);
 		ptr_lcmd = current_cont->lcmd;
 		delete_quotes_from_line(&current_cont, &ptr_lcmd);
 		if (check_redirections(&current_cont, &ptr_lcmd) == OUT &&

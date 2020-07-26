@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   prepare_and_exec.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 19:53:38 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/26 19:56:45 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell21.h"
 #include "parser.h"
 
@@ -98,11 +110,8 @@ char		**form_argv(t_cmd *lcmd, int *eargc, int len)
 	while (i < lcmd->len_tech - 1)
 	{
 		arg = new_arg_from_lcmd(lcmd, &i);
-		if (arg == NULL || arg[0] == '\0')
-		{
-			free(arg);
+		if (arg == NULL)
 			break ;
-		}
 		args[j] = arg;
 		j++;
 		if (j >= len)
@@ -110,16 +119,8 @@ char		**form_argv(t_cmd *lcmd, int *eargc, int len)
 			args = ft_realloc_array(&args, len, len * 2);
 			len *= 2;
 		}
-			// args = extended_local_agrv(args, &len);
 	}
 	*eargc = j;
-	return (args);
-}
-
-char		**extended_local_agrv(char **args, int *len)
-{
-	args = ft_realloc_array(&args, *len, (*len) * 2);
-	(*len) *= 2;
 	return (args);
 }
 
@@ -144,6 +145,10 @@ char		*new_arg_from_lcmd(t_cmd *lcmd, int *i)
 			lcmd->tech[start + 1] == END_T)
 		return (NULL);
 	cmd = ft_strndup(lcmd->cmd + start, *i - start);
-	// printf("cmd = %s\n", cmd);
+	if (cmd[0] == '\0')
+	{
+		free(cmd);
+		return (NULL);
+	}
 	return (cmd);
 }

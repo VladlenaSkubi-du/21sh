@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:22:13 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:22:25 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/07/26 19:52:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,8 +138,6 @@ int					shift_harderror_to_last_heredoc(void);
 */
 
 t_cmd				*init_parser_line(char *line);
-t_cmd				*make_new_parser_line(char *line, char *techline,
-						int start, int end);
 void				free_parser_line(t_cmd **pline);
 int					delete_or_insert_to_pline(t_cmd **pline,
 						int i, int num);
@@ -167,6 +165,8 @@ void				print_fd_blocks(t_pblks	*ptr_block_cont);
 void				free_fdredir_content(t_list **runner_fd,
 						t_fd *ptr_fd);
 void				free_pblock_content(t_pblks **ptr_cont);
+t_cmd				*make_new_parser_line(char *line, char *techline,
+						int start, int end);
 
 /*
 ** File prepare_and_exec.c

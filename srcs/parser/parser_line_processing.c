@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser_line_processing.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 19:51:00 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/26 19:52:11 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell21.h"
 #include "parser.h"
 
@@ -10,30 +22,6 @@ t_cmd			*init_parser_line(char *line)
 	parser->cmd = line;
 	len_cmd = ft_strlen(parser->cmd);
 	parser->tech = ft_make_techline(parser->cmd, len_cmd);
-	parser->len_tech = len_cmd + 1;
-	return (parser);
-}
-
-t_cmd			*make_new_parser_line(char *line, char *techline,
-					int start, int end)
-{
-	t_cmd		*parser;
-	int			len_cmd;
-	int			i;
-
-	parser = (t_cmd*)ft_xmalloc(sizeof(t_cmd));
-	parser->cmd = line;
-	len_cmd = ft_strlen(parser->cmd);
-	parser->tech = (char*)ft_xmalloc(len_cmd + 2);
-	i = -1;
-	while (++i < end - start)
-	{
-		if (techline[start + i] == TEXT)
-			parser->tech[i] = TEXT;
-		else
-			parser->tech[i] = get_tech_num(parser->cmd[i]);
-	}
-	parser->tech[i] = END_T;
 	parser->len_tech = len_cmd + 1;
 	return (parser);
 }

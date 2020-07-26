@@ -6,14 +6,14 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:34:27 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:39:04 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/07/26 20:07:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell21.h"
 #include "parser.h"
 
-static int	get_path(void)
+static char	*get_path(void)
 {
 	char	*path;
 

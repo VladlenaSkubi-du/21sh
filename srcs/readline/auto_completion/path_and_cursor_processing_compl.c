@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path_and_cursor_processing_compl.c                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 20:00:37 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/26 20:00:38 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell21.h"
 #include "readline.h"
 
@@ -65,21 +77,3 @@ int					make_one_slash(char **final,
 	}
 	return (0);
 }
-
-/*
-** Sending the PATH value to be parsed for the tree
-*/
-
-// char				*path_parse_compl(void) //VARIABLES DELETE
-// {
-// 	int				i;
-
-// 	i = 0;
-// 	while (g_env[i])
-// 	{
-// 		if (ft_strncmp(g_env[i], "PATH=", 5) == 0)
-// 			return (g_env[i] + 5);
-// 		i++;
-// 	}
-// 	return (NULL);
-// }

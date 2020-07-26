@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   menu_receipt_compl.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 20:00:58 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/26 20:01:46 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell21.h"
 #include "readline.h"
 
@@ -17,7 +29,7 @@ t_pathtree			*fill_tree_with_variables(char *complete, int *total)
 	int				i;
 	t_pathtree		*root;
 	char			*name;
-	int 			len;
+	int				len;
 
 	i = 0;
 	root = NULL;
