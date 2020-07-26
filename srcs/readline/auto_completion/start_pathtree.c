@@ -77,7 +77,7 @@ int				save_path_entry(char *dir_path,
 	while ((entry = readdir(dir_name)))
 	{
 		if (ft_strnequ(entry->d_name, find, find_len) &&
-			ft_strcmp(entry->d_name, ".") && ft_strcmp(entry->d_name, ".."))
+				ft_strcmp(entry->d_name, ".") && ft_strcmp(entry->d_name, ".."))
 			insert_to_path_tree(entry->d_name, root, len);
 	}
 	closedir(dir_name);

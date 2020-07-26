@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:14:07 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 18:16:24 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/07/26 17:14:17 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <shell42.h>
-#include <builtin42.h>
+#include <shell21.h>
+#include <builtin.h>
 
 int		pwd_error(char c, int en)
 {
@@ -52,17 +52,17 @@ int		btin_pwd_valid(char **argv)
 	return (0);
 }
 
-int		btin_pwd(t_ltree *pos)
+int		btin_pwd(t_exec *exec)
 {
 	t_cd	*flags;
 	int		i;
 	int		j;
 	char	dir[MAXDIR];
 
-	if (btin_pwd_valid(pos->ar_v))
+	if (btin_pwd_valid(exec->argv))
 		return (1);
 	flags = ft_xmalloc(sizeof(t_cd *));
-	i = ft_cd_flags(pos->ar_v, flags);
+	i = ft_cd_flags(exec->argv, flags);
 	if (flags->l)
 	{
 		i = find_in_variable(&j, "PWD");

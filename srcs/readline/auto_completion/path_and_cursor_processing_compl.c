@@ -70,16 +70,16 @@ int					make_one_slash(char **final,
 ** Sending the PATH value to be parsed for the tree
 */
 
-char				*path_parse_compl(void) //VARIABLES DELETE
-{
-	int				i;
+// char				*path_parse_compl(void) //VARIABLES DELETE
+// {
+// 	int				i;
 
-	i = 0;
-	while (g_env[i])
-	{
-		if (ft_strncmp(g_env[i], "PATH=", 5) == 0)
-			return (g_env[i] + 5);
-		i++;
-	}
-	return (NULL);
-}
+// 	i = 0;
+// 	while (g_env[i])
+// 	{
+// 		if (ft_strncmp(g_env[i], "PATH=", 5) == 0)
+// 			return (g_env[i] + 5);
+// 		i++;
+// 	}
+// 	return (NULL);
+// }

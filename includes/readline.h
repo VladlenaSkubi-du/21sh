@@ -360,9 +360,9 @@ char					**get_variables(char *complete,
 							int *total, int *max_len);
 t_pathtree				*fill_tree_with_variables(char *complete,
 							int *total);
-int						insert_variables_to_tree(char *array,
-							char *complete, t_pathtree **root,
-							int *total); //DELETE after VARIABLES
+// int						insert_variables_to_tree(char *array,
+// 							char *complete, t_pathtree **root,
+// 							int *total); //DELETE after VARIABLES
 char					**get_arguments(char **complete,
 							int *total, int *max_len);
 char					*find_path_compl(char *compl, int tmp);
@@ -404,7 +404,7 @@ int						init_completion(void);
 int						clear_completion(int flag);
 int						make_one_slash(char **final,
 							int last_slash, char *compl);
-char					*path_parse_compl(void); //DELETE after VARIABLES
+// char					*path_parse_compl(void); //DELETE after VARIABLES
 
 /*
 ** File output_buffer_compl.c
@@ -468,8 +468,8 @@ int						add_other_prompts_history(char *cmd,
 
 int						scroll_hist_buffer(int num);
 int						save_hist_buffer(int fd);
-// int				check_if_histsize_changed(char *new_value);
-int						check_if_histsize_changed(void);
+int				check_if_histsize_changed(char *new_value);
+// int						check_if_histsize_changed(void);
 char					**make_hist_buffer_smaller(int size);
 int						delete_last_history_element(void);
 

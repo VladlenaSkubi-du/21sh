@@ -2,8 +2,7 @@
 
 int					main(void)
 {
-	save_environment_variables();
-	save_shell_variables();
+	create_env();
 	start_history();
 	init_builtins();
 	init_readline();

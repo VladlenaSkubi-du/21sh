@@ -7,7 +7,7 @@
 ** is on stack but still, (only in interactive mode))
 ** If there is error in parser and it leaves with OUT, structure for
 ** command execution should still be cleaned
-** (that is why we put ft_lst_ltree_clear)
+** (that is why we put ft_lst_exec_clear)
 */
 
 int				clean_everything(void)
@@ -18,10 +18,7 @@ int				clean_everything(void)
 	free(g_hist.hist[g_hist.len]);
 	ft_arrdel(g_hist.hist);
 	ft_arrdel(g_builtins);
-
-	ft_arrdel(g_shvar);
-	ft_arrdel(g_env);
-	
+	ft_arrdel(g_envi);
 	ft_gnl(GNL_CLEAN, NULL);
 	return (0);
 }

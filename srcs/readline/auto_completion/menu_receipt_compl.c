@@ -16,28 +16,28 @@ char				**get_variables(char *complete, int *total, int *max_len)
 ** We go through all the arrays with variables and add to the tree
 */
 
+// t_pathtree			*fill_tree_with_variables(char *complete, int *total)
+// {
+// 	int				i;
+// 	t_pathtree		*root;
+
+// 	i = 0;
+// 	root = NULL;
+// 	while (g_env[i])
+// 	{
+// 		insert_variables_to_tree(g_env[i], complete, &root, total);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	while (g_shvar[i])
+// 	{
+// 		insert_variables_to_tree(g_shvar[i], complete, &root, total);
+// 		i++;
+// 	}
+// 	return (root);
+// }
+
 t_pathtree			*fill_tree_with_variables(char *complete, int *total)
-{
-	int				i;
-	t_pathtree		*root;
-
-	i = 0;
-	root = NULL;
-	while (g_env[i])
-	{
-		insert_variables_to_tree(g_env[i], complete, &root, total);
-		i++;
-	}
-	i = 0;
-	while (g_shvar[i])
-	{
-		insert_variables_to_tree(g_shvar[i], complete, &root, total);
-		i++;
-	}
-	return (root);
-}
-
-/* t_pathtree			*fill_tree_with_variables(char *complete, int *total)
 {
 	int				i;
 	t_pathtree		*root;
@@ -48,7 +48,7 @@ t_pathtree			*fill_tree_with_variables(char *complete, int *total)
 	root = NULL;
 	while (g_envi[i])
 	{
-		if (g_envi[i][0] && (g_envi[i][0] & SET_VIS))
+		if (g_envi[i][0] && (g_envi[i][0] & ENV_VIS))
 		{
 			len = ft_strlen(complete);
 			name = ft_strndup(g_envi[i] + 1,
@@ -60,22 +60,22 @@ t_pathtree			*fill_tree_with_variables(char *complete, int *total)
 		i++;
 	}
 	return (root);
-}*/
-
-int					insert_variables_to_tree(char *array,
-						char *complete, // DELETE after changing VARIABLES
-						t_pathtree **root, int *total)
-{
-	char			*tmp;
-	int				len;
-
-	len = ft_strlen(complete);
-	tmp = ft_strndup(array, ft_strchri(array, '='));
-	if (ft_strnequ(tmp, complete, len))
-		insert_to_path_tree(tmp, root, total);
-	free(tmp);
-	return (0);
 }
+
+// int					insert_variables_to_tree(char *array,
+// 						char *complete, // DELETE after changing VARIABLES
+// 						t_pathtree **root, int *total)
+// {
+// 	char			*tmp;
+// 	int				len;
+
+// 	len = ft_strlen(complete);
+// 	tmp = ft_strndup(array, ft_strchri(array, '='));
+// 	if (ft_strnequ(tmp, complete, len))
+// 		insert_to_path_tree(tmp, root, total);
+// 	free(tmp);
+// 	return (0);
+// }
 
 char				**get_arguments(char **complete,
 						int *total, int *max_len)

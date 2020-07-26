@@ -42,5 +42,31 @@ int					usage_btin(char *str)
 {
 	ft_putstr_fd(str, STDOUT_FILENO);
 	ft_putstr_fd(": usage: ", STDOUT_FILENO);
+	if (ft_strcmp(str, "setenv") == 0)
+		ft_putendl_fd("setenv [name[=value] ...]",
+			STDOUT_FILENO);
+	else if (ft_strcmp(str, "cd") == 0)
+		ft_putendl_fd("cd [-L|-P] [dir]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "echo") == 0)
+		ft_putendl_fd("echo [-neE] [arg ...]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "pwd") == 0)
+		ft_putendl_fd("pwd [-LP]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "env") == 0)
+		ft_putendl_fd("env [no_args]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "unsetenv") == 0)
+		ft_putendl_fd("unsetenv [name ...]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "history") == 0)
+		ft_putendl_fd("history [-c]", STDOUT_FILENO);
+	else if (ft_strcmp(str, "exit") == 0)
+		ft_putendl_fd("exit [numeric arg]", STDOUT_FILENO);
 	return (0);
+}
+
+int					btin_return_exit_status(void)
+{
+	int             li;
+	int             sy;
+
+	li = find_in_variable(&sy, "?");
+	return (ft_atoi(&g_envi[li][sy]));
 }

@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cd_valid.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:35:11 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 17:35:13 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/07/26 17:12:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell42.h"
-#include "builtin42.h"
+#include "shell21.h"
+#include "builtin.h"
 
 int		ft_valid_cd(char **argv, int i)
 {

@@ -18,8 +18,8 @@
 ** Example:
 ** We send to the function: find_options(3,
 **     (char*[]){"elsrn", "--help", --usage""},
-** pos->ar_v) where 3 is the number of lines in the array, char*[] is the array
-** itself, pos->ar_v is the argv array
+** exec->argv) where 3 is the number of lines in the array, char*[] is the array
+** itself, exec->argv is the argv array
 ** If @flags_arr[3]{"erlns", "--help", "--usage"} and
 ** @arr {"fc, "-r", "1", "10", "--help" "--" "--usage"}
 **

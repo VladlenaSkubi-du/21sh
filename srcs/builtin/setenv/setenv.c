@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   setenv.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:49:07 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/26 16:56:12 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/07/26 18:12:03 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int		change_or_add(char *arg)
 	int		i;
 	int		j;
 	char	*tmp;
-	char	*error;
 
 	i = 0;
 	while (arg[i] != '=')
@@ -27,7 +26,7 @@ int		change_or_add(char *arg)
 	if ((i = find_in_variable(&j, tmp)) >= 0)
 	{
 	    if (g_envi[i][0] && (g_envi[i][0] & READONLY))
-	        return (export_error(&tmp, i));
+	        return (setenv_error(&tmp, i));
 	    change_env_value(arg, i);
 	    g_envi[i][0] |= ENV_VIS;
 	}
@@ -48,33 +47,33 @@ int		do_vis(char *arg)
 	if ((i = find_in_variable(&j, arg)) < 0)
 	    return (1);
 	g_envi[i][0] |= ENV_VIS;
-	g_envi[i][0] |= SET_VIS;
 	return (0);
 }
 
-int		export_add_vis(t_ltree *pos)
+int		setenv_add_vis(t_exec *exec)
 {
 	int		i;
-	char	*new_var;
+	// char	*new_var;
 
 	i = 0;
-	while (pos->ar_v[++i])
+	while (exec->argv[++i])
 	{
-		if (pos->ar_v[i][0] == '-')
+		if (exec->argv[i][0] == '-')
 			continue ;
-		if (ft_strrchr(pos->ar_v[i], '='))
+		if (ft_strrchr(exec->argv[i], '='))
 		{
-			new_var = ft_parsing_str(pos->ar_v[i]);
-			change_or_add(new_var);
-			free(new_var);
+			change_or_add(exec->argv[i]);
+			// new_var = ft_parsing_str(exec->argv[i]);
+			// change_or_add(new_var);
+			// free(new_var);
 		}
 		else
-			do_vis(pos->ar_v[i]);
+			do_vis(exec->argv[i]);
 	}
 	return (0);
 }
 
-int		export_p(void)
+int		setenv_p(void)
 {
 	int		i;
 	char	*j;
@@ -85,7 +84,7 @@ int		export_p(void)
 		if (g_envi[i][0] && (g_envi[i][0] & ENV_VIS))
 		{
 			j = ft_strchr(g_envi[i] + 1, '=');
-			ft_printf("export %.*s", j - (g_envi[i] + 1), g_envi[i] + 1);
+			ft_printf("setenv %.*s", j - (g_envi[i] + 1), g_envi[i] + 1);
 			if (j && j + 1)
 				ft_printf("=\"%s\"\n", j + 1);
 			else
@@ -96,18 +95,18 @@ int		export_p(void)
 	return (0);
 }
 
-int		btin_export(t_ltree *pos)
+int		btin_setenv(t_exec *exec)
 {
 	int		flags;
 
-	flags = find_options(2, (char*[]){"p", "--help"}, pos->ar_v);
+	flags = find_options(2, (char*[]){"p", "--help"}, exec->argv);
 	if (flags == 0x10000)
-		return (usage_btin("export"));
+		return (usage_btin("setenv"));
 	else if (flags < 0)
 		return (btin_return_exit_status());
-	if (pos->ar_c == 1 || flags == 1)
-		return (export_p());
+	if (exec->argc == 1 || flags == 1)
+		return (setenv_p());
 	else
-		return (export_add_vis(pos));
+		return (setenv_add_vis(exec));
 	return (0);
 }

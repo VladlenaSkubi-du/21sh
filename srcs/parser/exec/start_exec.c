@@ -68,12 +68,12 @@ int			builtins_exec(t_exec *exec, int flag)
 			if (flag && i < 1)
 			{
 				tmp = builtins_call_void(i);
-				exit_status_variable(tmp);
+				exit_status_variables(tmp);
 			}
 			else if (flag && i >= 1)
 			{
 				tmp = builtins_call(i, exec);
-				exit_status_variable(tmp);
+				exit_status_variables(tmp);
 			}
 			return (i);
 		}
@@ -89,7 +89,7 @@ int			builtins_exec(t_exec *exec, int flag)
 int			exec_clean(char *path, int exit_status, char *err_msg) //думаю, вообще может быть удалено
 {
 	if (path)
-		exit_status_variable(exit_status);
+		exit_status_variables(exit_status);
 	free(path);
 	if (err_msg) //cделать вывод не через эту функцию, а через error_handler
 		ft_putendl_fd(err_msg, STDERR_FILENO);  //если что, Леша должен был исправить в 42

@@ -5,12 +5,12 @@ void	error_unset(char *find)
 {
 	char	*error;
 
-	error = ft_strjoin("unset: ", find);
+	error = ft_strjoin("unsetenv: ", find);
 	error_handler(VARIABLE_ERROR | (ERR_RDONLY << 9), error);
 	free(error);
 }
 
-int		btin_unsetenv(t_exec *pos)
+int		btin_unsetenv(t_exec *exec)
 {
 	int		i;
 	int		tmp;
@@ -18,12 +18,12 @@ int		btin_unsetenv(t_exec *pos)
 	char	*find;
 
 	i = 0;
-	while (++i < pos->ar_c)
+	while (++i < exec->argc)
 	{
-		if ((tmp = ft_strchri(pos->ar_v[i], '=')) >= 0)
-			find = ft_strndup(pos->ar_v[i], tmp);
+		if ((tmp = ft_strchri(exec->argv[i], '=')) >= 0)
+			find = ft_strndup(exec->argv[i], tmp);
 		else
-			find = ft_strdup(pos->ar_v[i]);
+			find = ft_strdup(exec->argv[i]);
 		if ((j = find_in_variable(&tmp, find)) < 0)
 		{
 			free(find);

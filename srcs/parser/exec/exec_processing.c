@@ -29,7 +29,7 @@ int		cmd_fork_and_exec(t_exec *exec, char *path, pid_t *child_pid)
 	*child_pid = fork();
 	if (!*child_pid)
 	{
-		if (execve(path, exec->argv, g_env) == -1)
+		if (execve(path, exec->argv, g_envi) == -1)
 			exit(-1);
 	}
 	else if (*child_pid < 0)

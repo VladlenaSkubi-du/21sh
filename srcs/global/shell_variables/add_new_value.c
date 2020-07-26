@@ -1,4 +1,4 @@
-#include "shell42.h"
+#include "shell21.h"
 
 /*
 ** Changing shell (global) environment variable by its index
@@ -21,8 +21,6 @@ int		change_env_value(char *new_val, int i)
 	ft_strcpy(g_envi[i] + 1, new_val);
 	if (ft_strncmp(new_val, "HISTSIZE=", 9) == 0)
 		check_if_histsize_changed(g_envi[i] + 1);
-	else if (ft_strncmp(new_val, "PATH=", 5) == 0)
-		btin_hash_clean_table();
 	return (0);
 }
 
@@ -50,11 +48,9 @@ int		add_new_env(char *name)
 	}
 	g_envi[i] = (char *)ft_xmalloc(ft_strlen(name) + 2);
 	ft_strcpy(g_envi[i] + 1, name);
-	g_envi[i][0] |= SET_VIS;
+	g_envi[i][0] |= ENV_VIS;
 	if (ft_strncmp(name, "HISTSIZE=", 9) == 0)
 		check_if_histsize_changed(g_envi[i] + 1);
-	else if (ft_strncmp(name, "PATH=", 5) == 0)
-		btin_hash_clean_table();
 	return (i);
 }
 

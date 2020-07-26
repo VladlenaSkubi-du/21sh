@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   form_environment42.c                               :+:      :+:    :+:   */
+/*   form_environment.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 18:09:02 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 18:14:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/07/26 18:36:35 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell42.h"
+#include "shell21.h"
 
 /*
 ** Environmental shell variables - are dinamic, exist within the session,
@@ -39,7 +39,6 @@ int					save_environment_variable(int num)
 			(sizeof(char))));
 		ft_strcpy(g_envi[num] + 1, environ[i]);
 		g_envi[num][0] |= ENV_VIS;
-		g_envi[num][0] |= SET_VIS;
 		num++;
 		i++;
 	}
@@ -63,8 +62,6 @@ char				*ft_add_rdovar(char *first, char *scnd, int flag)
 		ft_strcpy(res + ft_strlen(first) + 1, scnd);
 	if (flag != 2)
 		res[0] |= READONLY;
-	if (flag != 1)
-		res[0] |= SET_VIS;
 	return (res);
 }
 
@@ -74,11 +71,11 @@ int					save_readonly_variable(int num)
 
 	g_envi[num++] = ft_add_rdovar("?=0", NULL, 1);
 	g_envi[num++] = ft_add_rdovar("0=e-bash", NULL, 1);
-	g_envi[num++] = ft_add_rdovar("42SH_SUBSHELL=0", NULL, 1);
-	g_envi[num++] = ft_add_rdovar("42SH_PARSER=0", NULL, 1);
-	g_envi[num++] = ft_add_rdovar("42SH_NONINTERACTIVE=0", NULL, 1);
+	g_envi[num++] = ft_add_rdovar("21SH_SUBSHELL=0", NULL, 1);
+	g_envi[num++] = ft_add_rdovar("21SH_PARSER=0", NULL, 1);
+	g_envi[num++] = ft_add_rdovar("21SH_NONINTERACTIVE=0", NULL, 1);
 	tmp = getcwd(NULL, MAXDIR);
-	g_envi[num++] = ft_add_rdovar("42SH=", tmp, 0);
+	g_envi[num++] = ft_add_rdovar("21SH=", tmp, 0);
 	free(tmp);
 	tmp = ft_itoa(getuid());
 	g_envi[num++] = ft_add_rdovar("UID=", tmp, 0);
@@ -91,8 +88,8 @@ int					save_readonly_variable(int num)
 	free(tmp);
 	tmp = ft_itoa(getpid());
 	g_envi[num++] = ft_add_rdovar("$=", tmp, 1);
-	tmp = NULL;
 	free(tmp);
+	tmp = NULL;
 	return (num);
 }
 
@@ -108,14 +105,14 @@ int					save_shell_variable(int num)
 {
 	char			*tmp;
 
-	g_envi[num++] = ft_add_rdovar("HISTFILE=", NULL, 2);
+	g_envi[num++] = ft_add_rdovar("HISTFILE=", NULL, 0);
 	tmp = ft_itoa(MAX_HISTBUF);
-	g_envi[num++] = ft_add_rdovar("HISTSIZE=", tmp, 2);
+	g_envi[num++] = ft_add_rdovar("HISTSIZE=", tmp, 0);
 	free(tmp);
 	tmp = ft_itoa(MAX_HISTFILE);
-	g_envi[num++] = ft_add_rdovar("HISTFILESIZE=", tmp, 2);
+	g_envi[num++] = ft_add_rdovar("HISTFILESIZE=", tmp, 0);
 	free(tmp);
-	g_envi[num++] = ft_add_rdovar("FCEDIT=vim", NULL, 2);
+	g_envi[num++] = ft_add_rdovar("FCEDIT=vim", NULL, 0);
 	return (num);
 }
 

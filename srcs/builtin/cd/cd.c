@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:57:32 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 16:16:30 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/07/26 17:29:52 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell42.h"
-#include "builtin42.h"
+#include "shell21.h"
+#include "builtin.h"
 
 char		*ft_join(char *path, char *src_path)
 {
@@ -60,29 +60,30 @@ int			ft_cd_helper(void)
 {
 	error_handler(OPTIONS_REQUIRED | (ERR_BTIN_INVALID << 9), "cd");
 	usage_btin("cd");
+	return (0);
 }
 
-int			btin_cd(t_ltree *pos)
+int			btin_cd(t_exec *exec)
 {
 	int		i;
 	t_cd	*flags;
 	int		flags_check;
 
-	flags_check = find_options(2, (char*[]){"LP", "--help"}, pos->ar_v);
+	flags_check = find_options(2, (char*[]){"LP", "--help"}, exec->argv);
 	if (flags_check == 0x10000)
 		return (usage_btin("cd"));
 	if (flags_check < 0)
 		return (btin_return_exit_status());
 	flags = ft_xmalloc(sizeof(t_cd *));
-	i = ft_cd_flags(pos->ar_v, flags);
-	if (pos->ar_v[i] && pos->ar_v[i][0] == '-' && pos->ar_v[i][1] &&
-			i > 0 && ft_strcmp(pos->ar_v[i - 1], "--"))
+	i = ft_cd_flags(exec->argv, flags);
+	if (exec->argv[i] && exec->argv[i][0] == '-' && exec->argv[i][1] &&
+			i > 0 && ft_strcmp(exec->argv[i - 1], "--"))
 	{
 		free(flags);
 		return (ft_cd_helper());
 	}
-	if (ft_valid_cd(pos->ar_v, i) ||
-			ft_cd_pars(pos->ar_v[i], pos->envir, flags))
+	if (ft_valid_cd(exec->argv, i) ||
+			ft_cd_pars(exec->argv[i], g_envi, flags))
 	{
 		free(flags);
 		return (1);

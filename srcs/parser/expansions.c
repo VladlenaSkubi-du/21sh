@@ -15,10 +15,10 @@ int			tilda_expansion(t_cmd **cmd_part)
 				((*cmd_part)->tech[i + 1] == SPACE ||
 				(*cmd_part)->tech[i + 1] == END_T))
 		{
-			if ((li = find_in_variables(g_env, &sy, "HOME")) < 0)
+			if ((li = find_in_variable(&sy, "HOME")) < 0)
 				find = home_from_etcpasswd();
 			else
-				find = ft_strdup(&g_env[li][sy]);
+				find = ft_strdup(&g_envi[li][sy]);
 			if (find == NULL)
 				return (0);
 			delete_or_insert_to_pline(cmd_part, i + 1, -1);
@@ -36,7 +36,7 @@ char		*home_from_etcpasswd(void)
 	char	*line;
 	char	**info;
 
-	if ((li = find_in_variables(g_shvar, &sy, "UID")) < 0)
+	if ((li = find_in_variable(&sy, "UID")) < 0)
 		return (NULL);
 	fd = open("/etc/passwd", O_RDONLY);
 	if (fd < 0)
@@ -45,7 +45,7 @@ char		*home_from_etcpasswd(void)
 	{
 		info = ft_strsplit(line, ':');
 		free(line);
-		if (ft_strcmp(info[2], &g_shvar[li][sy]) == 0)
+		if (ft_strcmp(info[2], &g_envi[li][sy]) == 0)
 		{
 			line = ft_strdup(info[5]);
 			ft_arrdel(info);
@@ -109,7 +109,8 @@ int			dollar_expansion_processing(t_cmd **lcmd, int *i,
 {
 	char	*value;
 
-	value = find_var_in_arrays(find);
+	// value = find_var_in_arrays(find);
+	value = ft_strdup(find_env_value(find));
 	free(find);
 	if (value == NULL)
 	{

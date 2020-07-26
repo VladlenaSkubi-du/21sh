@@ -39,8 +39,11 @@
 # define MAX_HISTBUF		500
 # define MAXDIR				256
 # define MAX_EXIT_STATUS	10
-# define ENV_BUFFER			5
+# define ENV_BUFFER			17
 # define OUT				42
+
+# define ENV_VIS			0x1
+# define READONLY			0x2
 
 /*
 ** Structures
@@ -124,10 +127,10 @@ enum				e_techline
 ** @g_sh_var - shell variables
 */
 
-char				**g_env;
-char				**g_shvar;
 t_prompt			g_prompt;
 t_history			g_hist;
+char				**g_envi;
+int					g_var_size;
 
 /*
 ** Functions
@@ -177,6 +180,32 @@ int					insert_assign_to_arrays(char *find, char *insert,
 						char **array);
 char				*find_var_in_arrays(char *find);
 int					add_to_environment_variables(char *add);
+
+/*
+** File form_environment.c
+*/
+
+int                 create_env(void);
+int                 save_environment_variable(int num);
+int                 save_shell_variable(int num);
+int                 exit_status_variables(int status);
+int                 save_readonly_variable(int num);
+
+/*
+** File add_new_value.c
+*/
+
+char                *find_env_value(char *str);
+int                 find_in_variable(int *j, char *name);
+int                 form_local_envir(char ***arr, int size);
+int                 add_new_env(char *name);
+int                 change_env_value(char *new_val, int i);
+
+/*
+** File envir_variables.c
+*/
+
+int                 find_in_any_variable(char **env, int *j, char *name);
 
 /*
 ** Folder UNIX_FUNCTIONS

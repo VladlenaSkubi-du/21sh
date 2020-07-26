@@ -13,17 +13,22 @@ BUILTIN = \
 			$(BUILTIN_DIR)/exit.c \
 			$(BUILTIN_DIR)/history.c \
 			$(BUILTIN_DIR)/pwd.c \
-			$(BUILTIN_DIR)/setenv.c \
 			$(BUILTIN_DIR)/unsetenv.c \
-            $(CD)
+            $(CD) \
+			$(SETENV)
 
 CD_DIR = cd
 CD =		$(BUILTIN_DIR)/$(CD_DIR)/cd.c \
-			$(BUILTIN_DIR)/$(CD_DIR)/cd_flags.c \
-			$(BUILTIN_DIR)/$(CD_DIR)/cd_valid.c \
-			$(BUILTIN_DIR)/$(CD_DIR)/cd_parser.c \
 			$(BUILTIN_DIR)/$(CD_DIR)/cd_change_path.c \
-			$(BUILTIN_DIR)/$(CD_DIR)/cd_new_path.c
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_flags.c \
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_new_path.c \
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_parser.c \
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_static.c \
+			$(BUILTIN_DIR)/$(CD_DIR)/cd_valid.c
+
+SETENV_DIR = setenv
+SETENV = 	$(BUILTIN_DIR)/$(SETENV_DIR)/setenv.c \
+			$(BUILTIN_DIR)/$(SETENV_DIR)/setenv_helper.c
 
 #______________________________________________________________________________
 
@@ -37,8 +42,9 @@ GLOBAL = 	$(GLOBAL_DIR)/clean_all.c \
 
 SHELL_VARS_DIR = shell_variables
 SHELL_VARIABLES = \
-			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/environment21.c \
-			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/variables_processing.c
+			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/add_new_value.c \
+			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/envir_variables.c \
+			$(GLOBAL_DIR)/$(SHELL_VARS_DIR)/form_environment.c
 
 UNIX_FUNCS_DIR = unix_functions
 UNIX_FUNCTIONS = \
@@ -172,6 +178,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell21.h
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(CD_DIR)
+	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)/$(SETENV_DIR)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)
 	@mkdir -p $(DIR_O)/$(GLOBAL_DIR)/$(SHELL_VARS_DIR)

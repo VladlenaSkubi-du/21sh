@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cd_flags.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:04:48 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 16:05:24 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/07/26 17:12:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "shell42.h"
-#include "builtin42.h"
+#include "shell21.h"
+#include "builtin.h"
 
 void	ft_swap_flags(t_cd *flags, size_t l, size_t p)
 {

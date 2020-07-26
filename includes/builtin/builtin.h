@@ -8,9 +8,9 @@
 
 typedef struct  s_ec
 {
-    int         e;
-    int         n;
-    int         up_e;
+	int         e;
+	int         n;
+	int         up_e;
 }               t_ec;
 
 char			**g_builtins;
@@ -36,12 +36,14 @@ void            init_builtins(void);
 int				builtins_call_void(int call_num);
 int				builtins_call(int call_num, t_exec *exec);
 int				usage_btin(char *str);
+int				btin_return_exit_status(void);
 
 /*
 ** File setenv.c
 */
 
 int				btin_setenv(t_exec *exec);
+int				setenv_error(char **tmp, int i);
 
 /*
 ** File unsetenv.c

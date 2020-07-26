@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   cd_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 17:00:43 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/25 17:05:46 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/07/26 17:12:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <shell42.h>
-#include <builtin42.h>
+#include <shell21.h>
+#include <builtin.h>
 
 int		ft_o_dir(char *str, char *path)
 {

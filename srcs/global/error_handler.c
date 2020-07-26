@@ -37,7 +37,7 @@ int				error_handler(int status, char *str)
 		ft_putstr_fd(str, STDERR_FILENO);
 	else
 		error_handler_continuation(status, str);
-	return (exit_status_variable(status & 0x7F));
+	return (exit_status_variables(status & 0x7F));
 }
 
 int				error_handler_continuation(int status, char *str)
