@@ -16,7 +16,9 @@ int			gramlex_analysis(void)
 		tmp = ft_strndup(g_pline->cmd + current_cont->beg,
 			current_cont->end - current_cont->beg);
 		free_parser_line(&current_cont->lcmd);
-		current_cont->lcmd = init_parser_line(tmp);
+		// current_cont->lcmd = init_parser_line(tmp);
+		current_cont->lcmd = make_new_parser_line(tmp, g_pline->tech,
+			current_cont->beg, current_cont->end),
 		ptr_lcmd = current_cont->lcmd;
 		delete_quotes_from_line(&current_cont, &ptr_lcmd);
 		if (check_redirections(&current_cont, &ptr_lcmd) == OUT &&

@@ -4,9 +4,11 @@
 int			form_and_exec(t_pblks *pblk_cont)
 {
 	t_exec			*exec;
+	int				len;
 
 	exec = (t_exec*)ft_xmalloc(sizeof(t_exec));
-	exec->argv = form_argv(pblk_cont->lcmd, &exec->argc);
+	len = ARGV_LOCAL;
+	exec->argv = form_argv(pblk_cont->lcmd, &exec->argc, len);
 	exec->flag = pblk_cont->flag;
 	if (pblk_cont->err & REDIR_SOFT)
 		exec->flag |= REDIR_SOFT;
@@ -42,7 +44,7 @@ int			start_exec(t_exec *exec) //30 строк
 	(exec->flag & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
 	child_pid = 0;
 	if (builtins_exec(exec, 1) == -1 &&
-		cmd_fork_and_exec(exec, path, &child_pid) == -1)
+			cmd_fork_and_exec(exec, path, &child_pid) == -1)
 		return (-1);
 	(exec->flag & PIPED_OUT) ? close(pipe_next[1]) : 0;
 	(exec->flag & PIPED_IN) ? close(pipe_prev) : 0;

@@ -24,7 +24,7 @@ void				init_readline(void)
 void				bzero_readline(void)
 {
 	init_terminal_screen();
-	if (g_rline.cmd[0])
+	if (g_rline.cmd && g_rline.cmd[0])
 		ft_bzero(g_rline.cmd, g_rline.cmd_buff_len);
 	g_rline.cmd_len = 0;
 	g_rline.pos = 0;

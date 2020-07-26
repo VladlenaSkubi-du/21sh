@@ -3,6 +3,7 @@
 # define PARSER_H
 
 # define HEREDOC_BUF		3
+# define ARGV_LOCAL			10
 
 /*
 ** Defines for @flags in blocks
@@ -126,6 +127,8 @@ int					shift_harderror_to_last_heredoc(void);
 */
 
 t_cmd				*init_parser_line(char *line);
+t_cmd				*make_new_parser_line(char *line, char *techline,
+						int start, int end);
 void				free_parser_line(t_cmd **pline);
 int					delete_or_insert_to_pline(t_cmd **pline,
 						int i, int num);
@@ -161,8 +164,9 @@ void				free_pblock_content(t_pblks **ptr_cont);
 int					prepare_and_exec(void);
 int					prepare_fdredir(t_pblks **pblk_cont);
 int					prepare_fdredir_fd(t_list **fd_runner);
-char				**form_argv(t_cmd *lcmd, int *eargc);
+char				**form_argv(t_cmd *lcmd, int *eargc, int len);
 char				*new_arg_from_lcmd(t_cmd *lcmd, int *j);
+char				**extended_local_agrv(char **args, int *len);
 
 /*
 ** File check_hard_errors.c

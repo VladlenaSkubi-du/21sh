@@ -22,7 +22,8 @@ int			prepare_and_exec(void)
 			dollar_expansion(&ptr_lcmd, NULL);
 			pblk_cont->lcmd = ptr_lcmd;
 		}
-		// print_all_lists();
+			// printf("Before form and exec\n");
+			// print_all_lists();
 		pblk_hered->content = pblk_cont;
 		form_and_exec(pblk_cont);
 		pblk_hered = pblk_hered->next;
@@ -83,19 +84,17 @@ int			prepare_fdredir_fd(t_list **fd_runner)
 	return (0);
 }
 
-char		**form_argv(t_cmd *lcmd, int *eargc)
+char		**form_argv(t_cmd *lcmd, int *eargc, int len)
 {
 	char		**args;
-	int			len;
 	char		*arg;
 	int			i;
 	int			j;
 
+	args = (char**)ft_xmalloc(sizeof(char*) * len);
+		print_techline(lcmd->cmd, lcmd->tech, lcmd->len_tech);
 	i = 0;
 	j = 0;
-	len = lcmd->len_tech / 2 * 2;
-	arg = NULL;
-	args = (char**)ft_xmalloc(sizeof(char*) * len);
 	while (i < lcmd->len_tech - 1)
 	{
 		arg = new_arg_from_lcmd(lcmd, &i);
@@ -105,15 +104,18 @@ char		**form_argv(t_cmd *lcmd, int *eargc)
 			break ;
 		}
 		args[j] = arg;
-		arg = NULL;
 		j++;
 		if (j >= len)
-		{
-			args = ft_realloc_array(&args, len, len * 2);
-			len *= 2;
-		}
+			args = extended_local_agrv(args, &len);
 	}
 	*eargc = j;
+	return (args);
+}
+
+char		**extended_local_agrv(char **args, int *len)
+{
+	args = ft_realloc_array(&args, *len, (*len) * 2);
+	(*len) *= 2;
 	return (args);
 }
 
@@ -134,6 +136,10 @@ char		*new_arg_from_lcmd(t_cmd *lcmd, int *i)
 			(*i)++;
 	else
 		(*i)++;
+	if (start < lcmd->len_tech && lcmd->tech[start] == ENTER &&
+			lcmd->tech[start + 1] == END_T)
+		return (NULL);
 	cmd = ft_strndup(lcmd->cmd + start, *i - start);
+	printf("cmd = %s\n", cmd);
 	return (cmd);
 }

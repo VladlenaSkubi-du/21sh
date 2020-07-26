@@ -35,6 +35,7 @@ int			check_empty_pblock(t_pblks **pblk_cont)
 	t_cmd		*ptr_lcmd;
 	int			i;
 	int			check;
+	t_cmd		*new_ptr;
 
 	ptr_lcmd = (*pblk_cont)->lcmd;
 	i = -1;
@@ -51,8 +52,11 @@ int			check_empty_pblock(t_pblks **pblk_cont)
 			error_handler(SYNTAX_ERROR | ERR_SCOLON << 9, NULL);
 		return (OUT);
 	}
+	new_ptr = make_new_parser_line(final, ptr_lcmd->tech,
+		0, ptr_lcmd->len_tech);
 	free_parser_line(&(*pblk_cont)->lcmd);
-	(*pblk_cont)->lcmd = init_parser_line(final);
+	// (*pblk_cont)->lcmd = init_parser_line(final);
+	(*pblk_cont)->lcmd = new_ptr;
 	return (0);
 }
 

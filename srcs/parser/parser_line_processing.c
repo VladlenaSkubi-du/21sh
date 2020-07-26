@@ -14,6 +14,30 @@ t_cmd			*init_parser_line(char *line)
 	return (parser);
 }
 
+t_cmd			*make_new_parser_line(char *line, char *techline,
+					int start, int end)
+{
+	t_cmd		*parser;
+	int			len_cmd;
+	int			i;
+
+	parser = (t_cmd*)ft_xmalloc(sizeof(t_cmd));
+	parser->cmd = line;
+	len_cmd = ft_strlen(parser->cmd);
+	parser->tech = (char*)ft_xmalloc(len_cmd + 2);
+	i = -1;
+	while (++i < end - start)
+	{
+		if (techline[start + i] == TEXT)
+			parser->tech[i] = TEXT;
+		else
+			parser->tech[i] = get_tech_num(parser->cmd[i]);
+	}
+	parser->tech[i] = END_T;
+	parser->len_tech = len_cmd + 1;
+	return (parser);
+}
+
 void			free_parser_line(t_cmd **pline)
 {
 	free((*pline)->cmd);
