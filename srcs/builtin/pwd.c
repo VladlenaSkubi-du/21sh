@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pwd.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kfalia-f <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/25 18:14:07 by kfalia-f          #+#    #+#             */
+/*   Updated: 2020/07/25 18:16:24 by kfalia-f         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <shell21.h>
-#include <builtin.h>
+#include <shell42.h>
+#include <builtin42.h>
 
 int		pwd_error(char c, int en)
 {
@@ -20,7 +31,7 @@ int		pwd_error(char c, int en)
 	return (1);
 }
 
-int		valid(char **argv)
+int		btin_pwd_valid(char **argv)
 {
 	int	i;
 	int	j;
@@ -41,27 +52,28 @@ int		valid(char **argv)
 	return (0);
 }
 
-int     	btin_pwd(t_exec *exec)
+int		btin_pwd(t_ltree *pos)
 {
 	t_cd	*flags;
+	int		i;
+	int		j;
 	char	dir[MAXDIR];
-	int		li;
-	int		co;
 
-	if (valid(exec->argv))
+	if (btin_pwd_valid(pos->ar_v))
 		return (1);
-	flags = (t_cd *)ft_xmalloc(sizeof(t_cd));
-	ft_cd_flags(exec->argv, flags); //there was return i comp - where is used?
-	li = find_in_variables(g_shvar, &co, "PWD");
+	flags = ft_xmalloc(sizeof(t_cd *));
+	i = ft_cd_flags(pos->ar_v, flags);
 	if (flags->l)
-		ft_putstr(g_shvar[li] + co);
+	{
+		i = find_in_variable(&j, "PWD");
+		ft_putstr(g_envi[i] + j);
+	}
 	else
 	{
 		getcwd(dir, MAXDIR);
 		ft_putstr(dir);
 	}
-    ft_putchar('\n');
-	free(flags->curpath);
+	ft_putchar('\n');
 	free(flags);
-    return (0);
+	return (0);
 }
