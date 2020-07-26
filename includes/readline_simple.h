@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   readline_simple.h                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 19:24:08 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/26 19:24:37 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef READLINE_SIMPLE_H
 # define READLINE_SIMPLE_H
 
-# define SESC_NUM 5
+# define SESC_NUM   5
 
 /*
 ** File readline_simple.c

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:50:53 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/26 18:11:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/07/26 19:31:26 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		btin_env(void)
 	free_path_tree(&root);
 	i = -1;
 	while (list[++i])
-	   	ft_putendl_fd(list[i], STDOUT_FILENO);
+		ft_putendl_fd(list[i], STDOUT_FILENO);
 	ft_arrdel(list);
 	return (0);
 }

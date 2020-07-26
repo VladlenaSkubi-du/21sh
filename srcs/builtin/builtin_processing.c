@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   builtin_processing.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 19:32:02 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/26 19:32:41 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell21.h"
 #include "builtin.h"
 
@@ -64,8 +76,8 @@ int					usage_btin(char *str)
 
 int					btin_return_exit_status(void)
 {
-	int             li;
-	int             sy;
+	int				li;
+	int				sy;
 
 	li = find_in_variable(&sy, "?");
 	return (ft_atoi(&g_envi[li][sy]));

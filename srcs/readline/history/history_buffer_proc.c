@@ -83,35 +83,6 @@ char			**make_hist_buffer_smaller(int size)
 	return (history);
 }
 
-// int				check_if_histsize_changed(void)
-// {
-// 	int			li;
-// 	int			sy;
-// 	int			user_len;
-
-// 	li = find_in_variables(g_shvar, &sy, "HISTSIZE=");
-// 	if (!ft_isdigit(g_shvar[li][sy]))
-// 		return (0);
-// 	user_len = ft_atoi(g_shvar[li] + sy);
-// 	if (user_len < 0 || user_len > HISTORY_LIMIT)
-// 		return (0);
-// 	else if (user_len > 0 && user_len > g_hist.len)
-// 	{
-// 		g_hist.hist = ft_realloc_array(&g_hist.hist,
-// 			g_hist.len, user_len + 2);
-// 		g_hist.len = user_len + 1;
-// 	}
-// 	else if (user_len > 0 && user_len + 1 < g_hist.len)
-// 		g_hist.hist = make_hist_buffer_smaller(user_len);
-// 	else if (user_len == 0)
-// 	{
-// 		free(g_hist.hist[g_hist.len + 1]);
-// 		ft_arrdel(g_hist.hist);
-// 		init_history_buffer(0 + 1);
-// 	}
-// 	return (0);
-// }
-
 int				check_if_histsize_changed(char *new_value)
 {
 	int			co;

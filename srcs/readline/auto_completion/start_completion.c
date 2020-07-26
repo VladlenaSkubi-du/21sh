@@ -54,8 +54,6 @@ char				**route_by_prompts(int *total, int *max_len)
 	t_pathtree		*root;
 
 	if (g_prompt.prompt_func == main_prompt)
-		// menu = start_search_in_path("", path_parse_compl(),
-		// 	total, max_len);
 		menu = start_search_in_path("", find_env_value("PATH"),
 			total, max_len);
 	else
@@ -99,8 +97,6 @@ char				**route_menu_receipt(char *tech_line,
 	free(g_compl.to_compl);
 	g_compl.to_compl = final;
 	if (pool == 1)
-		// menu = start_search_in_path(g_compl.to_compl, path_parse_compl(),
-		// 	&g_compl.total, max_len);
 		menu = start_search_in_path(g_compl.to_compl, find_env_value("PATH"),
 			&g_compl.total, max_len);
 	else if (pool == 2)

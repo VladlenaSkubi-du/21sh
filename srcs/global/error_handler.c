@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_handler.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 19:36:29 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/26 19:41:10 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell21.h"
 
 /*
@@ -32,7 +44,7 @@ int				error_handler(int status, char *str)
 		ft_putendl_fd("terminal can't be changed, reset the terminal",
 			STDERR_FILENO);
 	else if ((status & 0xFF) == TMPFILE)
-		ft_putendl_fd("can't open a temporal file", STDERR_FILENO); //TODO check
+		ft_putendl_fd("can't open a temporal file", STDERR_FILENO);
 	else if ((status & 0x1FF) == SUCCESS)
 		ft_putstr_fd(str, STDERR_FILENO);
 	else
@@ -79,7 +91,7 @@ int				variable_errors(int status, char *str)
 	}
 	ft_putstr_fd(str, STDERR_FILENO);
 	if (status >> 9 & ERR_RDONLY)
-		ft_putendl_fd(": readonly variable", STDERR_FILENO); //delete
+		ft_putendl_fd(": readonly variable", STDERR_FILENO);
 	else if (status >> 9 & ERR_HISTORY_EXEC)
 		ft_putendl_fd(": no command found", STDERR_FILENO);
 	else if (status >> 9 & ERR_UNSET)
@@ -91,13 +103,11 @@ int				variable_errors(int status, char *str)
 ** Option errors are errors that exit with 2
 */
 
-int				options_errors(int status, char *str) //delete if no options
+int				options_errors(int status, char *str)
 {
 	ft_putstr_fd(str, STDERR_FILENO);
 	if (status >> 9 & ERR_BTIN_INVALID)
 		ft_putendl_fd(": invalid option", STDERR_FILENO);
-	else if (status >> 9 & ERR_BTIN_ARG)
-		ft_putendl_fd(": option requires an argument", STDERR_FILENO);
 	return (0);
 }
 

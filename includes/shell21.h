@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   shell21.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/26 19:24:48 by sschmele          #+#    #+#             */
+/*   Updated: 2020/07/26 19:26:07 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #ifndef SHELL21_H
 # define SHELL21_H
@@ -163,49 +174,30 @@ int					suboptions_proc(char *arri, int num,
 */
 
 /*
-** File environment21.c
-*/
-
-int					save_environment_variables(void);
-int					save_shell_variables(void);
-int					exit_status_variable(int status);
-int					save_env_size(int size, int mode);
-
-/*
-** File variables_processing.c
-*/
-
-int					find_in_variables(char **arr, int *j, char *name);
-int					insert_assign_to_arrays(char *find, char *insert,
-						char **array);
-char				*find_var_in_arrays(char *find);
-int					add_to_environment_variables(char *add);
-
-/*
 ** File form_environment.c
 */
 
-int                 create_env(void);
-int                 save_environment_variable(int num);
-int                 save_shell_variable(int num);
-int                 exit_status_variables(int status);
-int                 save_readonly_variable(int num);
+int					create_env(void);
+int					save_environment_variable(int num);
+int					save_shell_variable(int num);
+int					exit_status_variables(int status);
+int					save_readonly_variable(int num);
 
 /*
 ** File add_new_value.c
 */
 
-char                *find_env_value(char *str);
-int                 find_in_variable(int *j, char *name);
-int                 form_local_envir(char ***arr, int size);
-int                 add_new_env(char *name);
-int                 change_env_value(char *new_val, int i);
+char				*find_env_value(char *str);
+int					find_in_variable(int *j, char *name);
+int					form_local_envir(char ***arr, int size);
+int					add_new_env(char *name);
+int					change_env_value(char *new_val, int i);
 
 /*
 ** File envir_variables.c
 */
 
-int                 find_in_any_variable(char **env, int *j, char *name);
+int					find_in_any_variable(char **env, int *j, char *name);
 
 /*
 ** Folder UNIX_FUNCTIONS

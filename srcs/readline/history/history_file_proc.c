@@ -23,41 +23,6 @@ int					read_hist_from_file(int fd)
 	return (i);
 }
 
-/*
-** We chechk one more time the HISTORY path - if user wants to change
-** the default path for the file and the HISTORYSIZE variable
-** If it is invalid, the default configurations won't change.
-*/
-
-// int					fill_hist_in_file(void)
-// {
-// 	int				li;
-// 	int				sy;
-// 	int				fd;
-// 	char			*path;
-// 	int				user_len;
-
-// 	sy = 0;
-// 	li = find_in_variables(g_shvar, &sy, "HISTFILE");
-// 	path = ft_strdup(g_shvar[li] + sy);
-// 	li = find_in_variables(g_shvar, &sy, "HISTFILESIZE");
-// 	if (g_shvar[li][sy] && !ft_isdigit(g_shvar[li][sy]))
-// 		user_len = MAX_HISTFILE;
-// 	else
-// 	{
-// 		user_len = ft_atoi(g_shvar[li] + sy);
-// 		if (user_len < 0 || user_len > HISTORY_LIMIT)
-// 			user_len = MAX_HISTFILE;
-// 	}
-// 	fd = open_hist_file(user_len, path);
-// 	free(path);
-// 	if (fd < 0)
-// 		return (0);
-// 	insert_hist_in_file(fd, user_len);
-// 	close(fd);
-// 	return (0);
-// }
-
 int					fill_hist_in_file(void)
 {
 	char			*size;

@@ -14,14 +14,10 @@ int					ask_output(int total, int buf_lines,
 	int				pos_x_com;
 
 	pos_x_com = 0;
-	len = ft_strlen("21sh") +
+	len = ft_strlen(find_env_value("0")) +
 		ft_strlen(": display all ") +
 		ft_strlen(" possibilities (") +
 		ft_strlen(" lines)? [y or n] ");
-	/* len = ft_strlen(find_env_value("0")) +
-		ft_strlen(": display all ") +
-		ft_strlen(" possibilities (") +
-		ft_strlen(" lines)? [y or n] ");*/
 	count_comment_len(&total_len, total);
 	len += total_len;
 	count_comment_len(&total_len, buf_lines);
@@ -39,8 +35,7 @@ int					print_question_compl(int *pos_x_com, int total,
 	char			*question;
 
 	g_rline.flag |= AFTER_LINE;
-	front_insert_by_letters("21sh", pos_x_com);
-	/* front_insert_by_letters(find_env_value("0"), pos_x_com);*/
+	front_insert_by_letters(find_env_value("0"), pos_x_com);
 	front_insert_by_letters(": display all ", pos_x_com);
 	question = ft_itoa(total);
 	front_insert_by_letters(question, pos_x_com);

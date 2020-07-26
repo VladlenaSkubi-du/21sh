@@ -1,33 +1,6 @@
 #include "shell21.h"
 #include "readline.h"
 
-// int				start_history(void)
-// {
-// 	int			fd;
-// 	int			sy;
-// 	int			li;
-// 	int			i;
-
-// 	li = find_in_variables(g_shvar, &sy, "HISTSIZE");
-// 	init_history_buffer(ft_atoi(&g_shvar[li][sy]) + 1);
-// 	li = find_in_variables(g_shvar, &sy, "HISTFILE");
-// 	fd = open(g_shvar[li] + sy, O_RDONLY);
-// 	if (fd < 0)
-// 		return (0);
-// 	i = read_hist_from_file(fd);
-// 	g_hist.last = i - 1;
-// 	g_hist.counter = i;
-// 	g_hist.start = i;
-// 	g_hist.last_fc = (g_hist.last > 0) ? g_hist.last + 1 : 1;
-// 	if (g_hist.len > MAX_HISTBUF)
-// 		g_hist.hist = make_hist_buffer_smaller((MAX_HISTBUF > HISTORY_LIMIT) ?
-// 		HISTORY_LIMIT : MAX_HISTBUF);
-// 	if (g_hist.last_fc > HISTORY_LIMIT)
-// 		g_hist.last_fc = HISTORY_LIMIT;
-// 	close(fd);
-// 	return (0);
-// }
-
 int				start_history(void)
 {
 	int			fd;
@@ -85,9 +58,6 @@ char			*define_history_file(void)
 		li = find_in_variable(&co, "21SH");
 	file = ft_strjoin(g_envi[li] + co, "/.21sh_history");
 	return (file);
-
-	// li = find_in_variables(g_shvar, &sy, "21SH");
-	// return (ft_strjoin(&g_env[li][sy], "/.21sh_history"));
 }
 
 /*
