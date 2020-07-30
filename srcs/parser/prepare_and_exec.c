@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:53:38 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:56:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/07/30 12:34:11 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char		**form_argv(t_cmd *lcmd, int *eargc, int len)
 	int			j;
 
 	args = (char**)ft_xmalloc(sizeof(char*) * (len + 1));
-		// print_techline(lcmd->cmd, lcmd->tech, lcmd->len_tech);
+		print_techline(lcmd->cmd, lcmd->tech, lcmd->len_tech);
 	i = 0;
 	j = 0;
 	while (i < lcmd->len_tech - 1)
@@ -145,7 +145,7 @@ char		*new_arg_from_lcmd(t_cmd *lcmd, int *i)
 			lcmd->tech[start + 1] == END_T)
 		return (NULL);
 	cmd = ft_strndup(lcmd->cmd + start, *i - start);
-	if (cmd[0] == '\0')
+	if (cmd && cmd[0] == '\0')
 	{
 		free(cmd);
 		return (NULL);

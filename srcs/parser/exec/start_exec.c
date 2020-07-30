@@ -29,6 +29,11 @@ int			start_exec(t_exec *exec) //30 строк
 
 	path = NULL;
 	child_pid = 0;
+
+	// int i = -1;
+	// while (exec->argv[++i])
+	// 	printf("olo>>%s\n", exec->argv[i]);
+	
 	save_streams(0);
 	if (builtins_exec(exec, 0) == -1 && !(path = path_start_exec(exec)))
 	{
