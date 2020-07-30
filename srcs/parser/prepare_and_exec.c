@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:53:38 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/30 12:34:11 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/07/30 12:45:18 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char		**form_argv(t_cmd *lcmd, int *eargc, int len)
 	int			j;
 
 	args = (char**)ft_xmalloc(sizeof(char*) * (len + 1));
-		print_techline(lcmd->cmd, lcmd->tech, lcmd->len_tech);
+		// print_techline(lcmd->cmd, lcmd->tech, lcmd->len_tech);
 	i = 0;
 	j = 0;
 	while (i < lcmd->len_tech - 1)
@@ -129,12 +129,12 @@ char		*new_arg_from_lcmd(t_cmd *lcmd, int *i)
 	char		*cmd;
 	int			start;
 
-	cmd = NULL;
 	while (*i < lcmd->len_tech - 1 && lcmd->tech[*i] == SPACE)
 		(*i)++;
 	start = *i;
 	if (lcmd->tech[*i] == WORD_P)
-		while (*i < lcmd->len_tech - 1 && lcmd->tech[*i] == WORD_P)
+		while (*i < lcmd->len_tech - 1 && !(lcmd->tech[*i] == SPACE ||
+				lcmd->tech[*i] == ENTER))
 			(*i)++;
 	else if (lcmd->tech[*i] == TEXT)
 		while (*i < lcmd->len_tech - 1 && lcmd->tech[*i] == TEXT)
