@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 16:12:59 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 16:13:01 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/07/31 12:04:09 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 ** Result: arr = "abcef00000"
 **                abcef
 **
-** THERE IS NO "PROTECTION" for the negative shift - should be done
+** !!!THERE IS NO "PROTECTION" for the negative shift - should be done
 ** from the function that calls
 */
 

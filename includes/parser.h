@@ -6,14 +6,14 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:22:13 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:52:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/07/31 11:59:57 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# define HEREDOC_BUF		3
+# define HEREDOC_BUF		4
 # define ARGV_LOCAL			10
 
 /*

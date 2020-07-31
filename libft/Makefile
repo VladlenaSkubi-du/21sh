@@ -6,7 +6,7 @@
 #    By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:34:17 by sschmele          #+#    #+#              #
-#    Updated: 2020/07/25 20:01:27 by sschmele         ###   ########.fr        #
+#    Updated: 2020/07/31 12:10:47 by sschmele         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,17 +14,6 @@ NAME = libft.a
 
 FLAGS = -Wall -Wextra -Werror
 FLAGS += -g
-
-SRCS =	$(ARROW_FUNCTIONS) \
-	$(LIST_STRUCTURE) \
-	$(TREE_FUNCTIONS) \
-	$(MALLOC_FUNCTIONS) \
-	$(MEMORY_FUNCTIONS) \
-	$(OUTPUT_FUNCTIONS) \
-	$(SORT_FUNCTIONS) \
-	$(STACK_STRUCTURE) \
-	$(STRING_FUNCTIONS) \
-	$(OTHER_FUNCTIONS)
 	
 ARROW_FUNCTIONS = ./arrow_functions/ft_arrdel.c \
 	./arrow_functions/ft_realloc_array.c \
@@ -152,10 +141,23 @@ STRING_FUNCTIONS = ./string_functions/ft_straddsy.c \
 	./string_functions/ft_strchrdiff.c \
 	./string_functions/ft_strchrcmp.c
 
-DIR_O = objs
-OBJS = $(addprefix $(DIR_O)/,$(SRCS:.c=.o))
+SRCS =	$(ARROW_FUNCTIONS) \
+	$(LIST_STRUCTURE) \
+	$(TREE_FUNCTIONS) \
+	$(MALLOC_FUNCTIONS) \
+	$(MEMORY_FUNCTIONS) \
+	$(OUTPUT_FUNCTIONS) \
+	$(SORT_FUNCTIONS) \
+	$(STACK_STRUCTURE) \
+	$(STRING_FUNCTIONS) \
+	$(OTHER_FUNCTIONS)
 
-INCLUDE = includes/libft.h
+DIR_O = objs
+
+LIB_INCLUDE_DIR = includes
+INCLUDE = $(LIB_INCLUDE_DIR)/libft.h
+
+OBJS = $(addprefix $(DIR_O)/,$(SRCS:.c=.o))
 
 #_____________________________________________________
 
@@ -186,7 +188,7 @@ $(OBJS):	$(DIR_O)/%.o: %.c $(INCLUDE)
 	@mkdir -p $(DIR_O)/stack_structure
 	@mkdir -p $(DIR_O)/string_functions
 #_____________________________________________________
-	@gcc $(FLAGS) -c -I includes -o $@ $<
+	@gcc $(FLAGS) -c -I$(LIB_INCLUDE_DIR) -o $@ $<
 
 clean:
 	@echo "\033[34mDeleting libft o-files\033[0m"
