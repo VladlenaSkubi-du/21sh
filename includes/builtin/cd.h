@@ -48,7 +48,7 @@ int					ft_cd_pars(char *path, char **env, t_cd *flags);
 ** File cd_change_path.c
 */
 
-int					ft_change_path(char *path, char **env, t_cd *flags);
+int					ft_change_path(char *path, t_cd *flags);
 
 /*
 ** File cd_new_path.c
