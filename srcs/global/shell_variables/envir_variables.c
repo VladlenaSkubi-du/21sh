@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:36:11 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:36:12 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 17:40:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,33 @@ int				exit_status_variables(int status)
 	free(final);
 	free(tmp);
 	return (0);
+}
+
+char			**form_envir_for_cmd(void)
+{
+	char		**envir;
+	int			envir_len;
+	int			i;
+	int			j;
+
+	envir_len = ENV_BUFFER;
+	envir = (char**)ft_xmalloc(sizeof(char*) * (envir_len + 1));
+	i = 0;
+	j = 0;
+	while (g_envi[i])
+	{
+		if (g_envi[i][0] && (g_envi[i][0] & ENV_VIS))
+		{
+			envir[j] = ft_strdup(g_envi[i] + 1);
+			j++;
+			if (j == envir_len)
+			{
+				envir = ft_realloc_array(&envir,
+					envir_len + 1, envir_len * 2 + 1);
+				envir_len = envir_len * 2 + 1;
+			}
+		}
+		i++;
+	}
+	return (envir);
 }

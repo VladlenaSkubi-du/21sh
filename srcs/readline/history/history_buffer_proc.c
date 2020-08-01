@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 20:02:08 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 20:02:09 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 17:56:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,12 @@ int				save_hist_buffer(int fd)
 	i = read_hist_from_file(fd);
 	g_hist.last = i - 1;
 	g_hist.counter = i;
-	g_hist.start = i;
-	g_hist.last_fc = (g_hist.last > 0) ? g_hist.last + 1 : 1;
+	g_hist.last_number = (g_hist.last > 0) ? g_hist.last + 1 : 1;
 	if (g_hist.len > MAX_HISTBUF + 1)
 		g_hist.hist = make_hist_buffer_smaller((MAX_HISTBUF > HISTORY_LIMIT) ?
 		HISTORY_LIMIT : MAX_HISTBUF);
-	if (g_hist.last_fc > HISTORY_LIMIT)
-		g_hist.last_fc = HISTORY_LIMIT;
+	if (g_hist.last_number > HISTORY_LIMIT)
+		g_hist.last_number = HISTORY_LIMIT;
 	return (0);
 }
 
@@ -88,7 +87,6 @@ char			**make_hist_buffer_smaller(int size)
 	}
 	free(g_hist.hist[g_hist.len]);
 	g_hist.len = size + 1;
-	g_hist.start = 0;
 	g_hist.last = (i > g_hist.len) ? g_hist.len - 1 : i - 1;
 	g_hist.counter = g_hist.last + 1;
 	ft_arrdel(g_hist.hist);
@@ -129,7 +127,7 @@ int				delete_last_history_element(void)
 	g_hist.hist[g_hist.last] = NULL;
 	g_hist.counter--;
 	g_hist.last--;
-	if (g_hist.last_fc < 1)
-		g_hist.last_fc = g_hist.len - 1;
+	if (g_hist.last_number < 1)
+		g_hist.last_number = g_hist.len - 1;
 	return (0);
 }

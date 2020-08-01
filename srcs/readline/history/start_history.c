@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 20:02:18 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 20:02:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 17:56:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,8 @@ void			init_history_buffer(int size)
 	g_hist.len = size;
 	g_hist.hist = (char**)ft_xmalloc(sizeof(char*) * (g_hist.len + 1));
 	g_hist.last = -1;
-	g_hist.start = 0;
 	g_hist.counter = 0;
-	g_hist.last_fc = 0;
+	g_hist.last_number = 0;
 }
 
 /*
@@ -93,9 +92,9 @@ int				add_to_history(char *cmd)
 	{
 		g_hist.last++;
 		g_hist.hist[g_hist.last] = ft_strdup(cmd);
-		g_hist.last_fc++;
-		if (g_hist.last_fc > HISTORY_LIMIT)
-			g_hist.last_fc = 1;
+		g_hist.last_number++;
+		if (g_hist.last_number > HISTORY_LIMIT)
+			g_hist.last_number = 1;
 	}
 	else if (g_prompt.prompt_func != main_prompt &&
 		g_prompt.prompt_func != heredoc_prompt && g_hist.len > 0)

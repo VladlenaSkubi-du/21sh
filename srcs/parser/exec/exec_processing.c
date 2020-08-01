@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:52:41 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/01 15:52:47 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 18:12:46 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,25 @@ int		save_streams(int mode)
 
 int		cmd_fork_and_exec(t_exec *exec, char *path, pid_t *child_pid)
 {
+	char			**local_envir;
+	
+	local_envir = form_envir_for_cmd();
 	*child_pid = fork();
 	if (!*child_pid)
 	{
-		if (execve(path, exec->argv, g_envi) == -1)
+		if (execve(path, exec->argv, local_envir) == -1)
+		{
+			ft_arrdel(local_envir);
 			exit(-1);
+		}
 	}
 	else if (*child_pid < 0)
+	{
+		ft_arrdel(local_envir);
 		return (-1);
+	}
 	pipe_asynchronous_work_exec(exec, child_pid);
+	ft_arrdel(local_envir);
 	return (0);
 }
 

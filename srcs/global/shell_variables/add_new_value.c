@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:36:51 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:36:53 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 18:08:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,43 +64,6 @@ int		add_new_env(char *name)
 	if (ft_strncmp(name, "HISTSIZE=", 9) == 0)
 		check_if_histsize_changed(g_envi[i] + 1);
 	return (i);
-}
-
-/*
-** Function needed only for parser to add visible in "env" command
-** variables to the local envaronment for each command in the shell
-** The @arr coming should be a pointer to an allocated memory
-** If there is nothing in the array coming, @size should be 0 and
-** in the *arr should be a NULL-string
-** Otherwise size should be as the number of
-** printable (not empty) lines
-*/
-
-int		form_local_envir(char ***arr, int size)
-{
-	int		i;
-	int		j;
-	char	**tmp;
-
-	i = -1;
-	j = 0;
-	tmp = *arr;
-	while (g_envi[++i])
-		if (g_envi[i][0] & ENV_VIS)
-			j++;
-	tmp = ft_realloc_array(arr, size, size + j + 1);
-	i = 0;
-	while (g_envi[i])
-	{
-		if (g_envi[i][0] && (g_envi[i][0] & ENV_VIS))
-		{
-			tmp[size] = ft_strdup(g_envi[i] + 1);
-			size++;
-		}
-		i++;
-	}
-	*arr = tmp;
-	return (0);
 }
 
 /*

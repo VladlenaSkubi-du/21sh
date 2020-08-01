@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:33:45 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:33:46 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 17:56:10 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int					btin_history(void)
 	int				tmp;
 
 	i = 0;
-	num = g_hist.last_fc - ((g_hist.last + 1 == g_hist.len) ?
+	num = g_hist.last_number - ((g_hist.last + 1 == g_hist.len) ?
 		g_hist.len - 1 : g_hist.last) + 1;
 	num += (num < 1) ? HISTORY_LIMIT : 0;
 	while (g_hist.hist[i] && i < g_hist.len)

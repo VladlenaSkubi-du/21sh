@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:24:48 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:26:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 18:10:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,17 @@
 */
 
 /*
-** @prompt_func is prompt that is valid according to some
-** readline and parser analysis
-** Can be: main, dquote, heredoc and so on
+** @t_prompt is used in interactive shell as a bunch between
+** readline and parser
+**
+** @prompt_func is function where prompt that is valid
+** according to some readline and parser analysis is
+** stated, output and length counted
+** Prompts can be: main, dquote, heredoc and other
+** @prompt_len_real is the length of prompt text that
+** should be putput
+** @prompt_len is length of prompt according to the terminal
+** length
 */
 
 typedef struct		s_prompt
@@ -75,13 +83,15 @@ typedef struct		s_prompt
 }					t_prompt;
 
 /*
+** @t_history - is a global working with history
+** in the interactive shell session
+**
 ** @hist is an array with commands (not separated by \n but
 ** separated as they came to parser)
 ** @len is the number of lines (commands) in the history
 ** @last is counter of the last command saved in the history
-** @start is a counter from which command from history file we start to
-** fill out buffer - not to rewrite the whole buffer to the file but to add
-** We need all
+** @last_number is a number that is output near the command
+** from the command list
 */
 
 typedef struct		s_history
@@ -90,16 +100,40 @@ typedef struct		s_history
 	int				len;
 	int				counter;
 	int				last;
-	int				start;
-	int				last_fc;
+	int				last_number;
 }					t_history;
 
 /*
-** @BSLASH is "\", @SCOLON is ";", @AND is "&", @DQUOTE is '"',
-** @SQUOTE is "'", @OPAREN is "(", @CPAREN is ")", @OBRACKET is "["
-** @CBRACKET is "]", @OBRACE is "{", CBRACE is "}", @DOLLAR is "$",
-** @TILDA is "~", @PIPE is "|", @GTHAN is ">", @LTHAN is "<",
-** @AST is "*", @EQUAL = "=", @ENTER is "\n", @COMENT is "#"
+** Is used in all the blocks for convenient work with
+** command interpreter syntax
+**
+** @WORD_P is for letters, "/", "_" and other signs
+** that is not analysed as syntax
+** @SPACE is " "
+** @BSLASH is "\"
+** @SCOLON is ";"
+** @AND is "&"
+** @DQUOTE is '"',
+** @SQUOTE is "'"
+** @OPAREN is "("
+** @CPAREN is ")"
+** @OBRACKET is "["
+** @CBRACKET is "]"
+** @OBRACE is "{"
+** CBRACE is "}"
+** @DOLLAR is "$",
+** @TILDA is "~"
+** @PIPE is "|"
+** @GTHAN is ">"
+** @LTHAN is "<",
+** @AST is "*"
+** @EQUAL = "="
+** @ENTER is "\n"
+** @COMMENT is "#",
+** @BANG is "!"
+** @COLON is ":",
+** @TEXT is quoted symbol
+** @END_T is end of line
 */
 
 enum				e_techline
@@ -128,14 +162,21 @@ enum				e_techline
 	COMENT,
 	BANG,
 	COLON,
-	GLUE,
 	TEXT,
 	END_T,
 };
 
 /*
-** @g_env - global variable with (char **environ) parameters
-** @g_sh_var - shell variables
+** Globals
+** ____________________________________________________________________________
+*/
+
+/*
+** @g_envi - global variable with all the shell variables
+** @g_var_size is the length of the @g_envi buffer
+** @g_prompt is the function and the prompt valid
+** @g_hist is the structure with the history valid for
+** the shell session
 */
 
 t_prompt			g_prompt;
@@ -169,6 +210,35 @@ int					suboptions_proc(char *arri, int num,
 						char *flags_arr[num], int *final);
 
 /*
+** File errors_handler.c
+*/
+
+int					error_handler(int status, char *str);
+int					error_handler_continuation(int status, char *str);
+int					variable_errors(int status, char *str);
+int					options_errors(int status, char *str);
+int					syntax_errors(int status, char *str);
+int					syntax_errors_files(int status, char *str);
+
+/*
+** File clean_all.c
+*/
+
+int					clean_everything(void);
+int					clean_readline(void);
+int					clean_parser(void);
+int					clean_termcap(void);
+
+/*
+** File signals_processing.c
+*/
+
+int					signals_reroute(int from);
+void				signal_ctrl_c_readline(int sig);
+void				signal_screen_readline(int sig);
+void				signal_ctrl_c_parser(int sig);
+
+/*
 ** Folder SHELL_VARIABLES
 ** ____________________________________________________________________________
 */
@@ -180,8 +250,8 @@ int					suboptions_proc(char *arri, int num,
 int					create_env(void);
 int					save_environment_variable(int num);
 int					save_shell_variable(int num);
-int					exit_status_variables(int status);
 int					save_readonly_variable(int num);
+char				*ft_add_rdovar(char *first, char *scnd, int flag);
 
 /*
 ** File add_new_value.c
@@ -189,7 +259,6 @@ int					save_readonly_variable(int num);
 
 char				*find_env_value(char *str);
 int					find_in_variable(int *j, char *name);
-int					form_local_envir(char ***arr, int size);
 int					add_new_env(char *name);
 int					change_env_value(char *new_val, int i);
 
@@ -198,6 +267,8 @@ int					change_env_value(char *new_val, int i);
 */
 
 int					find_in_any_variable(char **env, int *j, char *name);
+int					exit_status_variables(int status);
+char				**form_envir_for_cmd(void);
 
 /*
 ** Folder UNIX_FUNCTIONS
@@ -209,38 +280,5 @@ char				*ft_find_token_sep(char *str);
 char				*ft_make_techline(char *cmd, int len);
 char				get_tech_num(char check);
 int					ft_tmpfile(void);
-
-/*
-**_____________________________________________________________________________
-*/
-
-/*
-** File errors_handler42.c
-*/
-
-int					error_handler(int status, char *str);
-int					error_handler_continuation(int status, char *str);
-int					variable_errors(int status, char *str);
-int					options_errors(int status, char *str);
-int					syntax_errors(int status, char *str);
-int					syntax_errors_files(int status, char *str);
-
-/*
-** File clean_all42.c
-*/
-
-int					clean_everything(void);
-int					clean_readline(void);
-int					clean_parser(void);
-int					clean_termcap(void);
-
-/*
-** File signals_processing21.c
-*/
-
-int					signals_reroute(int from);
-void				signal_ctrl_c_readline(int sig);
-void				signal_screen_readline(int sig);
-void				signal_ctrl_c_parser(int sig);
 
 #endif
