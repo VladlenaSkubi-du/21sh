@@ -14,7 +14,7 @@ BUILTIN = \
 			$(BUILTIN_DIR)/history.c \
 			$(BUILTIN_DIR)/pwd.c \
 			$(BUILTIN_DIR)/unsetenv.c \
-            $(CD) \
+			$(CD) \
 			$(SETENV)
 
 CD_DIR = cd
@@ -151,29 +151,38 @@ DIR_O = objs
 
 DIR_S = srcs
 
-SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
-
-OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
-
-LIBFT = libft
-LIB_INCLUDE = $(LIBFT)/includes
-LIBFT_PATH = $(LIBFT)/libft.a
+LIB_INCLUDE_DIR = libft/includes
+LIB_PRINTF_INCLUDE_DIR = libft/ft_printf/includes
+LIB_HEADERS = $(wildcard $(LIB_INCLUDE_DIR)/*.h) $(wildcard $(LIB_PRINTF_INCLUDE_DIR)/*.h)
 
 INCLUDE_DIR = includes
 BUILTIN_INCLUDE_DIR = $(INCLUDE_DIR)/builtin
 SHARED_INCLUDE_DIR = $(INCLUDE_DIR)
 
+INCLUDES = -I$(BUILTIN_INCLUDE_DIR) -I$(SHARED_INCLUDE_DIR) -I$(LIB_INCLUDE_DIR) -I$(LIB_PRINTF_INCLUDE_DIR)
+
+SRCS = $(addprefix $(DIR_S)/,$(SOURCES))
+
+OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
+
+LIBFT = $(addsuffix .libft , libft/)
+
+%.libft:  $(LIB_HEADERS)
+		@make -C $*
+
+LIBS_INCLUDED = -Llibft -lft -ltermcap
+
 #______________________________________________________________________________
 
-all:	$(NAME)
+all:	$(LIBFT) $(NAME)
 
 $(NAME): $(OBJS)
 	@make -C ./libft
 	@echo "\033[32;01mCompiling 21sh...\033[0m"
-	@gcc $(FLAGS) $(OBJS) -o $(NAME) $(LIBFT_PATH) -ltermcap
+	@gcc $(FLAGS) $(OBJS) -o $(NAME) $(LIBS_INCLUDED)
 	@echo "\033[32;01m21sh is ready\033[0m"
 
-$(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell21.h
+$(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c $(wildcard $(BUILTIN_INCLUDE_DIR)/*.h) $(wildcard $(SHARED_INCLUDE_DIR)/*.h)
 	@mkdir -p $(DIR_O)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)
@@ -194,7 +203,7 @@ $(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c includes/shell21.h
 	@mkdir -p $(DIR_O)/$(READLINE_DIR)/$(AUTO_COMPL_DIR)
 	@mkdir -p $(DIR_O)/$(READLINE_DIR)/$(HISTORY_DIR)
 #_____________________________________________________	
-	gcc $(FLAGS) -c -I$(LIB_INCLUDE) -I$(BUILTIN_INCLUDE_DIR) -I$(SHARED_INCLUDE_DIR) -o $@ $<
+	gcc $(FLAGS) -c $(INCLUDES) -o $@ $<
 
 clean:
 	@echo "\033[34mDeleting 21sh o-files\033[0m"

@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/25 15:31:24 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/25 15:54:35 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/07/31 12:00:58 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void					ft_insertive_sort(char *s);
 /*
 ** User makes his own safety for the pop-stack function because it returns data
 ** that is int and it is impossible to return some "wrong" int to show the fail
-** Maybe one day I rewrite.
+** Maybe one day I rewrite it.
 */
 
 t_stack					*ft_init_stack(void);

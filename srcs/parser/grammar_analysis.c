@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:49:00 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:50:03 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 11:47:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ int			shift_harderror_to_last_heredoc(void)
 	t_list		*last_heredoc;
 
 	runner = g_grblks;
+	last_heredoc = NULL;
 	while (runner)
 	{
 		current_cont = (t_pblks*)runner->content;
@@ -143,6 +144,8 @@ int			shift_harderror_to_last_heredoc(void)
 			last_heredoc = runner;
 		runner = runner->next;
 	}
+	if (last_heredoc == NULL)
+		return (0);
 	current_cont = (t_pblks*)last_heredoc->content;
 	current_cont->err |= REDIR_HARD;
 	return (OUT);

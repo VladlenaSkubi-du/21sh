@@ -30,7 +30,7 @@ char	*ft_cdpath(char *path, char **env, char *res, int i)
 	char	**arr;
 	int		j;
 
-	if ((i = find_in_any_variable(env, &j, "CDPATH")) < 0 ||
+	if ((i = find_in_variable(&j, "CDPATH")) < 0 ||
 			!path || path[0] == '/')
 		return (NULL);
 	res = NULL;
@@ -61,14 +61,14 @@ int		ft_cd_env(char *path, char **env, t_cd *flags)
 
 	name = NULL;
 	name = path ? ft_strdup("OLDPWD") : ft_strdup("HOME");
-	i = find_in_any_variable(env, &j, name);
+	i = find_in_variable(&j, name);
 	free(name);
 	if (i < 0)
 		return (ft_error(NULL, (path) ? 6 : 7));
 	if (path)
 		ft_putendl(env[i] + j);
 	name = ft_strdup(env[i] + j);
-	return ((ft_change_path(name, env, flags)));
+	return ((ft_change_path(name, flags)));
 }
 
 int		ft_cd_pars(char *path, char **env, t_cd *flags)
@@ -77,7 +77,7 @@ int		ft_cd_pars(char *path, char **env, t_cd *flags)
 	char		*tmp;
 
 	if ((tmp = ft_cdpath(path, env, NULL, -1)) != NULL)
-		return (ft_change_path(tmp, env, flags));
+		return (ft_change_path(tmp, flags));
 	if (ft_strcmp(path, "-") == 0 || !path)
 		return ((ft_cd_env(path, env, flags)));
 	if (stat(path, &buff) < 0)
@@ -85,6 +85,6 @@ int		ft_cd_pars(char *path, char **env, t_cd *flags)
 	else if (!S_ISDIR(buff.st_mode))
 		return (ft_error(path, 4));
 	else
-		return (ft_change_path(ft_new_path(path, NULL), env, flags));
+		return (ft_change_path(ft_new_path(path, NULL), flags));
 	return (0);
 }

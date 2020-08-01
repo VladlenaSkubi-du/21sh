@@ -24,7 +24,7 @@ int			ft_to_dir(char *path)
 	return (0);
 }
 
-void		ft_change_pwd(char **env)
+void		ft_change_pwd(void)
 {
 	int		i;
 	int		j;
@@ -32,7 +32,7 @@ void		ft_change_pwd(char **env)
 	char	*tmp;
 
 	tmp = ft_strjoin("OLDPWD=", get_oldpwd_value());
-	if ((i = find_in_any_variable(env, &j, "OLDPWD")) >= 0)
+	if ((i = find_in_variable(&j, "OLDPWD")) >= 0)
 		change_env_value(tmp, (i = find_in_variable(&j, "OLDPWD")));
 	else
 	{
@@ -41,7 +41,7 @@ void		ft_change_pwd(char **env)
 	}
 	free(tmp);
 	tmp = ft_strjoin("PWD=", get_pwd_value());
-	if ((i = find_in_any_variable(env, &j, "PWD")) >= 0)
+	if ((i = find_in_variable(&j, "PWD")) >= 0)
 		change_env_value(tmp, (i = find_in_variable(&j, "PWD")));
 	else
 	{
@@ -51,7 +51,7 @@ void		ft_change_pwd(char **env)
 	free(tmp);
 }
 
-int			ft_change_path(char *path, char **env, t_cd *flags)
+int			ft_change_path(char *path, t_cd *flags)
 {
 	if (ft_to_dir(path))
 	{
@@ -64,7 +64,7 @@ int			ft_change_path(char *path, char **env, t_cd *flags)
 		path = getcwd(NULL, MAXDIR);
 	}
 	change_pwd_value(path);
-	ft_change_pwd(env);
+	ft_change_pwd();
 	free(path);
 	return (0);
 }

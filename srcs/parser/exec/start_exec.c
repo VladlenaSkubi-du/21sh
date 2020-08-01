@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:52:54 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/01 15:56:29 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 16:06:44 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ int			start_exec(t_exec *exec)
 
 	path = NULL;
 	child_pid = 0;
+
+	// int i = -1;
+	// while (exec->argv[++i])
+	// 	printf("olo>>%s\n", exec->argv[i]);
+	
 	if (builtins_exec(exec, 0) == -1 && !(path = path_start_exec(exec)))
 		return (clean_exec(&path, 0));
 	(exec->flag & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
