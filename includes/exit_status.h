@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:51:28 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:21:30 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 15:32:02 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,9 @@ enum						e_status
 	TERMINAL_TO_CAN,
 	HISTORY_FILE_FAIL,
 	TMPFILE,
+	PIPE_FAIL,
+	FORK_FAIL,
+	EXEC_FAIL,
 	COMMAND_NON_EXECUTABLE = 126,
 	COMMAND_NOT_FOUND,
 	SYNTAX_ERROR = 258

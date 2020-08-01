@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:22:13 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:52:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 15:52:01 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,17 +259,33 @@ int					save_heredoc_buffer(char **here_buf, int *buf_size,
 ** ____________________________________________________________________________
 */
 
+/*
+** File start_exec.c
+*/
+
 int					form_and_exec(t_pblks *pblk_cont);
 int					start_exec(t_exec *exec);
+int					clean_exec(char **path, int exit_status);
 int					builtins_exec(t_exec *exec, int flag);
-int					exec_clean(char *path, int exit_status, char *err_msg);
 int					redirection_exec(t_exec *exec, int mode);
+
+/*
+** File pathparse_exec.c
+*/
+
 char				*path_start_exec(t_exec *exec);
 char				*search_cmd_exec(char *name);
 char				*cmd_binary_path(char *env_path, char *name);
-char				*form_path(char *ret, char *env_path, char *name);
+char				*form_absolute_path(char *env_path, char *name);
+
+/*
+** File exec_processing.c
+*/
+
 int					save_streams(int mode);
 int					cmd_fork_and_exec(t_exec *exec,
 						char *path, pid_t *child_pid);
+int					pipe_asynchronous_work_exec(t_exec *exec, pid_t *child_pid);
+int					kill_pipe_processes(t_exec *exec, t_stack **stack, int *status);
 
 #endif

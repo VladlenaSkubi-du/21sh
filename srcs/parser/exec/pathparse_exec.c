@@ -1,23 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pathparse_exec.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 15:53:47 by sschmele          #+#    #+#             */
+/*   Updated: 2020/08/01 16:02:43 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell21.h"
 #include "parser.h"
 
 /*
 ** Here we should find check and return execpath
+** If the command does not exist or is not executable,
+** return will be NULL;
 */
 
 char	*path_start_exec(t_exec *exec)
 {
-	char 			*ret;
+	char			*path;
 
-	ret = NULL;
+	path = NULL;
 	if (exec->argc < 1)
 		return (NULL);
-	if (!ft_strchr(*exec->argv, '/')) /* Builtin or $PATH case */
-	{
-		if ((ret = search_cmd_exec(*exec->argv)) == 0)
-			return (NULL);
-	}
-	else /* Execution path case */
+	if (!ft_strchr(*exec->argv, '/'))
+		path = search_cmd_exec(*exec->argv);
+	else
 	{
 		if (access(*exec->argv, F_OK) == -1)
 		{
@@ -30,76 +41,86 @@ char	*path_start_exec(t_exec *exec)
 			error_handler(COMMAND_NON_EXECUTABLE, *exec->argv);
 			return (NULL);
 		}
-		ret = ft_strdup(*exec->argv);
+		path = ft_strdup(*exec->argv);
 	}
-	return (ret); /* ret could be NULL */
+	return (path);
 }
 
 /*
-** This is "just executable name case". We should check all directories in $PATH, find first match
+** This is "just executable name case". We should check
+** all directories in $PATH, find first match
 ** and check its accessibility
 */
 
 char	*search_cmd_exec(char *name)
 {
-	char			**path_array;
-	char			**to_clean;
-	char			*ret;
+	char			**path_dirs;
+	char			*path;
 	int				li;
 	int				co;
+	int				i;
 
 	li = find_in_variable(&co, "PATH");
-	if (li < 0 || ((path_array = ft_strsplit(&g_envi[li][co], ':')) == NULL) ||
-			path_array[0] == NULL)
-		return (0);
-	to_clean = path_array;
-	while (*path_array)
+	if (li < 0 || ((path_dirs = ft_strsplit(&g_envi[li][co], ':')) == NULL) ||
+			path_dirs[0] == NULL)
+		return (NULL);
+	i = -1;
+	while (path_dirs[++i])
 	{
-		ret = cmd_binary_path(*path_array, name);
-		if (ret)
-			break;
-		path_array++;
+		path = cmd_binary_path(path_dirs[i], name);
+		if (path)
+			break ;
 	}
-	ft_arrdel(to_clean);
-	if (!ret)
+	ft_arrdel(path_dirs);
+	if (path == NULL)
+	{
 		error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
-	return (ret);  /* Returns zero if we did not find anything */
+		return (NULL);
+	}
+	return (path);
 }
 
-char	*cmd_binary_path(char *env_path, char *name)
+/*
+** We plus two to a @path string because we need to
+** add "/" and a NULL
+*/
+
+char	*cmd_binary_path(char *cmd_dir, char *name)
 {
 	struct dirent	*entity;
-	char			*ret;
-	DIR				*path;
+	char			*path;
+	DIR				*directory;
 
-	ret = 0;
-	path = opendir(env_path);
-	if (path == NULL)
+	path = NULL;
+	directory = opendir(cmd_dir);
+	if (directory == NULL)
 		return (NULL);
-	while ((entity = readdir(path)))
+	while ((entity = readdir(directory)))
 	{
 		if (ft_strcmp(entity->d_name, name) == 0)
 		{
-			ret = (char*)ft_xmalloc(ft_strlen(env_path) + ft_strlen(name) + 2);
-			ret = form_path(ret, env_path, name);
-			if (ret)
-				break;
+			path = form_absolute_path(cmd_dir, name);
+			if (path)
+				break ;
 		}
 	}
-	closedir(path);
-	return (ret);
+	closedir(directory);
+	return (path);
 }
 
-char	*form_path(char *ret, char *env_path, char *name)
+char	*form_absolute_path(char *cmd_dir, char *name)
 {
-	ft_strcpy(ret, env_path);
-	ft_strcat(ret, "/");
-	ft_strcat(ret, name);
-	if (access(ret, X_OK) == -1)
+	char			*path;
+
+	path = (char*)ft_xmalloc(ft_strlen(cmd_dir) + ft_strlen(name) + 2);
+	ft_strcpy(path, cmd_dir);
+	ft_strcat(path, "/");
+	ft_strcat(path, name);
+	if (access(path, X_OK) == -1)
 	{
 		error_handler(COMMAND_NON_EXECUTABLE, name);
-		free(ret);
-		ret = 0;
+		free(path);
+		return (NULL);
 	}
-	return (ret);
+	return (path);
 }

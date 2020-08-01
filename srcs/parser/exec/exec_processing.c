@@ -1,13 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_processing.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 15:52:41 by sschmele          #+#    #+#             */
+/*   Updated: 2020/08/01 15:52:47 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell21.h"
 #include "parser.h"
 
-/*
-** Delete pipe process and simplify, leaving only dealing with EXECPATH
-*/
-
 int		save_streams(int mode)
 {
-	static int	save[3];
+	static int		save[3];
 
 	if (!mode)
 	{
@@ -33,7 +41,49 @@ int		cmd_fork_and_exec(t_exec *exec, char *path, pid_t *child_pid)
 			exit(-1);
 	}
 	else if (*child_pid < 0)
-		return (exec_clean(path, -1, "21sh: Fork failed")); //error_handler
-	wait(child_pid);
+		return (-1);
+	pipe_asynchronous_work_exec(exec, child_pid);
+	return (0);
+}
+
+int		pipe_asynchronous_work_exec(t_exec *exec, pid_t *child_pid)
+{
+	static t_stack	*stack;
+	int				status;
+	pid_t			pid_answer;
+
+	status = 0;
+	if (!(exec->flag & PIPED_OUT))
+	{
+		pid_answer = waitpid(*child_pid, &status, 0);
+		if (pid_answer != *child_pid)
+			status = -1;
+	}
+	else
+	{
+		if (!stack)
+			stack = ft_init_stack();
+		ft_push_stack(&stack, *child_pid);
+	}
+	kill_pipe_processes(exec, &stack, &status);
+	*child_pid = status;
+	return (0);
+}
+
+int		kill_pipe_processes(t_exec *exec, t_stack **stack, int *status)
+{
+	if (!(exec->flag & PIPED_OUT) && (exec->flag & PIPED_IN))
+	{
+		if (*stack)
+		{
+			while ((*stack)->data != 0)
+			{
+				kill((*stack)->data, SIGKILL);
+				waitpid((*stack)->data, status, 0);
+				ft_pop_stack(stack);
+			}
+			ft_clear_stack(stack);
+		}
+	}
 	return (0);
 }

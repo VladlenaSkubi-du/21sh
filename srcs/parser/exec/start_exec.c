@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   start_exec.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/08/01 15:52:54 by sschmele          #+#    #+#             */
+/*   Updated: 2020/08/01 15:56:29 by sschmele         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "shell21.h"
 #include "parser.h"
 
@@ -20,7 +32,7 @@ int			form_and_exec(t_pblks *pblk_cont)
 	return (0);
 }
 
-int			start_exec(t_exec *exec) //30 строк
+int			start_exec(t_exec *exec)
 {
 	pid_t			child_pid;
 	char			*path;
@@ -29,28 +41,37 @@ int			start_exec(t_exec *exec) //30 строк
 
 	path = NULL;
 	child_pid = 0;
-	save_streams(0);
 	if (builtins_exec(exec, 0) == -1 && !(path = path_start_exec(exec)))
-	{
-		close(pipe_next[1]);
-		save_streams(1);
-		return (exec_clean(path, -1, 0));
-	}
+		return (clean_exec(&path, 0));
 	(exec->flag & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
 	if ((exec->flag & PIPED_OUT) && pipe(pipe_next) == -1)
-		return (exec_clean(path, -1, "21sh: Pipe failed")); //через hadler
-	redirection_exec(exec, 0);
+		return (clean_exec(&path, PIPE_FAIL));
+	save_streams(0);
 	(exec->flag & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
 	(exec->flag & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
-	child_pid = 0;
+	redirection_exec(exec, 0);
 	if (builtins_exec(exec, 1) == -1 &&
-			cmd_fork_and_exec(exec, path, &child_pid) == -1)
-		return (-1);
+			cmd_fork_and_exec(exec, path, &child_pid) < 0)
+		return (clean_exec(&path, FORK_FAIL));
 	(exec->flag & PIPED_OUT) ? close(pipe_next[1]) : 0;
 	(exec->flag & PIPED_IN) ? close(pipe_prev) : 0;
 	redirection_exec(exec, 1);
-	return (exec_clean(path, WIFEXITED(child_pid) ?
-		WEXITSTATUS(child_pid) : (-1), 0));
+	return (clean_exec(&path, (WIFEXITED(child_pid) ?
+		WEXITSTATUS(child_pid) : EXEC_FAIL)));
+}
+
+int			clean_exec(char **path, int exit_status)
+{
+	free(*path);
+	(*path) = NULL;
+	if (exit_status == PIPE_FAIL)
+		error_handler(PIPE_FAIL, NULL);
+	else if (exit_status == FORK_FAIL)
+		error_handler(FORK_FAIL, NULL);
+	else if (exit_status == EXEC_FAIL)
+		error_handler(EXEC_FAIL, NULL);
+	exit_status = btin_return_exit_status();
+	return (exit_status);
 }
 
 int			builtins_exec(t_exec *exec, int flag)
@@ -82,32 +103,17 @@ int			builtins_exec(t_exec *exec, int flag)
 	return (-1);
 }
 
-/*
-** consider changing architecture to... well, something else
-*/
-
-int			exec_clean(char *path, int exit_status, char *err_msg) //думаю, вообще может быть удалено
-{
-	if (path)
-		exit_status_variables(exit_status);
-	free(path);
-	if (err_msg) //cделать вывод не через эту функцию, а через error_handler
-		ft_putendl_fd(err_msg, STDERR_FILENO);  //если что, Леша должен был исправить в 42
-	return (exit_status);
-}
-
 int			redirection_exec(t_exec *exec, int mode)
 {
 	t_list			*fd_runner;
 	t_fd			*fd_cont;
 
-	fd_runner = exec->fd;
 	if (mode)
 	{
 		save_streams(1);
 		return (0);
 	}
-	save_streams(0);
+	fd_runner = exec->fd;
 	while (fd_runner)
 	{
 		fd_cont = (t_fd*)fd_runner->content;

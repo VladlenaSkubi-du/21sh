@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:36:24 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:36:25 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 16:04:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int				clean_everything(void)
 	ft_arrdel(g_hist.hist);
 	ft_arrdel(g_builtins);
 	ft_arrdel(g_envi);
+	cd_free_static();
 	ft_gnl(GNL_CLEAN, NULL);
 	return (0);
 }

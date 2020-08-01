@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:36:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:41:10 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 15:32:40 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,12 @@ int				error_handler(int status, char *str)
 			STDERR_FILENO);
 	else if ((status & 0xFF) == TMPFILE)
 		ft_putendl_fd("can't open a temporal file", STDERR_FILENO);
+	else if ((status & 0xFF) == PIPE_FAIL)
+		ft_putendl_fd("pipe failed", STDERR_FILENO);
+	else if ((status & 0xFF) == FORK_FAIL)
+		ft_putendl_fd("fork failed", STDERR_FILENO);
+	else if ((status & 0xFF) == EXEC_FAIL)
+		ft_putendl_fd("execution can not be done", STDERR_FILENO);
 	else if ((status & 0x1FF) == SUCCESS)
 		ft_putstr_fd(str, STDERR_FILENO);
 	else
