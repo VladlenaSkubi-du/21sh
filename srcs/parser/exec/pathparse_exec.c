@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:53:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/01 16:02:43 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 18:22:51 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ char	*search_cmd_exec(char *name)
 	li = find_in_variable(&co, "PATH");
 	if (li < 0 || ((path_dirs = ft_strsplit(&g_envi[li][co], ':')) == NULL) ||
 			path_dirs[0] == NULL)
+	{
+		error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
 		return (NULL);
+	}
 	i = -1;
 	while (path_dirs[++i])
 	{

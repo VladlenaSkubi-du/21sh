@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:52:54 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/01 17:06:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 18:40:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int			clean_exec(char **path, int exit_status)
 		error_handler(PIPE_FAIL, NULL);
 	else if (exit_status == FORK_FAIL)
 		error_handler(FORK_FAIL, NULL);
-	else if (exit_status == EXEC_FAIL)
-		error_handler(EXEC_FAIL, NULL);
 	exit_status = btin_return_exit_status();
 	return (exit_status);
 }
