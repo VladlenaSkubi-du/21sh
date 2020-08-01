@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:22:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:23:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 17:17:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ typedef struct			s_cap
 }						t_cap;
 
 /*
-** @t_complition is for the auto-completion part
+** @t_compl_output is for the auto-completion output part
+** Only for auto-completion
 **
 ** @buffer - the menu-buffer (all the options for completion)
 ** @buf_lines - how many lines the menu buffer consists of after
@@ -103,11 +104,19 @@ typedef struct			s_compl_output
 }						t_compl_output;
 
 /*
-** @g_tablevel is a counter according to that we complete this or that line
-** from the g_menu
-** @g_complete - is a string, according to which we search
-** options for completion. Can be empty if TAB is pushed before any other key
-** @g_menu - the full menu for completion, all the possible options
+** @t_compl is for the auto-completion part
+**
+** @to_compl - letters or words that you need to complete
+** @len_tocompl - length of to_compl
+** @menu - the arry of all the options possible for auto-completion
+** @total - the number of options possible for auto-completion
+** @tablevel is a counter according to that we complete this or that line
+** from the @menu_buffer, the counter of what time the user presses TAB
+** @to_del - letters that were added to @to_compl to finish the option
+** if the user does not like the option, @to_del letters are cleared
+** and new option is input
+** @menu_buffer - the full menu for completion, all the possible options
+** prepared to be output according to the terminal wisth and length
 */
 
 typedef struct			s_compl
@@ -122,7 +131,7 @@ typedef struct			s_compl
 }						t_compl;
 
 /*
-** Is the binary-tree for the auto-comletion to use
+** Is the binary-tree for the auto-completion to use
 */
 
 typedef struct			s_pathtree
@@ -189,8 +198,7 @@ int						position_cursor(char *cap, int x, int y);
 int						init_termcap(void);
 
 /*
-** File str_edit.c - universal functions for changing the main command-string
-** and dealing with other global-parameters of the command string
+** File str_edit.c
 */
 
 int						char_add(char c, char *color);
@@ -201,8 +209,7 @@ int						front_set_cursor_jmp(int *pos, int *pos_x,
 							int *pos_y, int flag);
 
 /*
-** File escape.c - router to the functions performing actions with
-** escape-sequences
+** File escape.c
 */
 
 int						escape_init(void);
@@ -230,8 +237,7 @@ int						front_move_one_char_right(int pos_x);
 int						front_move_one_char_left(int pos_x);
 
 /*
-** File cursor_position.c - operations to get the termcap cursor postion
-** and move it after actions
+** File cursor_position.c
 */
 
 int						count_x_position_new_line(int nl_pos);
@@ -391,7 +397,7 @@ int						position_cursor_after_menu_back(int len_x, int len_y,
 							int buf_lines, int pos_back);
 
 /*
-** File question_if_many_compl.c and also a small function (because of norm)
+** File question_if_many_compl.c
 */
 
 int						ask_output(int total, int buf_lines,
