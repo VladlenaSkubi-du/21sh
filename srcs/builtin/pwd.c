@@ -63,11 +63,9 @@ int		btin_pwd(t_exec *exec)
 		return (1);
 	flags = ft_xmalloc(sizeof(t_cd *));
 	i = ft_cd_flags(exec->argv, flags);
-	if (flags->l)
-	{
-		i = find_in_variable(&j, "PWD");
+	i = find_in_variable(&j, "PWD");
+	if (flags->l && i >= 0)
 		ft_putstr(g_envi[i] + j);
-	}
 	else
 	{
 		getcwd(dir, MAXDIR);
