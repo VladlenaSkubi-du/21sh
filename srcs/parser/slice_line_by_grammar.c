@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:58:38 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:58:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 17:17:46 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int			slice_by_scolons(void)
 	g_grblks = create_new_list();
 	new_block = g_grblks;
 	i = -1;
-	while (g_pline->tech[++i] != END_T)
+	while (++i < g_pline->len_tech - 1)
 		if (g_pline->tech[i] == SCOLON)
 		{
 			ptr_block_cont = new_block->content;
@@ -45,7 +45,7 @@ int			slice_by_scolons(void)
 			ptr_block_cont->beg = i + 1;
 		}
 	ptr_block_cont = new_block->content;
-	ptr_block_cont->end = i;
+	ptr_block_cont->end = i - 1;
 	return (0);
 }
 

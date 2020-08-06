@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:22:13 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/01 16:05:54 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 17:39:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int					slice_by_pipes(t_list **current, int beg, int end,
 ** File quote_control.c
 */
 
-int					start_quotes(char *techline);
+int					start_quotes(char *techline, int len_tech);
 int					quotes_make_text_inside(t_stack **stack,
 						int i, char *techline);
 int					quotes_define_prompts(t_stack **stack);

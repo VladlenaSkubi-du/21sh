@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:48:27 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/06 12:49:45 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 18:06:28 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ int			tilda_expansion(t_cmd **cmd_part)
 {
 	int		i;
 	char	*find;
-	int		li;
-	int		sy;
+	char	*env_home;
 
 	i = -1;
-	while (++i < (*cmd_part)->len_tech)
+	while (++i < (*cmd_part)->len_tech - 1)
 	{
 		if ((*cmd_part)->tech[i] == TILDA &&
 				((*cmd_part)->tech[i + 1] == SPACE ||
@@ -29,10 +28,10 @@ int			tilda_expansion(t_cmd **cmd_part)
 				(*cmd_part)->tech[i + 1] == ENTER ||
 				(*cmd_part)->tech[i + 1] == END_T))
 		{
-			if ((li = find_in_variable(&sy, "HOME")) < 0)
+			if ((env_home = find_env_value("HOME")) == NULL)
 				find = home_from_etcpasswd();
 			else
-				find = ft_strdup(&g_envi[li][sy]);
+				find = ft_strdup(env_home);
 			if (find == NULL)
 				return (0);
 			delete_or_insert_to_pline(cmd_part, i + 1, -1);
@@ -94,7 +93,7 @@ int			dollar_expansion_loop(t_cmd **lcmd)
 	char	*find;
 
 	i = -1;
-	while (++i < (*lcmd)->len_tech)
+	while (++i < (*lcmd)->len_tech - 1)
 	{
 		if ((*lcmd)->tech[i] == DOLLAR && (*lcmd)->tech[i + 1] == DOLLAR)
 		{

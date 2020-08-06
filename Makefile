@@ -182,7 +182,8 @@ $(NAME): $(OBJS)
 	@gcc $(FLAGS) $(OBJS) -o $(NAME) $(LIBS_INCLUDED)
 	@echo "\033[32;01m21sh is ready\033[0m"
 
-$(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c $(wildcard $(BUILTIN_INCLUDE_DIR)/*.h) $(wildcard $(SHARED_INCLUDE_DIR)/*.h)
+$(OBJS): $(DIR_O)/%.o: $(DIR_S)/%.c $(wildcard $(BUILTIN_INCLUDE_DIR)/*.h) \
+									$(wildcard $(SHARED_INCLUDE_DIR)/*.h)
 	@mkdir -p $(DIR_O)
 #_____________________________________________________
 	@mkdir -p $(DIR_O)/$(BUILTIN_DIR)

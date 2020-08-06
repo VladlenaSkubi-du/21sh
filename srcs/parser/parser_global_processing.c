@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:50:44 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:52:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 18:49:54 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,11 @@ t_cmd			*make_new_parser_line(char *line, char *techline,
 	len_cmd = ft_strlen(parser->cmd);
 	parser->tech = (char*)ft_xmalloc(len_cmd + 2);
 	i = -1;
-	while (++i < end - start)
+	while (++i < end - start && i < len_cmd)
 	{
-		if (techline[start + i] == TEXT)
+		if (techline[start + i] == END_T)
+			break ;
+		else if (techline[start + i] == TEXT)
 			parser->tech[i] = TEXT;
 		else
 			parser->tech[i] = get_tech_num(parser->cmd[i]);

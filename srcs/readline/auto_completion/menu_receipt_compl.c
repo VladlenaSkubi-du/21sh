@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 20:00:58 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 20:01:46 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 16:23:23 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char				**get_arguments(char **complete,
 	int				tmp;
 	t_pathtree		*root;
 
-	tmp = ft_strchri(*complete, '/');
+	tmp = ft_strrchri(*complete, '/');
 	path = find_path_compl(*complete, tmp);
 	compl = (tmp >= 0 && tmp < (int)ft_strlen(*complete))
 		? ft_strdup(*complete + tmp + 1) : ft_strdup(*complete);

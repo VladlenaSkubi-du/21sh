@@ -6,21 +6,21 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:58:32 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:58:33 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 17:39:29 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "shell21.h"
 #include "parser.h"
 
-int			start_quotes(char *techline)
+int			start_quotes(char *techline, int len_tech)
 {
 	t_stack		*stack;
 	int			i;
 
 	stack = ft_init_stack();
 	i = -1;
-	while (techline[++i] != END_T)
+	while (++i < len_tech - 1)
 	{
 		if (g_prompt.prompt_func != heredoc_prompt && techline[i] == EOF)
 			ft_push_stack(&stack, EOF);

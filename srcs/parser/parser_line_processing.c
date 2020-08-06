@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:51:00 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/06 12:51:24 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 18:42:47 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,22 @@ void			free_parser_line(t_cmd **pline)
 int				delete_or_insert_to_pline(t_cmd **pline,
 					int i, int num)
 {
-	ft_strshift((*pline)->cmd + i, num);
-	ft_strshift((*pline)->tech + i, num);
+	if ((*pline)->tech[i] == END_T && num < 0)
+	{
+		i--;
+		while (num)
+		{
+			(*pline)->cmd[i] = '\0';
+			(*pline)->tech[i] = '\0';
+			i--;
+			num++;
+		}
+	}
+	else
+	{
+		ft_strshift((*pline)->cmd + i, num);
+		ft_strshift((*pline)->tech + i, num);
+	}
 	(*pline)->len_tech += num;
 	return (0);
 }

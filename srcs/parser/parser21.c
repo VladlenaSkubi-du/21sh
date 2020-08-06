@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:52:58 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/06 16:12:21 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 17:39:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int			parser_if_heredoc(void)
 int			parser_if_mainprompt(void)
 {
 	g_herenum = 0;
-	if (start_quotes(g_pline->tech) != OUT)
+	if (start_quotes(g_pline->tech, g_pline->len_tech) != OUT)
 	{
 		slice_by_scolons();
 		slice_by_pipes_cycle();
