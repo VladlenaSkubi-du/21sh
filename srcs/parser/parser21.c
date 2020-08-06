@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:52:58 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/01 19:24:13 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 16:12:21 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int			parser_if_mainprompt(void)
 			clean_parser();
 			return (OUT);
 		}
-			// print_all_lists(); //DELETE
 		prepare_and_exec();
 		free_parser_blocks_all(&g_grblks);
 	}

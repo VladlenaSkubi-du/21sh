@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:48:27 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/06 10:27:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 12:49:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int			dollar_expansion_loop(t_cmd **lcmd)
 		else if ((*lcmd)->tech[i] == DOLLAR && (*lcmd)->tech[i + 1] == WORD_P)
 		{
 			start = i + 1;
-			while (++i < (*lcmd)->len_tech && (*lcmd)->tech[i] == WORD_P)
+			while (++i < (*lcmd)->len_tech && ft_isalnum((*lcmd)->cmd[i]))
 				;
 			find = ft_strndup((*lcmd)->cmd + start, i - start);
 			delete_or_insert_to_pline(lcmd, i, start - i - 1);
