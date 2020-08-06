@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:53:38 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/01 17:28:37 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 16:12:33 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,10 @@ int			prepare_and_exec(void)
 		ptr_lcmd = pblk_cont->lcmd;
 		if (ptr_lcmd->len_tech > 1)
 		{
-				// print_techline(ptr_lcmd->cmd, ptr_lcmd->tech, ptr_lcmd->len_tech);
 			tilda_expansion(&ptr_lcmd);
 			dollar_expansion(&ptr_lcmd, NULL);
 			pblk_cont->lcmd = ptr_lcmd;
 		}
-			// printf("Before form and exec\n");
-			// print_all_lists();
 		pblk_hered->content = pblk_cont;
 		form_and_exec(pblk_cont);
 		pblk_hered = pblk_hered->next;
@@ -105,7 +102,6 @@ char		**form_argv(t_cmd *lcmd, int *eargc, int len)
 	int			j;
 
 	args = (char**)ft_xmalloc(sizeof(char*) * (len + 1));
-		// print_techline(lcmd->cmd, lcmd->tech, lcmd->len_tech);
 	i = 0;
 	j = 0;
 	while (i < lcmd->len_tech - 1)
