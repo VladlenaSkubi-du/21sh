@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:49:00 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/01 11:47:40 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/01 21:33:48 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,10 @@ int			shift_harderror_to_last_heredoc(void)
 		runner = runner->next;
 	}
 	if (last_heredoc == NULL)
+	{
+		error_handler(SYNTAX_ERROR | ERR_REDIR << 9, NULL);
 		return (0);
+	}
 	current_cont = (t_pblks*)last_heredoc->content;
 	current_cont->err |= REDIR_HARD;
 	return (OUT);

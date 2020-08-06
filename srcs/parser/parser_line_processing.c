@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:51:00 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:52:11 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 10:24:42 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int				expansion_pline_processing(t_cmd **lcmd, int *i,
 	free(find);
 	free_parser_line(lcmd);
 	*lcmd = init_parser_line(old_cmd);
-	*i = start - 1 + len;
+	*i = start - 1 + len - 1;
 	return (0);
 }
 

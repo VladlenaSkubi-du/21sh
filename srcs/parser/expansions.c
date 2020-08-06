@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:48:27 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/01 17:31:08 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/06 10:27:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int			tilda_expansion(t_cmd **cmd_part)
 	{
 		if ((*cmd_part)->tech[i] == TILDA &&
 				((*cmd_part)->tech[i + 1] == SPACE ||
+				(*cmd_part)->cmd[i + 1] == '/' ||
 				(*cmd_part)->tech[i + 1] == ENTER ||
-				(*cmd_part)->tech[i + 1] == WORD_P ||
 				(*cmd_part)->tech[i + 1] == END_T))
 		{
 			if ((li = find_in_variable(&sy, "HOME")) < 0)
