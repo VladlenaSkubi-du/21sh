@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:52:54 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/06 18:57:50 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/07 21:40:47 by kfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,24 @@ int			start_exec(t_exec *exec)
 {
 	pid_t			child_pid;
 	char			*path;
-	static int		pipe_prev;
-	static int		pipe_next[2];
+	static int		fd[3];
 
-	// int i=-1;
-	// while (exec->argv[++i])
-	// 	printf("olo>>%s\n", exec->argv[i]);
+	 int i=-1;
+	 while (exec->argv[++i])
+	 	printf("olo>>%s\n", exec->argv[i]);
 	
 	path = NULL;
 	child_pid = 0;
 	if (builtins_exec(exec, 0) == -1 && !(path = path_start_exec(exec)))
 		return (clean_exec(&path, 0));
-	(exec->flag & PIPED_IN) ? (pipe_prev = pipe_next[0]) : 0;
-	if ((exec->flag & PIPED_OUT) && pipe(pipe_next) == -1)
+	(exec->flag & PIPED_IN) ? fd[0] = fd[1] : 0;
+	if ((exec->flag & PIPED_OUT) && pipe(&fd[1]) == -1)
 		return (clean_exec(&path, PIPE_FAIL));
 	save_streams(0);
-	(exec->flag & PIPED_OUT) ? dup2(pipe_next[1], 1) : 0;
-	(exec->flag & PIPED_IN) ? dup2(pipe_prev, 0) : 0;
-	redirection_exec(exec, 0);
-	if (builtins_exec(exec, 1) == -1 &&
-			cmd_fork_and_exec(exec, path, &child_pid) < 0)
-		return (clean_exec(&path, FORK_FAIL));
-	(exec->flag & PIPED_OUT) ? close(pipe_next[1]) : 0;
-	(exec->flag & PIPED_IN) ? close(pipe_prev) : 0;
+	if ((exec->flag & PIPED_OUT) || (exec->flag & PIPED_IN))
+		cmd_fork_and_exec(exec, path, &child_pid, fd);
+	else if (builtins_exec(exec, 1) == -1)
+		cmd_fork_and_exec(exec, path, &child_pid, fd);
 	redirection_exec(exec, 1);
 	return (clean_exec(&path, (WIFEXITED(child_pid) ?
 		WEXITSTATUS(child_pid) : EXEC_FAIL)));

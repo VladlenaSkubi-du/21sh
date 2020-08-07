@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:22:13 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/06 17:39:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/07 21:08:57 by kfalia-f         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,7 +284,8 @@ char				*form_absolute_path(char *env_path, char *name);
 
 int					save_streams(int mode);
 int					cmd_fork_and_exec(t_exec *exec,
-						char *path, pid_t *child_pid);
+						char *path, pid_t *child_pid, int fd[3]);
+void				fork_cmd(t_exec *exec, char *path, int fd[3], char **local_envir);
 int					pipe_asynchronous_work_exec(t_exec *exec, pid_t *child_pid);
 int					kill_pipe_processes(t_exec *exec, t_stack **stack, int *status);
 
