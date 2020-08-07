@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:52:41 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/07 21:12:39 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/07 22:22:55 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,14 @@ int		cmd_fork_and_exec(t_exec *exec, char *path,
 		ft_arrdel(local_envir);
 		return (clean_exec(&path, FORK_FAIL));
 	}
-	if (exec->flag & PIPED_OUT)
-		close(fd[2]);
-	if (exec->flag & PIPED_IN)
-		close(fd[0]);
+	else if (*child_pid > 0)
+		signal(SIGINT, SIG_IGN);
 	pipe_asynchronous_work_exec(exec, child_pid);
 	ft_arrdel(local_envir);
 	return (0);
 }
 
-void	fork_cmd(t_exec *exec, char *path, int fd[3], char **local_envir)
+int		fork_cmd(t_exec *exec, char *path, int fd[3], char **local_envir)
 {
 	if ((exec->flag & PIPED_OUT) && !(exec->flag & PIPED_IN))
 	{
@@ -81,6 +79,7 @@ void	fork_cmd(t_exec *exec, char *path, int fd[3], char **local_envir)
 	}
 	if (execve(path, exec->argv, local_envir) == -1)
 		exit(-1);
+	return (0);
 }
 
 
@@ -105,6 +104,7 @@ int		pipe_asynchronous_work_exec(t_exec *exec, pid_t *child_pid)
 	}
 	kill_pipe_processes(exec, &stack, &status);
 	*child_pid = status;
+	signal(SIGINT, signal_ctrl_c_parser);
 	return (0);
 }
 

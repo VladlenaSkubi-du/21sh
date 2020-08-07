@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:52:54 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/07 21:40:47 by kfalia-f         ###   ########.fr       */
+/*   Updated: 2020/08/07 22:51:39 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,11 @@ int			start_exec(t_exec *exec)
 	char			*path;
 	static int		fd[3];
 
-	 int i=-1;
-	 while (exec->argv[++i])
-	 	printf("olo>>%s\n", exec->argv[i]);
+	// int i=-1;
+	// while (exec->argv[++i])
+	//  	printf("olo>>%s\n", exec->argv[i]);
 	
+	// print_all_lists();
 	path = NULL;
 	child_pid = 0;
 	if (builtins_exec(exec, 0) == -1 && !(path = path_start_exec(exec)))
@@ -54,6 +55,10 @@ int			start_exec(t_exec *exec)
 		cmd_fork_and_exec(exec, path, &child_pid, fd);
 	else if (builtins_exec(exec, 1) == -1)
 		cmd_fork_and_exec(exec, path, &child_pid, fd);
+	if (exec->flag & PIPED_OUT)
+		close(fd[2]);
+	if (exec->flag & PIPED_IN)
+		close(fd[0]);
 	redirection_exec(exec, 1);
 	return (clean_exec(&path, (WIFEXITED(child_pid) ?
 		WEXITSTATUS(child_pid) : EXEC_FAIL)));
@@ -85,11 +90,15 @@ int			builtins_exec(t_exec *exec, int flag)
 		{
 			if (flag && i < 1)
 			{
+				if (!(exec->flag & PIPED_IN) && !(exec->flag & PIPED_OUT))
+					redirection_exec(exec, 0);
 				tmp = builtins_call_void(i);
 				exit_status_variables(tmp);
 			}
 			else if (flag && i >= 1)
 			{
+				if (!(exec->flag & PIPED_IN) && !(exec->flag & PIPED_OUT))
+					redirection_exec(exec, 0);
 				tmp = builtins_call(i, exec);
 				exit_status_variables(tmp);
 			}
