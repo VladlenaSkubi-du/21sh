@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:43:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/12 20:59:00 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/12 21:31:36 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,9 @@ int				activate_redir_error(t_pblks **current_cont, t_fd fd_inout)
 		ptr_lcmd->tech[i] = '\0';
 		i++;
 	}
-	if (fd_inout.flag & REDIR_SOFT || (fd_inout.flag & REDIR_HARD))
+	if ((fd_inout.flag & REDIR_SOFT) && !(*current_cont)->flag)
+		(*current_cont)->err |= REDIR_SOFT;
+	else
 	{
 		(*current_cont)->err |= REDIR_HARD;
 		free_fdredir_except_heredoc(current_cont);
