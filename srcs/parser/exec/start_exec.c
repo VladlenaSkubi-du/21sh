@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:52:54 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/12 21:05:18 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/12 21:51:37 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,6 @@ int			start_exec(t_exec *exec)
 	char			*path;
 	static int		fd[3];
 
-	// int i=-1;
-	// while (exec->argv[++i])
-	//  	printf("olo>>%s\n", exec->argv[i]);
-	
-	// print_all_lists();
 	path = NULL;
 	child_pid = 0;
 	if (builtins_exec(exec, 0) == -1 && !(path = path_start_exec(exec)))
@@ -79,7 +74,6 @@ int			clean_exec(char **path, int exit_status)
 int			builtins_exec(t_exec *exec, int flag)
 {
 	int				i;
-	int				tmp;
 
 	i = 0;
 	if (exec->argv == NULL)
@@ -89,19 +83,9 @@ int			builtins_exec(t_exec *exec, int flag)
 		if (!ft_strcmp(exec->argv[0], g_builtins[i]))
 		{
 			if (flag && i < 1)
-			{
-				if (!(exec->flag & PIPED_IN) && !(exec->flag & PIPED_OUT))
-					redirection_exec(exec, 0);
-				tmp = builtins_call_void(i);
-				exit_status_variables(tmp);
-			}
+				builtins_exec_exec_init(exec, &i, 0);
 			else if (flag && i >= 1)
-			{
-				if (!(exec->flag & PIPED_IN) && !(exec->flag & PIPED_OUT))
-					redirection_exec(exec, 0);
-				tmp = builtins_call(i, exec);
-				exit_status_variables(tmp);
-			}
+				builtins_exec_exec_init(exec, &i, 1);
 			return (i);
 		}
 		i++;

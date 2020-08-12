@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:22:13 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/07 22:23:07 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/12 21:52:28 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,6 +277,7 @@ char				*path_start_exec(t_exec *exec);
 char				*search_cmd_exec(char *name);
 char				*cmd_binary_path(char *env_path, char *name);
 char				*form_absolute_path(char *env_path, char *name);
+int					builtins_exec_exec_init(t_exec *exec, int *i, int flag);
 
 /*
 ** File exec_processing.c
@@ -285,8 +286,10 @@ char				*form_absolute_path(char *env_path, char *name);
 int					save_streams(int mode);
 int					cmd_fork_and_exec(t_exec *exec,
 						char *path, pid_t *child_pid, int fd[3]);
-int					fork_cmd(t_exec *exec, char *path, int fd[3], char **local_envir);
+int					fork_cmd(t_exec *exec, char *path,
+						int fd[3], char **local_envir);
 int					pipe_asynchronous_work_exec(t_exec *exec, pid_t *child_pid);
-int					kill_pipe_processes(t_exec *exec, t_stack **stack, int *status);
+int					kill_pipe_processes(t_exec *exec,
+						t_stack **stack, int *status);
 
 #endif

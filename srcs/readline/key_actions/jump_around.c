@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 20:03:14 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/07 20:22:17 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/12 22:04:56 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ int			make_ctrl_a(void)
 	int				pos_old;
 
 	check_after_line();
-	if (g_rline.cmd_len == 0 || g_rline.pos <= 0 || g_rline.pos > g_rline.cmd_len)
+	if (g_rline.cmd_len == 0 || g_rline.pos <= 0 ||
+			g_rline.pos > g_rline.cmd_len)
 		return (0);
 	pos_old = 0;
 	move_cursor_from_old_position(pos_old, 'l');
@@ -85,7 +86,8 @@ int			make_ctrl_e(void)
 	int				pos_old;
 
 	check_after_line();
-	if (g_rline.cmd_len == 0 || g_rline.pos < 0 || g_rline.pos > g_rline.cmd_len)
+	if (g_rline.cmd_len == 0 || g_rline.pos < 0 ||
+			g_rline.pos > g_rline.cmd_len)
 		return (0);
 	pos_old = g_rline.cmd_len - 1;
 	if (g_rline.pos < g_rline.cmd_len)

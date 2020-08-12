@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:53:47 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/01 18:22:51 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/12 22:03:45 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,11 @@ char	*search_cmd_exec(char *name)
 {
 	char			**path_dirs;
 	char			*path;
-	int				li;
-	int				co;
+	char			*path_env;
 	int				i;
 
-	li = find_in_variable(&co, "PATH");
-	if (li < 0 || ((path_dirs = ft_strsplit(&g_envi[li][co], ':')) == NULL) ||
-			path_dirs[0] == NULL)
+	path_env = find_env("PATH");
+	if (!(path_env && (path_dirs = ft_strsplit(path_env, ':')) && path_dirs[0]))
 	{
 		error_handler(COMMAND_NOT_FOUND | (ERR_COMMAND << 9), name);
 		return (NULL);
@@ -126,4 +124,21 @@ char	*form_absolute_path(char *cmd_dir, char *name)
 		return (NULL);
 	}
 	return (path);
+}
+
+int		builtins_exec_exec_init(t_exec *exec, int *i, int flag)
+{
+	int				j;
+	int				tmp;
+
+	j = *i;
+	if (!(exec->flag & PIPED_IN) && !(exec->flag & PIPED_OUT))
+		redirection_exec(exec, 0);
+	if (flag == 0)
+		tmp = builtins_call_void(j);
+	else
+		tmp = builtins_call(j, exec);
+	exit_status_variables(tmp);
+	*i = j;
+	return (0);
 }
