@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 16:57:48 by kfalia-f          #+#    #+#             */
-/*   Updated: 2020/07/26 17:25:19 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/07 22:48:27 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,14 +94,14 @@ void		write_text(char **argv, int i, t_ec *echo_flags)
 	//{
 		while (argv[i])
 		{
-			write(1, argv[i], ft_strlen(argv[i]));
+			write(STDOUT_FILENO, argv[i], ft_strlen(argv[i]));
 			i++;
 			if (argv[i])
-				write(1, " ", 1);
+				write(STDOUT_FILENO, " ", 1);
 		}
 	//}
 	if (!echo_flags->n)
-		write(1, "\n", 1);
+		write(STDOUT_FILENO, "\n", 1);
 }
 
 int			btin_echo(t_exec *exec)

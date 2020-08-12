@@ -6,7 +6,7 @@
 #    By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/12/04 16:34:17 by sschmele          #+#    #+#              #
-#    Updated: 2020/07/31 12:10:47 by sschmele         ###   ########.fr        #
+#    Updated: 2020/08/07 22:13:39 by sschmele         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -163,7 +163,7 @@ OBJS = $(addprefix $(DIR_O)/,$(SRCS:.c=.o))
 
 all:	$(NAME)
 
-$(NAME):	$(OBJS)
+$(NAME):	$(OBJS) ft_printf/includes/ft_printf.h
 	@echo "\033[32;01mCompiling libft...\033[0m"
 	@make -C ./ft_printf
 	@cp ft_printf/libftprintf.a $(NAME)
@@ -188,7 +188,7 @@ $(OBJS):	$(DIR_O)/%.o: %.c $(INCLUDE)
 	@mkdir -p $(DIR_O)/stack_structure
 	@mkdir -p $(DIR_O)/string_functions
 #_____________________________________________________
-	@gcc $(FLAGS) -c -I$(LIB_INCLUDE_DIR) -o $@ $<
+	@gcc $(FLAGS) -c -I $(LIB_INCLUDE_DIR) -o $@ $<
 
 clean:
 	@echo "\033[34mDeleting libft o-files\033[0m"

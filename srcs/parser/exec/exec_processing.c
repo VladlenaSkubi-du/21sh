@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:52:41 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/07 22:22:55 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/12 20:56:08 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ int		cmd_fork_and_exec(t_exec *exec, char *path,
 {
 	char			**local_envir;
 	
+	if (exec->flag & REDIR_SOFT)
+	{
+		error_handler(SYNTAX_ERROR | ERR_REDIR_SOFT << 9, NULL);
+		return (-1);
+	}
 	local_envir = form_envir_for_cmd();
 	*child_pid = fork();
 	if (!*child_pid)

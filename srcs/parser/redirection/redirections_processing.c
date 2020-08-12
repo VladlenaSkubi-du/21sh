@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:43:29 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/06 13:23:23 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/12 20:59:00 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,23 @@ int				find_fdafter_redir(t_cmd **ptr_lcmd,
 
 int				activate_redir_error(t_pblks **current_cont, t_fd fd_inout)
 {
-	if (fd_inout.flag & REDIR_SOFT)
-		(*current_cont)->err |= REDIR_SOFT;
-	else
+	int			i;
+	t_cmd		*ptr_lcmd;
+
+	ptr_lcmd = (*current_cont)->lcmd;
+	i = 0;
+	while (i < ptr_lcmd->len_tech - 1 &&
+			!(ptr_lcmd->tech[i] == SPACE ||
+			ptr_lcmd->tech[i] == ENTER ||
+			ptr_lcmd->tech[i] == END_T))
+		i++;
+	while (i < ptr_lcmd->len_tech - 1)
+	{
+		ptr_lcmd->cmd[i] = '\0';
+		ptr_lcmd->tech[i] = '\0';
+		i++;
+	}
+	if (fd_inout.flag & REDIR_SOFT || (fd_inout.flag & REDIR_HARD))
 	{
 		(*current_cont)->err |= REDIR_HARD;
 		free_fdredir_except_heredoc(current_cont);

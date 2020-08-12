@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/26 19:36:38 by sschmele          #+#    #+#             */
-/*   Updated: 2020/07/26 19:36:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/07 22:20:41 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,6 @@ void				signal_ctrl_c_parser(int sig)
 	if (sig != SIGINT)
 		return ;
 	ft_putendl_fd("\nstopped by signal SIGINT", STDOUT_FILENO);
+	g_prompt.prompt_func = main_prompt;
+	bzero_readline();
 }

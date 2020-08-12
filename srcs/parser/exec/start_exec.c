@@ -6,7 +6,7 @@
 /*   By: sschmele <sschmele@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/01 15:52:54 by sschmele          #+#    #+#             */
-/*   Updated: 2020/08/07 22:51:39 by sschmele         ###   ########.fr       */
+/*   Updated: 2020/08/12 21:05:18 by sschmele         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,5 @@ int			redirection_exec(t_exec *exec, int mode)
 			close(fd_cont->fd_old);
 		fd_runner = fd_runner->next;
 	}
-	if (exec->flag == REDIR_SOFT)
-		error_handler(SYNTAX_ERROR | ERR_REDIR_SOFT << 9, NULL);
 	return (0);
 }
